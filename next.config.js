@@ -16,7 +16,6 @@ module.exports = withFonts(
             use: {
               loader: "url-loader",
             },
-            output: "standalone"
           });
           config.resolve.modules.push(path.resolve("./"));
           return config;

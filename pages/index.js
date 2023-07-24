@@ -1,10 +1,16 @@
-import React, { Component } from "react";
-import Router from "next/router";
+import Feature from "components/Landing/Feature"
+import Pricing from "components/Landing/Pricing"
+import Hero from "components/Landing/Hero"
+import Layout from "components/Landing/Layout/Layout"
+import SeoHead from "components/Landing/SeoHead"
 
 export default function Index() {
-  React.useEffect(() => {
-    Router.push("/admin/dashboard");
-  });
-
-  return <div />;
+    return (<>
+        <SeoHead title="LaslesVPN Landing Page"/>
+        <Layout>
+            <Hero/>
+            <Feature/>
+            <Pricing/>
+        </Layout>
+    </>)
 }
