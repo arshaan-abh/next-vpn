@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
-import "styles/tailwind.css";
-import "styles/slick.css";
+import "../styles/tailwind.css";
+import "../styles/slick.css";
 
-import PageChange from "components/PageChange/PageChange.js";
+import PageChange from "../components/PageChange/PageChange.js";
 
-import "assets/plugins/nucleo/css/nucleo.css";
+import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "assets/scss/nextjs-argon-dashboard.scss";
+import "../assets/scss/nextjs-argon-dashboard.scss";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);

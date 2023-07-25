@@ -16,7 +16,7 @@ import {
   Col,
 } from "reactstrap";
 // layout for this page
-import Auth from "layouts/Auth.js";
+import Auth from "/layouts/Auth.js";
 
 function Register() {
   return (
@@ -37,7 +37,7 @@ function Register() {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src={require("assets/img/icons/common/github.svg")}
+                    src="/assets/img/icons/common/github.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Github</span>
@@ -51,7 +51,7 @@ function Register() {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src={require("assets/img/icons/common/google.svg")}
+                    src="/assets/img/icons/common/google.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Google</span>

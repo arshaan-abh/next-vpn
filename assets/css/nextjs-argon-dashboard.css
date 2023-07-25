@@ -16144,7 +16144,7 @@ button:focus, :focus {
     align-items: center; }
   .body-page-transition #page-transition > div:after {
     content: "";
-    background-image: url("../img/theme/img-1-1000x600.jpg");
+    background-image: url("/assets/img/theme/img-1-1000x600.jpg");
     background-size: cover;
     position: fixed;
     z-index: 9998;

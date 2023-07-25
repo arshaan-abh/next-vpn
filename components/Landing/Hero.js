@@ -1,9 +1,9 @@
 import React, {useMemo} from "react"
 import Image from "next/image"
-import ButtonPrimary from "components/Landing/misc/ButtonPrimary"
+import ButtonPrimary from "/components/Landing/misc/ButtonPrimary"
 import {motion} from "framer-motion"
-import getScrollAnimation from "utils/getScrollAnimation"
-import ScrollAnimationWrapper from "components/Landing/Layout/ScrollAnimationWrapper"
+import getScrollAnimation from "../../utils/getScrollAnimation"
+import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper"
 
 const Hero = ({
                   listUser = [{

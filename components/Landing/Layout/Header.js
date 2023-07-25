@@ -3,7 +3,7 @@ import Link from "next/link";
 // Import react scroll
 import { Link as LinkScroll } from "react-scroll";
 import ButtonOutline from "../misc/ButtonOutline.";
-import LogoVPN from "../../public/assets/Logo.svg";
+import LogoVPN from "../../../public/assets/Logo.svg";
 import Modal from "../misc/Modal";
 
 const Header = () => {

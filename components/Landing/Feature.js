@@ -1,8 +1,8 @@
 import Image from "next/image"
 import React, {useMemo} from "react"
 import {motion} from "framer-motion"
-import getScrollAnimation from "utils/getScrollAnimation"
-import ScrollAnimationWrapper from "components/Landing/Layout/ScrollAnimationWrapper"
+import getScrollAnimation from "../../utils/getScrollAnimation"
+import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper"
 
 const features = ["Powerfull online protection.", "Internet without borders.", "Supercharged VPN", "No specific time limits."]
 
