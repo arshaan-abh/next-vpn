@@ -33,6 +33,7 @@ const Header = () => {
             <LogoVPN className="h-8 w-auto" />
           </div>
           <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+            {/* todo solve issue https://stackoverflow.com/questions/67768315/im-having-this-weird-webpack-cache-packagecachestrategy */}
             <LinkScroll
               activeClass="active"
               to="about"
