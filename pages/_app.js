@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
-import Router from "next/router";
+import Router, {withRouter} from "next/router";
 import "../styles/tailwind.css";
 import "../styles/slick.css";
 
@@ -10,7 +10,6 @@ import PageChange from "../components/PageChange/PageChange.js";
 
 import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "../assets/scss/nextjs-argon-dashboard.scss";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
@@ -29,8 +28,11 @@ Router.events.on("routeChangeError", () => {
   document.body.classList.remove("body-page-transition");
 });
 
-export default class MyApp extends App {
+export default withRouter(class MyApp extends App {
   componentDidMount() {
+    if (this.props.router.pathname !== "/") {
+      import("../assets/scss/nextjs-argon-dashboard.scss");
+    }
     let comment = document.createComment(`
 
 =========================================================
@@ -80,4 +82,4 @@ export default class MyApp extends App {
       </React.Fragment>
     );
   }
-}
+})

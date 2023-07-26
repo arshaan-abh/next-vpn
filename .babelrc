@@ -3,6 +3,12 @@
     "next/babel"
   ],
   "plugins": [
-    "inline-react-svg"
+    "inline-react-svg",
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ]
   ]
 }
