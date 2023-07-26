@@ -36,8 +36,10 @@ const Dashboard = (props) => {
   const [activeNav, setActiveNav] = React.useState(1);
   const [chartExample1Data, setChartExample1Data] = React.useState("data1");
 
-  if (window.Chart) {
-    parseOptions(Chart, chartOptions());
+  if (typeof window !== "undefined") {
+    if (window.Chart) {
+      parseOptions(Chart, chartOptions());
+    }
   }
 
   const toggleNavs = (e, index) => {

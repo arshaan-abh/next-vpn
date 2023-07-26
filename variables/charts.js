@@ -1,3 +1,4 @@
+/*
 if (typeof window === "undefined") {
   global.window = {};
 }
@@ -6,6 +7,7 @@ if (typeof document === "undefined") {
     querySelector: () => {},
   };
 }
+*/
 /*!
 
 =========================================================
