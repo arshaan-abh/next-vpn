@@ -35,6 +35,7 @@ function Login() {
                 onClick={(e) => e.preventDefault()}
               >
                 <span className="btn-inner--icon">
+                  {/* todo load svg */}
                   <img
                     alt="..."
                     src="/assets/img/icons/common/github.svg"

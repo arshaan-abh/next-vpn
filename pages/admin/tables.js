@@ -24,6 +24,16 @@ import {
 import Admin from "/layouts/Admin.js";
 // core components
 import Header from "/components/Headers/Header.js";
+import Image from "next/future/image";
+import bootstrap from "/assets/img/theme/bootstrap.jpg";
+import team from "/assets/img/theme/team-1-800x800.jpg";
+import teamTwo from "/assets/img/theme/team-2-800x800.jpg";
+import teamThree from "/assets/img/theme/team-3-800x800.jpg";
+import teamFour from "/assets/img/theme/team-4-800x800.jpg";
+import angular from "/assets/img/theme/angular.jpg";
+import sketch from "/assets/img/theme/sketch.jpg";
+import react from "/assets/img/theme/react.jpg";
+import vue from "/assets/img/theme/vue.jpg";
 
 function Tables() {
   return (
@@ -58,9 +68,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/bootstrap.jpg"
+                            src={bootstrap}
                           />
                         </a>
                         <Media>
@@ -85,10 +95,10 @@ function Tables() {
                           id="tooltip742438047"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -103,10 +113,10 @@ function Tables() {
                           id="tooltip941738690"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -121,10 +131,10 @@ function Tables() {
                           id="tooltip804044742"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -139,10 +149,10 @@ function Tables() {
                           id="tooltip996637554"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -208,9 +218,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/angular.jpg"
+                            src={angular}
                           />
                         </a>
                         <Media>
@@ -235,10 +245,10 @@ function Tables() {
                           id="tooltip746418347"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -253,10 +263,10 @@ function Tables() {
                           id="tooltip102182364"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -271,10 +281,10 @@ function Tables() {
                           id="tooltip406489510"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -289,10 +299,10 @@ function Tables() {
                           id="tooltip476840018"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -358,9 +368,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/sketch.jpg"
+                            src={sketch}
                           />
                         </a>
                         <Media>
@@ -383,10 +393,10 @@ function Tables() {
                           id="tooltip753056318"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -401,10 +411,10 @@ function Tables() {
                           id="tooltip441753266"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -419,10 +429,10 @@ function Tables() {
                           id="tooltip188462246"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -437,10 +447,10 @@ function Tables() {
                           id="tooltip621168444"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -506,9 +516,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/react.jpg"
+                            src={react}
                           />
                         </a>
                         <Media>
@@ -533,10 +543,10 @@ function Tables() {
                           id="tooltip875258217"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -551,10 +561,10 @@ function Tables() {
                           id="tooltip834416663"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -569,10 +579,10 @@ function Tables() {
                           id="tooltip372449339"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -587,10 +597,10 @@ function Tables() {
                           id="tooltip108714769"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -656,9 +666,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/vue.jpg"
+                            src={vue}
                           />
                         </a>
                         <Media>
@@ -683,10 +693,10 @@ function Tables() {
                           id="tooltip664029969"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -701,10 +711,10 @@ function Tables() {
                           id="tooltip806693074"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -719,10 +729,10 @@ function Tables() {
                           id="tooltip844096937"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -737,10 +747,10 @@ function Tables() {
                           id="tooltip757459971"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -885,9 +895,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/bootstrap.jpg"
+                            src={bootstrap}
                           />
                         </a>
                         <Media>
@@ -912,10 +922,10 @@ function Tables() {
                           id="tooltip731399078"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -930,10 +940,10 @@ function Tables() {
                           id="tooltip491083084"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -948,10 +958,10 @@ function Tables() {
                           id="tooltip528540780"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -966,10 +976,10 @@ function Tables() {
                           id="tooltip237898869"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1035,9 +1045,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/angular.jpg"
+                            src={angular}
                           />
                         </a>
                         <Media>
@@ -1062,10 +1072,10 @@ function Tables() {
                           id="tooltip188614932"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1080,10 +1090,10 @@ function Tables() {
                           id="tooltip66535734"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip delay={0} target="tooltip66535734">
@@ -1095,10 +1105,10 @@ function Tables() {
                           id="tooltip427561578"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1113,10 +1123,10 @@ function Tables() {
                           id="tooltip904098289"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1182,9 +1192,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/sketch.jpg"
+                            src={sketch}
                           />
                         </a>
                         <Media>
@@ -1207,10 +1217,10 @@ function Tables() {
                           id="tooltip707904950"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1225,10 +1235,10 @@ function Tables() {
                           id="tooltip353988222"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1243,10 +1253,10 @@ function Tables() {
                           id="tooltip467171202"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1261,10 +1271,10 @@ function Tables() {
                           id="tooltip362118155"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1330,9 +1340,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/react.jpg"
+                            src={react}
                           />
                         </a>
                         <Media>
@@ -1357,10 +1367,10 @@ function Tables() {
                           id="tooltip226319315"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1375,10 +1385,10 @@ function Tables() {
                           id="tooltip711961370"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1393,10 +1403,10 @@ function Tables() {
                           id="tooltip216246707"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1411,10 +1421,10 @@ function Tables() {
                           id="tooltip638048561"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1480,9 +1490,9 @@ function Tables() {
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
-                            src="/assets/img/theme/vue.jpg"
+                            src={vue}
                           />
                         </a>
                         <Media>
@@ -1507,10 +1517,10 @@ function Tables() {
                           id="tooltip781594051"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-1-800x800.jpg"
+                            src={team}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1525,10 +1535,10 @@ function Tables() {
                           id="tooltip840372212"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-2-800x800.jpg"
+                            src={teamTwo}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1543,10 +1553,10 @@ function Tables() {
                           id="tooltip497647175"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-3-800x800.jpg"
+                            src={teamThree}
                           />
                         </a>
                         <UncontrolledTooltip
@@ -1561,10 +1571,10 @@ function Tables() {
                           id="tooltip951447946"
                           onClick={(e) => e.preventDefault()}
                         >
-                          <img
+                          <Image
                             alt="..."
                             className="rounded-circle"
-                            src="/assets/img/theme/team-4-800x800.jpg"
+                            src={teamFour}
                           />
                         </a>
                         <UncontrolledTooltip

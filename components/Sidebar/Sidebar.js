@@ -35,6 +35,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Image from "next/future/image";
 
 var ps;
 
@@ -76,7 +77,7 @@ function Sidebar(props) {
   const { routes, logo } = props;
   let navbarBrand = (
     <NavbarBrand href="#pablo" className="pt-0">
-      <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} />
+      <Image alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc}/>
     </NavbarBrand>
   );
   return (

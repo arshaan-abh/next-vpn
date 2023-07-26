@@ -17,6 +17,8 @@ import {
 import Admin from "/layouts/Admin.js";
 // core components
 import UserHeader from "/components/Headers/UserHeader.js";
+import Image from "next/future/image";
+import team from "/assets/img/theme/team-4-800x800.jpg";
 
 function Profile() {
   return (
@@ -31,10 +33,10 @@ function Profile() {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
+                      <Image
                         alt="..."
                         className="rounded-circle"
-                        src="/assets/img/theme/team-4-800x800.jpg"
+                        src={team}
                       />
                     </a>
                   </div>

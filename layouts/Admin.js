@@ -6,6 +6,7 @@ import { Container } from "reactstrap";
 import AdminNavbar from "/components/Navbars/AdminNavbar.js";
 import AdminFooter from "/components/Footers/AdminFooter.js";
 import Sidebar from "/components/Sidebar/Sidebar.js";
+import logo from "/assets/img/brand/nextjs_argon_black.png";
 
 import routes from "/routes.js";
 
@@ -33,7 +34,7 @@ function Admin(props) {
         routes={routes}
         logo={{
           innerLink: "/admin/index",
-          imgSrc: "/assets/img/brand/nextjs_argon_black.png",
+          imgSrc: logo,
           imgAlt: "...",
         }}
       />

@@ -17,6 +17,8 @@ import {
   Container,
   Media,
 } from "reactstrap";
+import Image from "next/future/image";
+import team from "/assets/img/theme/team-4-800x800.jpg";
 
 function AdminNavbar({ brandText }) {
   return (
@@ -45,9 +47,9 @@ function AdminNavbar({ brandText }) {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
+                    <Image
                       alt="..."
-                      src="/assets/img/theme/team-4-800x800.jpg"
+                      src={team}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">

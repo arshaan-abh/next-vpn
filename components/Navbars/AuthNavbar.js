@@ -12,6 +12,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Image from "next/future/image";
+import logo from "/assets/img/brand/nextjs_argon_white.png";
 
 function AdminNavbar() {
   return (
@@ -19,11 +21,11 @@ function AdminNavbar() {
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
         <Container className="px-4">
           <Link href="/admin/dashboard">
-            <span>
+            <span className="font-zero">
               <NavbarBrand href="#pablo">
-                <img
+                <Image
                   alt="..."
-                  src="/assets/img/brand/nextjs_argon_white.png"
+                  src={logo}
                 />
               </NavbarBrand>
             </span>
