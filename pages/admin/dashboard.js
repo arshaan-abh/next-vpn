@@ -100,7 +100,8 @@ const Dashboard = (props) => {
                   <Line
                     data={chartExample1[chartExample1Data]}
                     options={chartExample1.options}
-                    getDatasetAtEvent={(e) => console.log(e)}
+                    getDatasetAtEvent={(e) => {
+                    }}
                   />
                 </div>
               </CardBody>

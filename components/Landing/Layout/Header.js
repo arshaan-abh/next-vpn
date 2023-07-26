@@ -33,6 +33,11 @@ const Header = () => {
             <LogoVPN className="h-8 w-auto" />
           </div>
           <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+            {/* todo Image with src "/_next/static/media/nextjs_argon_white.c7309394.png" has either width or height modified, but not the other */}
+            {/* todo 404 admin/[object%20Object] */}
+            {/* todo 404 img-1-800x800.jpg */}
+            {/* todo 404 img-1-1000x600.jpg */}
+            {/* todo solve issue https://stackoverflow.com/questions/72511039/autoprefixer-replace-color-adjust-to-print-color-adjust-the-color-adjust-short */}
             {/* todo solve issue https://stackoverflow.com/questions/67768315/im-having-this-weird-webpack-cache-packagecachestrategy */}
             <LinkScroll
               activeClass="active"
