@@ -31,7 +31,7 @@ Router.events.on("routeChangeError", () => {
 export default withRouter(class MyApp extends App {
   componentDidMount() {
     if (this.props.router.pathname !== "/") {
-      import("../assets/scss/nextjs-argon-dashboard.scss");
+      require("../assets/scss/nextjs-argon-dashboard.scss");
     }
     let comment = document.createComment(`
 
