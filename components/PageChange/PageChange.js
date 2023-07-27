@@ -5,6 +5,7 @@ import { Spinner } from "reactstrap";
 
 // core components
 
+{/* todo edit loading */}
 export default function PageChange(props) {
   return (
     <div>

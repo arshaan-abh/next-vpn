@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
 import ButtonOutline from "../misc/ButtonOutline.";
 import LogoVPN from "../../../public/assets/Logo.svg";
+import {useRouter} from "next/router";
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState(null);
@@ -13,6 +14,7 @@ const Header = () => {
       setScrollActive(window.scrollY > 20);
     });
   }, []);
+  const router = useRouter()
 
   return (
     <>
@@ -114,7 +116,7 @@ const Header = () => {
                   Sign In
               </a>
             </Link>
-            <ButtonOutline>Sign Up</ButtonOutline>
+            <ButtonOutline onClick={router.push("/auth/register")}>Sign Up</ButtonOutline>
           </div>
         </nav>
       </header>
