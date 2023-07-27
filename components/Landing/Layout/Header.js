@@ -116,7 +116,7 @@ const Header = () => {
                   Sign In
               </a>
             </Link>
-            <ButtonOutline onClick={router.push("/auth/register")}>Sign Up</ButtonOutline>
+            <ButtonOutline onClick={() => router.push("/auth/register")}>Sign Up</ButtonOutline>
           </div>
         </nav>
       </header>

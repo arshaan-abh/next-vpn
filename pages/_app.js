@@ -17,6 +17,10 @@ Router.events.on("routeChangeStart", (url) => {
     <PageChange path={url} />,
     document.getElementById("page-transition")
   );
+  /* todo issue when changing routes repeatedly or using browsers back button */
+  if (url !== "/") {
+    require("../assets/scss/nextjs-argon-dashboard.scss");
+  }
 });
 Router.events.on("routeChangeComplete", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
@@ -28,11 +32,6 @@ Router.events.on("routeChangeError", () => {
 });
 
 export default withRouter(class MyApp extends App {
-  componentDidMount() {
-    if (this.props.router.pathname !== "/") {
-      require("../assets/scss/nextjs-argon-dashboard.scss");
-    }
-  }
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {};
 
