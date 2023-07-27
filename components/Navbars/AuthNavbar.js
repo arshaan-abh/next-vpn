@@ -21,7 +21,7 @@ function AdminNavbar() {
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
         <Container className="px-4">
           <Link href="/admin/dashboard">
-            <span className="font-zero">
+            <span>
               <NavbarBrand href="#pablo">
                 <Image
                   alt="..."

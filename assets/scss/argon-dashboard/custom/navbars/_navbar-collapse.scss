@@ -76,6 +76,10 @@
         .collapse-brand {
             img {
                 height: 36px;
+                -o-object-fit: contain;
+                object-fit: contain;
+                -o-object-position: center left;
+                object-position: center left;
             }
         }
 

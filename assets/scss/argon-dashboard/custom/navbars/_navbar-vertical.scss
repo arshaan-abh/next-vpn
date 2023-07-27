@@ -9,7 +9,11 @@
 .navbar-vertical {
     box-shadow: $navbar-vertical-box-shadow;
     border: none;
-    
+
+    .font-zero {
+        font-size: 0;
+    }
+
     .navbar {
         border-width: 0 0 1px 0;
         border-style: solid;
@@ -34,7 +38,11 @@
     .navbar-brand > img {
         max-width: 100%;
         max-height: 2rem;
+        -o-object-fit: contain;
         object-fit: contain;
+        width: -webkit-min-content;
+        width: -moz-min-content;
+        width: min-content;
     }
 
 

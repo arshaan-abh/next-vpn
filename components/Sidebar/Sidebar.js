@@ -36,6 +36,7 @@ import {
   Col,
 } from "reactstrap";
 import Image from "next/future/image";
+import team from "/assets/img/theme/team-1-800x800.jpg";
 
 var ps;
 
@@ -79,7 +80,7 @@ function Sidebar(props) {
     <NavbarBrand href="#pablo" className="pt-0">
       {/* todo update project */}
       {/* todo solve this warning */}
-      <Image alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc}/>
+      <Image alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} style={{margin: "auto"}}/>
     </NavbarBrand>
   );
   return (
@@ -100,11 +101,11 @@ function Sidebar(props) {
         {/* Brand */}
         {logo && logo.innerLink ? (
           <Link href={logo.innerLink}>
-            <span>{navbarBrand}</span>
+            <span className="font-zero">{navbarBrand}</span>
           </Link>
         ) : null}
         {logo && logo.outterLink ? (
-          <a href={logo.innerLink} target="_blank">
+          <a href={logo.innerLink} target="_blank" className="font-zero">
             {navbarBrand}
           </a>
         ) : null}
@@ -129,9 +130,9 @@ function Sidebar(props) {
             <DropdownToggle nav>
               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
-                  <img
+                  <Image
                     alt="..."
-                    src="/assets/img/theme/team-1-800x800.jpg"
+                    src={team}
                   />
                 </span>
               </Media>
@@ -181,11 +182,11 @@ function Sidebar(props) {
                 <Col className="collapse-brand" xs="6">
                   {logo.innerLink ? (
                     <Link href={logo.innerLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
+                      <Image alt={logo.imgAlt} src={logo.imgSrc}/>
                     </Link>
                   ) : (
                     <a href={logo.outterLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
+                      <Image alt={logo.imgAlt} src={logo.imgSrc}/>
                     </a>
                   )}
                 </Col>

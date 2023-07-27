@@ -6,10 +6,6 @@
 // Navbar links
 
 .navbar-horizontal {
-    .font-zero {
-        font-size: 0;
-    }
-
     .navbar-nav {
         .nav-link {
             font-size: $navbar-nav-link-font-size;
@@ -36,7 +32,9 @@
 
         img {
             height: 30px;
+            -o-object-fit: contain;
             object-fit: contain;
+            -o-object-position: center left;
             object-position: center left;
         }
     }
