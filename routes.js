@@ -25,7 +25,7 @@ var routes = [
   },
   {
     path: "/tables",
-    name: "Tables",
+    name: "Packages",
     icon: "ni ni-bullet-list-67 text-red",
     layout: "/admin",
   },
