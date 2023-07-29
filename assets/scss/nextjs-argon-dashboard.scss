@@ -1,3 +1,4 @@
+:root:has(.not-landing) {
 /*!
 
 =========================================================
@@ -80,3 +81,4 @@
 
 // React Differences
 @import "react/react-differences";
+}

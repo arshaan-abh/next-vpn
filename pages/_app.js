@@ -10,6 +10,7 @@ import PageChange from "../components/PageChange/PageChange.js";
 
 import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "../assets/scss/nextjs-argon-dashboard.scss";
 
 Router.events.on("routeChangeStart", (url) => {
   document.body.classList.add("body-page-transition");
@@ -21,9 +22,6 @@ Router.events.on("routeChangeStart", (url) => {
   /* todo issue https://nextjs.org/docs/messages/opt-out-auto-static-optimization */
   /* todo issue when opening dashboard first */
   /* todo issue when changing routes repeatedly or using browsers back button */
-  if (url !== "/") {
-    require("../assets/scss/nextjs-argon-dashboard.scss");
-  }
 });
 Router.events.on("routeChangeComplete", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));

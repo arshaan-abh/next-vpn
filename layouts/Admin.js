@@ -28,7 +28,7 @@ function Admin(props) {
     return "Brand";
   };
   return (
-    <>
+    <div className="not-landing">
       <Sidebar
         {...props}
         routes={routes}
@@ -45,7 +45,7 @@ function Admin(props) {
           <AdminFooter />
         </Container>
       </div>
-    </>
+    </div>
   );
 }
 

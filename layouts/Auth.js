@@ -15,7 +15,7 @@ function Auth(props) {
     };
   }, []);
   return (
-    <>
+    <div className="not-landing">
       <div className="main-content">
         <AuthNavbar />
         <div className="header bg-gradient-info py-7 py-lg-8">
@@ -54,7 +54,7 @@ function Auth(props) {
         </Container>
       </div>
       <AuthFooter />
-    </>
+    </div>
   );
 }
 
