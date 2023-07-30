@@ -89,38 +89,9 @@ function Tables() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          className="btn-icon-only text-light"
-                          href="#pablo"
-                          role="button"
-                          size="sm"
-                          color=""
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-arrow" right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Another action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Something else here
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
+                      <Button outline color="info" type="button">
+                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      </Button>
                     </td>
                   </tr>
                   <tr>
@@ -152,38 +123,9 @@ function Tables() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          className="btn-icon-only text-light"
-                          href="#pablo"
-                          role="button"
-                          size="sm"
-                          color=""
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-arrow" right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Another action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Something else here
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
+                      <Button outline color="info" type="button">
+                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      </Button>
                     </td>
                   </tr>
                   <tr>
@@ -213,38 +155,9 @@ function Tables() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          className="btn-icon-only text-light"
-                          href="#pablo"
-                          role="button"
-                          size="sm"
-                          color=""
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-arrow" right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Another action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Something else here
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
+                      <Button outline color="info" type="button">
+                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      </Button>
                     </td>
                   </tr>
                   <tr>
@@ -276,38 +189,9 @@ function Tables() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          className="btn-icon-only text-light"
-                          href="#pablo"
-                          role="button"
-                          size="sm"
-                          color=""
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-arrow" right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Another action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Something else here
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
+                      <Button outline color="info" type="button">
+                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      </Button>
                     </td>
                   </tr>
                   <tr>
@@ -339,48 +223,65 @@ function Tables() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          className="btn-icon-only text-light"
-                          href="#pablo"
-                          role="button"
-                          size="sm"
-                          color=""
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-arrow" right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Another action
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Something else here
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
+                      <Button outline color="info" type="button">
+                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
               </Table>
               <CardFooter className="py-4">
                 <nav aria-label="...">
-                  <Button block color="primary">
-                    <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                    <span className="btn-inner--text">Add Package</span>
-                  </Button>
+                  <div className="flex gap-4 items-center">
+                    <div className="grow">
+                      <Button block color="primary">
+                        <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
+                        <span className="btn-inner--text">Add Package</span>
+                      </Button>
+                    </div>
+                    <Pagination
+                        className="pagination justify-content-end mb-0"
+                        listClassName="justify-content-end mb-0">
+                      <PaginationItem className="disabled">
+                        <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                            tabIndex="-1">
+                          <i className="fas fa-angle-left"/>
+                          <span className="sr-only">Previous</span>
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem className="active">
+                        <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}>
+                          1
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}>
+                          2 <span className="sr-only">(current)</span>
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}>
+                          3
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}>
+                          <i className="fas fa-angle-right"/>
+                          <span className="sr-only">Next</span>
+                        </PaginationLink>
+                      </PaginationItem>
+                    </Pagination>
+                  </div>
                 </nav>
               </CardFooter>
             </Card>

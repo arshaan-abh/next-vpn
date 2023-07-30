@@ -78,10 +78,10 @@ function AdminNavbar() {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link href="/admin/profile">
+                <Link href="/auth/forgetPassword">
                   <NavLink href="#pablo" className="nav-link-icon">
-                    <i className="ni ni-single-02" />
-                    <span className="nav-link-inner--text">Profile</span>
+                    <i className="ni ni-lock-circle-open" />
+                    <span className="nav-link-inner--text">Forget Password</span>
                   </NavLink>
                 </Link>
               </NavItem>
