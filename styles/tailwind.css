@@ -76,6 +76,10 @@ li.check:before {
     font-size: 0;
 }
 
+.vi__wrapper {
+    width: 100%
+}
+
 /* purgecss end ignore */
 @tailwind utilities;
 /* purgecss start ignore */

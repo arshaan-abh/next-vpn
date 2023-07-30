@@ -1,0 +1,30 @@
+.wrap {
+    width: auto;
+}
+
+.container {
+    display: grid;
+    grid-template-columns:  repeat(6, 1fr);
+    width: 100%;
+}
+
+.character {
+    font-family: "Rubik", sans-serif;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+    color: #333;
+}
+
+.characterInactive {
+    background-color: #ddd;
+    color: #ccc;
+    box-shadow: none;
+}
+
+.characterSelected {
+    border-color: #5e72e4;
+    color: #5e72e4;
+    box-shadow: none;
+}

@@ -47,5 +47,11 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     layout: "/auth",
   },
+  {
+    path: "/forgetPassword",
+    name: "Forget Password",
+    icon: "ni ni-lock-circle-open text-orange",
+    layout: "/auth",
+  },
 ];
 export default routes;
