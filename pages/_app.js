@@ -20,8 +20,6 @@ Router.events.on("routeChangeStart", (url) => {
   );
   /* todo issue build logs */
   /* todo issue https://nextjs.org/docs/messages/opt-out-auto-static-optimization */
-  /* todo issue when opening dashboard first */
-  /* todo issue when changing routes repeatedly or using browsers back button */
 });
 Router.events.on("routeChangeComplete", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));

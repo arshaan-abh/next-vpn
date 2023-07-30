@@ -72,6 +72,10 @@ li.check:before {
     @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
 }
 
+.font-zero {
+    font-size: 0;
+}
+
 /* purgecss end ignore */
 @tailwind utilities;
 /* purgecss start ignore */

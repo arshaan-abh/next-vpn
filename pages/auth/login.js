@@ -35,10 +35,9 @@ function Login() {
                 onClick={(e) => e.preventDefault()}
               >
                 <span className="btn-inner--icon">
-                  {/* todo load svg */}
                   <img
                     alt="..."
-                    src="/assets/img/icons/common/github.svg"
+                    src="/assets/github.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Github</span>
@@ -52,7 +51,7 @@ function Login() {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src="/assets/img/icons/common/google.svg"
+                    src="/assets/google.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Google</span>
