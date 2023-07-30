@@ -37,7 +37,7 @@ function Register() {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src="/public/assets/github.svg"
+                    src="/assets/github.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Github</span>
@@ -51,7 +51,7 @@ function Register() {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src="/public/assets/google.svg"
+                    src="/assets/google.svg"
                   />
                 </span>
                 <span className="btn-inner--text">Google</span>
