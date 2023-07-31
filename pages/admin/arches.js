@@ -95,7 +95,7 @@ function Arches() {
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/packages/detail")}>
+                                        onClick={() => router.push("/admin/packagesDetail")}>
                                         Crypto
                                     </Button>
                                 </td>
@@ -132,7 +132,7 @@ function Arches() {
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/packages/detail")}>
+                                        onClick={() => router.push("/admin/packagesDetail")}>
                                         Crypto
                                     </Button>
                                 </td>
@@ -167,7 +167,7 @@ function Arches() {
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/packages/detail")}>
+                                        onClick={() => router.push("/admin/packagesDetail")}>
                                         Crypto
                                     </Button>
                                 </td>
@@ -204,7 +204,7 @@ function Arches() {
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/packages/detail")}>
+                                        onClick={() => router.push("/admin/packagesDetail")}>
                                         Crypto
                                     </Button>
                                 </td>
@@ -241,7 +241,7 @@ function Arches() {
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/packages/detail")}>
+                                        onClick={() => router.push("/admin/packagesDetail")}>
                                         Crypto
                                     </Button>
                                 </td>

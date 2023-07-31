@@ -92,7 +92,7 @@ function Packages() {
                           outline
                           color="info"
                           type="button"
-                          onClick={() => router.push("/admin/packages/detail")}>
+                          onClick={() => router.push("/admin/packagesDetail")}>
                           Details
                       </Button>
                     </td>
@@ -131,7 +131,7 @@ function Packages() {
                           outline
                           color="info"
                           type="button"
-                          onClick={() => router.push("/admin/packages/detail")}>
+                          onClick={() => router.push("/admin/packagesDetail")}>
                           Details
                       </Button>
                     </td>
@@ -168,7 +168,7 @@ function Packages() {
                           outline
                           color="info"
                           type="button"
-                          onClick={() => router.push("/admin/packages/detail")}>
+                          onClick={() => router.push("/admin/packagesDetail")}>
                           Details
                       </Button>
                     </td>
@@ -207,7 +207,7 @@ function Packages() {
                           outline
                           color="info"
                           type="button"
-                          onClick={() => router.push("/admin/packages/detail")}>
+                          onClick={() => router.push("/admin/packagesDetail")}>
                           Details
                       </Button>
                     </td>
@@ -246,7 +246,7 @@ function Packages() {
                           outline
                           color="info"
                           type="button"
-                          onClick={() => router.push("/admin/packages/detail")}>
+                          onClick={() => router.push("/admin/packagesDetail")}>
                           Details
                       </Button>
                     </td>
