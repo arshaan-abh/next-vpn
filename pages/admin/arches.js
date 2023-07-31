@@ -35,7 +35,7 @@ import {router} from "next/client"
 
 function Arches() {
     const [modalOpen, setModalOpen] = useState(false);
-    const [newArchStatus, setNewArchStatus] = useState("Choose");
+    const [newArchStatus, setNewArchStatus] = useState("Enable");
 
     return (<>
         <Header/>
@@ -301,11 +301,11 @@ function Arches() {
                 </div>
             </Row>
         </Container>
-        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
+        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
             <div className="modal-header">
-                <h5 className="">
+                <h3>
                     Add arch
-                </h5>
+                </h3>
                 <button
                     aria-label="Close"
                     className="close"
