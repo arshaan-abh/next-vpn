@@ -34,17 +34,25 @@ function Reports() {
             <Row>
                 <div className="col">
                     <Card className="shadow">
-                        <CardHeader className="border-0">
+                        <CardHeader className="border-0 flex items-center gap-4">
                             <h3 className="mb-0">Purchased Packages</h3>
+                            <Button color="primary" size="sm">
+                                <span className="btn-inner--icon"><i className="ni ni-basket"></i></span>
+                                <span className="btn-inner--text">Buy a New Package</span>
+                            </Button>
+                            <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
+                                <i className="fas fa-search"></i>
+                            </Button>
                         </CardHeader>
                         <Table className="align-items-center table-flush" responsive>
                             <thead className="thead-light">
                             <tr>
                                 <th scope="col">Package name</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">Completion</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Crypto</th>
+                                <th scope="col">Xid</th>
+                                <th scope="col">TXid</th>
                                 <th scope="col"/>
                             </tr>
                             </thead>
@@ -69,25 +77,10 @@ function Reports() {
                                     </Media>
                                 </th>
                                 <td>$2,500 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-warning"/>
-                                        pending
-                                    </Badge>
-                                </td>
-                                <td>10 days</td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">60%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="60"
-                                                barClassName="bg-warning"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>Arshaan</td>
+                                <td>Crypto</td>
+                                <td>Xid</td>
+                                <td>TXid</td>
                                 <td className="text-right">
                                     <UncontrolledDropdown>
                                         <DropdownToggle
@@ -139,25 +132,10 @@ function Reports() {
                                     </Media>
                                 </th>
                                 <td>$1,800 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
-                                <td>10 days</td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="100"
-                                                barClassName="bg-success"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>Arshaan</td>
+                                <td>Crypto</td>
+                                <td>Xid</td>
+                                <td>TXid</td>
                                 <td className="text-right">
                                     <UncontrolledDropdown>
                                         <DropdownToggle
@@ -207,25 +185,10 @@ function Reports() {
                                     </Media>
                                 </th>
                                 <td>$3,150 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-danger"/>
-                                        delayed
-                                    </Badge>
-                                </td>
-                                <td>10 days</td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">72%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="72"
-                                                barClassName="bg-danger"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>Arshaan</td>
+                                <td>Crypto</td>
+                                <td>Xid</td>
+                                <td>TXid</td>
                                 <td className="text-right">
                                     <UncontrolledDropdown>
                                         <DropdownToggle
@@ -277,25 +240,10 @@ function Reports() {
                                     </Media>
                                 </th>
                                 <td>$4,400 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-info"/>
-                                        on schedule
-                                    </Badge>
-                                </td>
-                                <td>10 days</td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">90%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="90"
-                                                barClassName="bg-info"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>Arshaan</td>
+                                <td>Crypto</td>
+                                <td>Xid</td>
+                                <td>TXid</td>
                                 <td className="text-right">
                                     <UncontrolledDropdown>
                                         <DropdownToggle
@@ -347,25 +295,10 @@ function Reports() {
                                     </Media>
                                 </th>
                                 <td>$2,200 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
-                                <td>10 days</td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="100"
-                                                barClassName="bg-danger"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>Arshaan</td>
+                                <td>Crypto</td>
+                                <td>Xid</td>
+                                <td>TXid</td>
                                 <td className="text-right">
                                     <UncontrolledDropdown>
                                         <DropdownToggle
@@ -402,12 +335,7 @@ function Reports() {
                         <CardFooter className="py-4">
                             <nav aria-label="...">
                                 <div className="flex gap-4 items-center">
-                                    <div className="grow">
-                                        <Button block color="primary">
-                                            <span className="btn-inner--icon"><i className="ni ni-basket"></i></span>
-                                            <span className="btn-inner--text">Buy a New Package</span>
-                                        </Button>
-                                    </div>
+                                    <div className="grow"></div>
                                     <Pagination
                                         className="pagination justify-content-end mb-0"
                                         listClassName="justify-content-end mb-0">
