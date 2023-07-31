@@ -25,9 +25,11 @@ import angular from "/assets/img/theme/angular.jpg";
 import sketch from "/assets/img/theme/sketch.jpg";
 import react from "/assets/img/theme/react.jpg";
 import vue from "/assets/img/theme/vue.jpg";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 
 function Packages() {
+  const router = useRouter()
+
   return (
     <>
       <Header />
