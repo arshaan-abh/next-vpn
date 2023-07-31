@@ -35,6 +35,7 @@ import {router} from "next/client"
 
 function Arches() {
     const [modalOpen, setModalOpen] = useState(false);
+    const [newArchStatus, setNewArchStatus] = useState("Choose");
 
     return (<>
         <Header/>
@@ -345,13 +346,19 @@ function Arches() {
                                 color="secondary"
                                 id="arch-status"
                                 type="button">
-                                Choose
+                                {newArchStatus}
                             </DropdownToggle>
                             <DropdownMenu aria-labelledby="arch-status">
-                                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                                <DropdownItem href="#pablo" onClick={(e) => {
+                                    e.preventDefault()
+                                    setNewArchStatus("Enable")
+                                }}>
                                     Enable
                                 </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                                <DropdownItem href="#pablo" onClick={(e) => {
+                                    e.preventDefault()
+                                    setNewArchStatus("Disable")
+                                }}>
                                     Disable
                                 </DropdownItem>
                             </DropdownMenu>
