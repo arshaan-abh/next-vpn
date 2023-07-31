@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 // reactstrap components
 import {
@@ -14,53 +14,25 @@ import {
   InputGroup,
   Row,
   Col,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
+  UncontrolledDropdown,
 } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
 
 function Login() {
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [selectedDashboard, setSelectedDashboard] = useState("Admin")
+
   return (
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
-          <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-3">
-              <small>Sign in with</small>
-            </div>
-            <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src="/assets/github.svg"
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src="/assets/google.svg"
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
-            </div>
-          </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
+              <small>Sign in</small>
             </div>
             <Form role="form">
               <FormGroup className="mb-3">
@@ -105,10 +77,42 @@ function Login() {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button
+                    className="my-4"
+                    color="primary"
+                    type="button"
+                    onClick={() => setIsSignedIn(true)}
+                    disabled={isSignedIn}>
                   Sign in
                 </Button>
               </div>
+              {isSignedIn && <FormGroup className="flex gap-4 items-center mb-0">
+                <label className="form-control-label mb-0" htmlFor="select-dashboard">
+                  Select dashboard
+                </label>
+                <UncontrolledDropdown>
+                  <DropdownToggle caret type="button" id="select-dashboard">
+                    {selectedDashboard}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem href="#pablo" onClick={(e) => {
+                      e.preventDefault()
+                      setSelectedDashboard("Admin")
+                    }}>
+                      Admin
+                    </DropdownItem>
+                    <DropdownItem href="#pablo" onClick={(e) => {
+                      e.preventDefault()
+                      setSelectedDashboard("User")
+                    }}>
+                      User
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <Button color="success" type="button">
+                  Go!
+                </Button>
+              </FormGroup>}
             </Form>
           </CardBody>
         </Card>
