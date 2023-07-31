@@ -1,740 +1,119 @@
-import React from "react"
+import React, {useState} from "react"
 import {
     Badge,
     Button,
     Card,
     CardFooter,
     CardHeader,
+    Col,
     Container,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
+    Form,
+    FormGroup,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText,
     Media,
+    Modal,
+    ModalBody,
+    ModalFooter,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Row,
     Table,
-    UncontrolledDropdown,
-    UncontrolledTooltip,
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
 import Image from "next/future/image"
-import bootstrap from "/assets/img/theme/bootstrap.jpg"
-import team from "/assets/img/theme/team-1-800x800.jpg"
-import teamTwo from "/assets/img/theme/team-2-800x800.jpg"
-import teamThree from "/assets/img/theme/team-3-800x800.jpg"
-import teamFour from "/assets/img/theme/team-4-800x800.jpg"
-import angular from "/assets/img/theme/angular.jpg"
 import sketch from "/assets/img/theme/sketch.jpg"
 import react from "/assets/img/theme/react.jpg"
 import vue from "/assets/img/theme/vue.jpg"
 
 function PackagesDetail() {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
             <Row className="mt-5 mb-4">
                 <div className="col">
                     <Card className="bg-default shadow">
-                        <CardHeader className="bg-transparent border-0">
+                        <CardHeader className="bg-transparent border-0 flex items-center gap-4">
                             <h3 className="text-white mb-0">Packages detail</h3>
+                            <Button color="primary" size="sm">
+                                <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
+                                <span className="btn-inner--text">Add Vpn</span>
+                            </Button>
+                            <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
+                                <i className="fas fa-search"></i>
+                            </Button>
                         </CardHeader>
                         <Table
                             className="align-items-center table-dark table-flush"
                             responsive>
                             <thead className="thead-dark">
                             <tr>
-                                <th scope="col">Vpn</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Users</th>
-                                <th scope="col">Completion</th>
-                                <th scope="col"/>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Type</th>
+                                <th scope="col" className="text-right">Owner</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={bootstrap}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">
-                                                Argon Design System
-                                            </span>
-                                        </Media>
-                                    </Media>
-                                </th>
                                 <td>$2,500 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
+                                <td>...</td>
+                                <td>Default</td>
+                                <td className="text-right">
+                                    <Badge color="" className="badge-dot">
                                         <i className="bg-warning"/>
                                         pending
                                     </Badge>
                                 </td>
-                                <td>
-                                    <div className="avatar-group">
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip731399078"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={team}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip731399078">
-                                            Ryan Tompson
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip491083084"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamTwo}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip491083084">
-                                            Romina Hadid
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip528540780"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamThree}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip528540780">
-                                            Alexander Smith
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip237898869"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamFour}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip237898869">
-                                            Jessica Doe
-                                        </UncontrolledTooltip>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">60%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="60"
-                                                barClassName="bg-warning"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="text-right">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}>
-                                            <i className="fas fa-ellipsis-v"/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Another action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Something else here
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={angular}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">
-                                                Angular Now UI Kit PRO
-                                            </span>
-                                        </Media>
-                                    </Media>
-                                </th>
                                 <td>$1,800 USD</td>
-                                <td>
+                                <td>...</td>
+                                <td>Pro</td>
+                                <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-success"/>
                                         completed
                                     </Badge>
                                 </td>
-                                <td>
-                                    <div className="avatar-group">
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip188614932"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={team}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip188614932">
-                                            Ryan Tompson
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip66535734"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamTwo}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip delay={0} target="tooltip66535734">
-                                            Romina Hadid
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip427561578"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamThree}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip427561578">
-                                            Alexander Smith
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip904098289"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamFour}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip904098289">
-                                            Jessica Doe
-                                        </UncontrolledTooltip>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="100"
-                                                barClassName="bg-success"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="text-right">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}>
-                                            <i className="fas fa-ellipsis-v"/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Another action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Something else here
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={sketch}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">Black Dashboard</span>
-                                        </Media>
-                                    </Media>
-                                </th>
                                 <td>$3,150 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
+                                <td>...</td>
+                                <td>Default</td>
+                                <td className="text-right">
+                                    <Badge color="" className="badge-dot">
                                         <i className="bg-danger"/>
                                         delayed
                                     </Badge>
                                 </td>
-                                <td>
-                                    <div className="avatar-group">
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip707904950"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={team}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip707904950">
-                                            Ryan Tompson
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip353988222"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamTwo}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip353988222">
-                                            Romina Hadid
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip467171202"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamThree}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip467171202">
-                                            Alexander Smith
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip362118155"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamFour}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip362118155">
-                                            Jessica Doe
-                                        </UncontrolledTooltip>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">72%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="72"
-                                                barClassName="bg-danger"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="text-right">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}>
-                                            <i className="fas fa-ellipsis-v"/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Another action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Something else here
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={react}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">
-                                                React Material Dashboard
-                                            </span>
-                                        </Media>
-                                    </Media>
-                                </th>
                                 <td>$4,400 USD</td>
-                                <td>
+                                <td>...</td>
+                                <td>Pro</td>
+                                <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-info"/>
                                         on schedule
                                     </Badge>
                                 </td>
-                                <td>
-                                    <div className="avatar-group">
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip226319315"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={team}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip226319315">
-                                            Ryan Tompson
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip711961370"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamTwo}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip711961370">
-                                            Romina Hadid
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip216246707"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamThree}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip216246707">
-                                            Alexander Smith
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip638048561"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamFour}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip638048561">
-                                            Jessica Doe
-                                        </UncontrolledTooltip>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">90%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="90"
-                                                barClassName="bg-info"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="text-right">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}>
-                                            <i className="fas fa-ellipsis-v"/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Another action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Something else here
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={vue}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">
-                                                Vue Paper UI Kit PRO
-                                            </span>
-                                        </Media>
-                                    </Media>
-                                </th>
                                 <td>$2,200 USD</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
+                                <td>...</td>
+                                <td>Default</td>
+                                <td className="text-right">
+                                    <Badge color="" className="badge-dot">
                                         <i className="bg-success"/>
                                         completed
                                     </Badge>
-                                </td>
-                                <td>
-                                    <div className="avatar-group">
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip781594051"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={team}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip781594051">
-                                            Ryan Tompson
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip840372212"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamTwo}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip840372212">
-                                            Romina Hadid
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip497647175"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamThree}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip497647175">
-                                            Alexander Smith
-                                        </UncontrolledTooltip>
-                                        <a
-                                            className="avatar avatar-sm"
-                                            href="#pablo"
-                                            id="tooltip951447946"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                className="rounded-circle"
-                                                src={teamFour}
-                                            />
-                                        </a>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip951447946">
-                                            Jessica Doe
-                                        </UncontrolledTooltip>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex align-items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div>
-                                            <Progress
-                                                max="100"
-                                                value="100"
-                                                barClassName="bg-danger"
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="text-right">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}>
-                                            <i className="fas fa-ellipsis-v"/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Another action
-                                            </DropdownItem>
-                                            <DropdownItem
-                                                href="#pablo"
-                                                onClick={(e) => e.preventDefault()}>
-                                                Something else here
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
                                 </td>
                             </tr>
                             </tbody>
@@ -742,12 +121,7 @@ function PackagesDetail() {
                         <CardFooter className="bg-default py-4" style={{borderColor: "#1f3a68"}}>
                             <nav aria-label="...">
                                 <div className="flex gap-4 items-center">
-                                    <div className="grow">
-                                        <Button block color="primary">
-                                            <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                            <span className="btn-inner--text">Add Vpn</span>
-                                        </Button>
-                                    </div>
+                                    <div className="grow"></div>
                                     <Pagination
                                         className="pagination justify-content-end mb-0"
                                         listClassName="justify-content-end mb-0">
@@ -797,6 +171,106 @@ function PackagesDetail() {
                 </div>
             </Row>
         </Container>
+
+        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
+            <div className=" modal-header">
+                <h5 className=" modal-title" id="exampleModalLabel">
+                    Modal title
+                </h5>
+                <button
+                    aria-label="Close"
+                    className=" close"
+                    type="button"
+                    onClick={() => setModalOpen(!modalOpen)}>
+                    <span aria-hidden={true}>×</span>
+                </button>
+            </div>
+            <ModalBody>
+                <Form>
+                    <h6 className="heading-small text-muted mb-4">
+                        Vpn credentials
+                    </h6>
+                    <div className="pl-lg-4">
+                        <Row>
+                            <Col lg="6">
+                                <FormGroup>
+                                    <label
+                                        className="form-control-label"
+                                        htmlFor="input-username">
+                                        Name
+                                    </label>
+                                    <Input
+                                        className="form-control-alternative"
+                                        id="input-username"
+                                        placeholder="Name here"
+                                        type="text"
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col lg="6">
+                                <FormGroup>
+                                    <label
+                                        className="form-control-label"
+                                        htmlFor="input-email">
+                                        Username
+                                    </label>
+                                    <Input
+                                        className="form-control-alternative"
+                                        id="input-email"
+                                        placeholder="Username here"
+                                        type="email"
+                                    />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col lg="6">
+                                <FormGroup>
+                                    <label
+                                        className="form-control-label"
+                                        htmlFor="input-first-name">
+                                        Password
+                                    </label>
+                                    <Input
+                                        className="form-control-alternative"
+                                        id="input-first-name"
+                                        placeholder="Password here"
+                                        type="password"
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col lg="6">
+                                <FormGroup>
+                                    <label
+                                        className="form-control-label"
+                                        htmlFor="input-last-name">
+                                        Password again
+                                    </label>
+                                    <Input
+                                        className="form-control-alternative"
+                                        defaultValue="Jesse"
+                                        id="input-last-name"
+                                        placeholder="Last name"
+                                        type="text"
+                                    />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    </div>
+                </Form>
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="secondary"
+                    type="button"
+                    onClick={() => setModalOpen(!modalOpen)}>
+                    Close
+                </Button>
+                <Button color="primary" type="button">
+                    Save changes
+                </Button>
+            </ModalFooter>
+        </Modal>
     </>)
 }
 

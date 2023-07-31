@@ -8,18 +8,12 @@ import {
   CardFooter,
   CardHeader,
   Container,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Row,
   Table,
-  UncontrolledDropdown,
-  UncontrolledTooltip,
 } from "reactstrap";
 // layout for this page
 import Admin from "/layouts/Admin.js";
@@ -27,10 +21,6 @@ import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import Image from "next/future/image";
 import bootstrap from "/assets/img/theme/bootstrap.jpg";
-import team from "/assets/img/theme/team-1-800x800.jpg";
-import teamTwo from "/assets/img/theme/team-2-800x800.jpg";
-import teamThree from "/assets/img/theme/team-3-800x800.jpg";
-import teamFour from "/assets/img/theme/team-4-800x800.jpg";
 import angular from "/assets/img/theme/angular.jpg";
 import sketch from "/assets/img/theme/sketch.jpg";
 import react from "/assets/img/theme/react.jpg";
@@ -90,8 +80,13 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <Button outline color="info" type="button" onClick={() => router.push("/admin/packages/detail")}>
-                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      <Button
+                          size="sm"
+                          outline
+                          color="info"
+                          type="button"
+                          onClick={() => router.push("/admin/packages/detail")}>
+                          Details
                       </Button>
                     </td>
                   </tr>
@@ -124,8 +119,13 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <Button outline color="info" type="button" onClick={() => router.push("/admin/packages/detail")}>
-                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      <Button
+                          size="sm"
+                          outline
+                          color="info"
+                          type="button"
+                          onClick={() => router.push("/admin/packages/detail")}>
+                          Details
                       </Button>
                     </td>
                   </tr>
@@ -156,8 +156,13 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <Button outline color="info" type="button" onClick={() => router.push("/admin/packages/detail")}>
-                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      <Button
+                          size="sm"
+                          outline
+                          color="info"
+                          type="button"
+                          onClick={() => router.push("/admin/packages/detail")}>
+                          Details
                       </Button>
                     </td>
                   </tr>
@@ -190,8 +195,13 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <Button outline color="info" type="button" onClick={() => router.push("/admin/packages/detail")}>
-                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      <Button
+                          size="sm"
+                          outline
+                          color="info"
+                          type="button"
+                          onClick={() => router.push("/admin/packages/detail")}>
+                          Details
                       </Button>
                     </td>
                   </tr>
@@ -224,8 +234,13 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
-                      <Button outline color="info" type="button" onClick={() => router.push("/admin/packages/detail")}>
-                        <span className="btn-inner--icon"><i className="ni ni-settings"></i></span>
+                      <Button
+                          size="sm"
+                          outline
+                          color="info"
+                          type="button"
+                          onClick={() => router.push("/admin/packages/detail")}>
+                          Details
                       </Button>
                     </td>
                   </tr>
