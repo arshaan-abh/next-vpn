@@ -18,6 +18,7 @@ Router.events.on("routeChangeStart", (url) => {
     <PageChange path={url} />,
     document.getElementById("page-transition")
   );
+  /* todo issue when changing the rout manually */
   /* todo issue build logs */
   /* todo issue https://nextjs.org/docs/messages/opt-out-auto-static-optimization */
 });
