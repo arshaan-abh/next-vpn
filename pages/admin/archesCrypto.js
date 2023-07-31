@@ -1,14 +1,10 @@
 import React, {useState} from "react"
 import {
-    Badge,
     Button,
     Card,
     CardFooter,
     CardHeader,
     Container,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
     Form,
     FormGroup,
     Input,
@@ -21,7 +17,6 @@ import {
     PaginationLink,
     Row,
     Table,
-    UncontrolledDropdown,
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
@@ -33,10 +28,9 @@ import react from "/assets/img/theme/react.jpg"
 import vue from "/assets/img/theme/vue.jpg"
 import {useRouter} from "next/router"
 
-function Arches() {
+function ArchesCrypto() {
     const router = useRouter()
     const [modalOpen, setModalOpen] = useState(false);
-    const [newArchStatus, setNewArchStatus] = useState("Enable");
 
     return (<>
         <Header/>
@@ -45,10 +39,10 @@ function Arches() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Arches</h3>
+                            <h3 className="mb-0">Crypto</h3>
                             <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
                                 <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                <span className="btn-inner--text">Add Arch</span>
+                                <span className="btn-inner--text">Add Crypto</span>
                             </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
@@ -59,7 +53,6 @@ function Arches() {
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Symbol</th>
-                                <th scope="col">Status</th>
                                 <th scope="col"/>
                             </tr>
                             </thead>
@@ -84,20 +77,15 @@ function Arches() {
                                     </Media>
                                 </th>
                                 <td>...</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-warning"/>
-                                        pending
-                                    </Badge>
-                                </td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/archesCrypto")}>
-                                        Crypto
+                                        onClick={() => {
+                                        }}>
+                                        Detail
                                     </Button>
                                 </td>
                             </tr>
@@ -121,20 +109,15 @@ function Arches() {
                                     </Media>
                                 </th>
                                 <td>...</td>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/archesCrypto")}>
-                                        Crypto
+                                        onClick={() => {
+                                        }}>
+                                        Detail
                                     </Button>
                                 </td>
                             </tr>
@@ -156,20 +139,15 @@ function Arches() {
                                     </Media>
                                 </th>
                                 <td>...</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-danger"/>
-                                        delayed
-                                    </Badge>
-                                </td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/archesCrypto")}>
-                                        Crypto
+                                        onClick={() => {
+                                        }}>
+                                        Detail
                                     </Button>
                                 </td>
                             </tr>
@@ -193,20 +171,15 @@ function Arches() {
                                     </Media>
                                 </th>
                                 <td>...</td>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-info"/>
-                                        on schedule
-                                    </Badge>
-                                </td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/archesCrypto")}>
-                                        Crypto
+                                        onClick={() => {
+                                        }}>
+                                        Detail
                                     </Button>
                                 </td>
                             </tr>
@@ -230,20 +203,15 @@ function Arches() {
                                     </Media>
                                 </th>
                                 <td>...</td>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
                                         outline
                                         color="info"
                                         type="button"
-                                        onClick={() => router.push("/admin/archesCrypto")}>
-                                        Crypto
+                                        onClick={() => {
+                                        }}>
+                                        Detail
                                     </Button>
                                 </td>
                             </tr>
@@ -305,7 +273,7 @@ function Arches() {
         <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
             <div className="modal-header">
                 <h3>
-                    Add arch
+                    Add crypto
                 </h3>
                 <button
                     aria-label="Close"
@@ -318,52 +286,24 @@ function Arches() {
             <ModalBody>
                 <Form>
                     <FormGroup>
-                        <label className="form-control-label" htmlFor="arch-name">
+                        <label className="form-control-label" htmlFor="crypto-name">
                             Name
                         </label>
                         <Input
                             placeholder="Name here"
-                            id="arch-name"
+                            id="crypto-name"
                             type="text">
                         </Input>
                     </FormGroup>
                     <FormGroup>
-                        <label className="form-control-label" htmlFor="arch-symbol">
+                        <label className="form-control-label" htmlFor="crypto-symbol">
                             Symbol
                         </label>
                         <Input
                             placeholder="Symbol here"
-                            id="arch-symbol"
+                            id="crypto-symbol"
                             type="text">
                         </Input>
-                    </FormGroup>
-                    <FormGroup className="flex gap-4 items-center mb-0">
-                        <label className="form-control-label mb-0" htmlFor="arch-status">
-                            Status
-                        </label>
-                        <UncontrolledDropdown>
-                            <DropdownToggle
-                                caret
-                                color="secondary"
-                                id="arch-status"
-                                type="button">
-                                {newArchStatus}
-                            </DropdownToggle>
-                            <DropdownMenu aria-labelledby="arch-status">
-                                <DropdownItem href="#pablo" onClick={(e) => {
-                                    e.preventDefault()
-                                    setNewArchStatus("Enable")
-                                }}>
-                                    Enable
-                                </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => {
-                                    e.preventDefault()
-                                    setNewArchStatus("Disable")
-                                }}>
-                                    Disable
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
                     </FormGroup>
                 </Form>
             </ModalBody>
@@ -382,6 +322,6 @@ function Arches() {
     </>)
 }
 
-Arches.layout = Admin
+ArchesCrypto.layout = Admin
 
-export default Arches
+export default ArchesCrypto
