@@ -15,7 +15,7 @@ import {
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
 
-function PackagesDetail() {
+function VpnList() {
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
@@ -23,7 +23,7 @@ function PackagesDetail() {
                 <div className="col">
                     <Card className="bg-default shadow">
                         <CardHeader className="bg-transparent border-0 flex items-center gap-4">
-                            <h3 className="text-white mb-0">Packages detail</h3>
+                            <h3 className="text-white mb-0">Vpns</h3>
                             <Button color="primary" size="sm">
                                 <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
                                 <span className="btn-inner--text">Add Vpn</span>
@@ -40,6 +40,7 @@ function PackagesDetail() {
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Type</th>
+                                <th scope="col">Package name</th>
                                 <th scope="col" className="text-right">Owner</th>
                             </tr>
                             </thead>
@@ -48,6 +49,7 @@ function PackagesDetail() {
                                 <td>$2,500 USD</td>
                                 <td>...</td>
                                 <td>Default</td>
+                                <td>Package: Pro</td>
                                 <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-warning"/>
@@ -59,6 +61,7 @@ function PackagesDetail() {
                                 <td>$1,800 USD</td>
                                 <td>...</td>
                                 <td>Pro</td>
+                                <td>Package: Pro</td>
                                 <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-success"/>
@@ -70,6 +73,7 @@ function PackagesDetail() {
                                 <td>$3,150 USD</td>
                                 <td>...</td>
                                 <td>Default</td>
+                                <td>Package: Pro</td>
                                 <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-danger"/>
@@ -81,6 +85,7 @@ function PackagesDetail() {
                                 <td>$4,400 USD</td>
                                 <td>...</td>
                                 <td>Pro</td>
+                                <td>Package: Pro</td>
                                 <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-info"/>
@@ -92,6 +97,7 @@ function PackagesDetail() {
                                 <td>$2,200 USD</td>
                                 <td>...</td>
                                 <td>Default</td>
+                                <td>Package: Pro</td>
                                 <td className="text-right">
                                     <Badge color="" className="badge-dot">
                                         <i className="bg-success"/>
@@ -157,6 +163,6 @@ function PackagesDetail() {
     </>)
 }
 
-PackagesDetail.layout = Admin
+VpnList.layout = Admin
 
-export default PackagesDetail
+export default VpnList

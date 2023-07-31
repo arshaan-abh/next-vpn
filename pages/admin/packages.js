@@ -37,8 +37,15 @@ function Packages() {
         <Row>
           <div className="col">
             <Card className="shadow">
-              <CardHeader className="border-0">
+              <CardHeader className="border-0 flex items-center gap-4">
                 <h3 className="mb-0">Packages</h3>
+                <Button color="primary" size="sm">
+                  <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
+                  <span className="btn-inner--text">Add Package</span>
+                </Button>
+                <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
+                  <i className="fas fa-search"></i>
+                </Button>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
@@ -249,12 +256,7 @@ function Packages() {
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <div className="flex gap-4 items-center">
-                    <div className="grow">
-                      <Button block color="primary">
-                        <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                        <span className="btn-inner--text">Add Package</span>
-                      </Button>
-                    </div>
+                    <div className="grow"></div>
                     <Pagination
                         className="pagination justify-content-end mb-0"
                         listClassName="justify-content-end mb-0">

@@ -30,7 +30,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/vpn",
+    path: "/vpnList",
     name: "Vpn list",
     icon: "ni ni-lock-circle-open text-indigo",
     layout: "/admin",
