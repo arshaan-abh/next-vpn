@@ -6,27 +6,15 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    layout: "/admin",
-  },
-  {
-    path: "/profile",
-    name: "User Profile",
-    icon: "ni ni-single-02 text-yellow",
-    layout: "/admin",
-  },
-  {
     path: "/users",
     name: "Users",
     icon: "ni ni-single-02 text-yellow",
+    layout: "/admin",
+  },
+  {
+    path: "/arches",
+    name: "Arches",
+    icon: "ni ni-align-center text-orange",
     layout: "/admin",
   },
   {
