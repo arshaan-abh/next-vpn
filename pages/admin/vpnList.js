@@ -114,7 +114,7 @@ function VpnList() {
                                     <Pagination
                                         className="pagination justify-content-end mb-0"
                                         listClassName="justify-content-end mb-0">
-                                        <PaginationItem className="disabled">
+                                        <PaginationItem className="dark disabled">
                                             <PaginationLink
                                                 href="#pablo"
                                                 onClick={(e) => e.preventDefault()}
@@ -130,21 +130,21 @@ function VpnList() {
                                                 1
                                             </PaginationLink>
                                         </PaginationItem>
-                                        <PaginationItem>
+                                        <PaginationItem className="dark">
                                             <PaginationLink
                                                 href="#pablo"
                                                 onClick={(e) => e.preventDefault()}>
                                                 2 <span className="sr-only">(current)</span>
                                             </PaginationLink>
                                         </PaginationItem>
-                                        <PaginationItem>
+                                        <PaginationItem className="dark">
                                             <PaginationLink
                                                 href="#pablo"
                                                 onClick={(e) => e.preventDefault()}>
                                                 3
                                             </PaginationLink>
                                         </PaginationItem>
-                                        <PaginationItem>
+                                        <PaginationItem className="dark">
                                             <PaginationLink
                                                 href="#pablo"
                                                 onClick={(e) => e.preventDefault()}>

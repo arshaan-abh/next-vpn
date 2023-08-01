@@ -20,6 +20,18 @@
 		height: 36px;
 		font-size: $font-size-sm;
     }
+
+    &.dark {
+        .page-link,
+        span {
+            background-color: #525f7f;
+            border-color: #8898aa;
+
+            &:hover {
+                background-color: #32325d;
+            }
+        }
+    }
 }
 
 
