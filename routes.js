@@ -36,6 +36,12 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/support",
+    name: "Support",
+    icon: "ni ni-support-16 text-blue",
+    layout: "/admin",
+  },
+  {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
