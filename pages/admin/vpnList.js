@@ -19,7 +19,7 @@ function VpnList() {
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
-            <Row className="mt-5 mb-4">
+            <Row className="mb-4">
                 <div className="col">
                     <Card className="bg-default shadow">
                         <CardHeader className="bg-transparent border-0 flex items-center gap-4">

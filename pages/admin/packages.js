@@ -92,6 +92,14 @@ function Packages() {
                       <Button
                           size="sm"
                           outline
+                          color="primary"
+                          type="button"
+                          onClick={() => router.push("/admin/packagesCrypto")}>
+                        Crypto
+                      </Button>
+                      <Button
+                          size="sm"
+                          outline
                           color="info"
                           type="button"
                           onClick={() => router.push("/admin/packagesDetail")}>
@@ -131,6 +139,14 @@ function Packages() {
                       <Button
                           size="sm"
                           outline
+                          color="primary"
+                          type="button"
+                          onClick={() => router.push("/admin/packagesCrypto")}>
+                        Crypto
+                      </Button>
+                      <Button
+                          size="sm"
+                          outline
                           color="info"
                           type="button"
                           onClick={() => router.push("/admin/packagesDetail")}>
@@ -165,6 +181,14 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
+                      <Button
+                          size="sm"
+                          outline
+                          color="primary"
+                          type="button"
+                          onClick={() => router.push("/admin/packagesCrypto")}>
+                        Crypto
+                      </Button>
                       <Button
                           size="sm"
                           outline
@@ -207,6 +231,14 @@ function Packages() {
                       <Button
                           size="sm"
                           outline
+                          color="primary"
+                          type="button"
+                          onClick={() => router.push("/admin/packagesCrypto")}>
+                        Crypto
+                      </Button>
+                      <Button
+                          size="sm"
+                          outline
                           color="info"
                           type="button"
                           onClick={() => router.push("/admin/packagesDetail")}>
@@ -243,6 +275,14 @@ function Packages() {
                     </td>
                     <td>10 days</td>
                     <td className="text-right">
+                      <Button
+                          size="sm"
+                          outline
+                          color="primary"
+                          type="button"
+                          onClick={() => router.push("/admin/packagesCrypto")}>
+                        Crypto
+                      </Button>
                       <Button
                           size="sm"
                           outline
