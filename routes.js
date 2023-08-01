@@ -35,12 +35,12 @@ var routes = [
     icon: "ni ni-align-center text-purple",
     layout: "/admin",
   },
-  {
-    path: "/support",
-    name: "Support",
-    icon: "ni ni-support-16 text-blue",
-    layout: "/admin",
-  },
+  // {
+  //   path: "/support",
+  //   name: "Support",
+  //   icon: "ni ni-support-16 text-blue",
+  //   layout: "/admin",
+  // },
   {
     path: "/login",
     name: "Login",
