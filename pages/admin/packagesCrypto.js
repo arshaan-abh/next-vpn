@@ -50,7 +50,8 @@ function PackagesCrypto() {
                                 <UncontrolledDropdown>
                                     <DropdownToggle
                                         caret
-                                        color="secondary"
+                                        size="sm"
+                                        color="primary"
                                         id="arch-status"
                                         type="button">
                                         {newArchStatus}
