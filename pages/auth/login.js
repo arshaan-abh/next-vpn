@@ -21,10 +21,10 @@ import {
 } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
+import {useRouter} from "next/router";
 
 function Login() {
-  const [isSignedIn, setIsSignedIn] = useState(false)
-  const [selectedDashboard, setSelectedDashboard] = useState("Admin")
+  const router = useRouter()
 
   return (
     <>
@@ -81,38 +81,10 @@ function Login() {
                     className="my-4"
                     color="primary"
                     type="button"
-                    onClick={() => setIsSignedIn(true)}
-                    disabled={isSignedIn}>
+                    onClick={() => router.push("/auth/selectPanel")}>
                   Sign in
                 </Button>
               </div>
-              {isSignedIn && <FormGroup className="flex gap-4 items-center mb-0">
-                <label className="form-control-label mb-0" htmlFor="select-dashboard">
-                  Select dashboard
-                </label>
-                <UncontrolledDropdown>
-                  <DropdownToggle caret type="button" id="select-dashboard">
-                    {selectedDashboard}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem href="#pablo" onClick={(e) => {
-                      e.preventDefault()
-                      setSelectedDashboard("Admin")
-                    }}>
-                      Admin
-                    </DropdownItem>
-                    <DropdownItem href="#pablo" onClick={(e) => {
-                      e.preventDefault()
-                      setSelectedDashboard("User")
-                    }}>
-                      User
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-                <Button color="success" type="button">
-                  Go!
-                </Button>
-              </FormGroup>}
             </Form>
           </CardBody>
         </Card>

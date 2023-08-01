@@ -5,6 +5,9 @@ import {
     CardFooter,
     CardHeader,
     Container,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
     Form,
     FormGroup,
     Input,
@@ -17,6 +20,7 @@ import {
     PaginationLink,
     Row,
     Table,
+    UncontrolledDropdown,
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
@@ -31,6 +35,8 @@ import {useRouter} from "next/router"
 function PackagesCrypto() {
     const router = useRouter()
     const [modalOpen, setModalOpen] = useState(false);
+    const coins = ["USDT", "BNB", "BTC"]
+    const [newArchStatus, setNewArchStatus] = useState(coins[0])
 
     return (<>
         <Header/>
@@ -40,10 +46,27 @@ function PackagesCrypto() {
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
                             <h3 className="mb-0">Crypto</h3>
-                            <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
-                                <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                <span className="btn-inner--text">Add Crypto</span>
-                            </Button>
+                            <FormGroup className="flex gap-4 items-center mb-0">
+                                <UncontrolledDropdown>
+                                    <DropdownToggle
+                                        caret
+                                        color="secondary"
+                                        id="arch-status"
+                                        type="button">
+                                        {newArchStatus}
+                                    </DropdownToggle>
+                                    <DropdownMenu aria-labelledby="arch-status">
+                                        {coins.map((coin) =>
+                                            <DropdownItem href="#pablo" onClick={(e) => {
+                                                e.preventDefault()
+                                                setNewArchStatus(coin)
+                                                setModalOpen(true)
+                                            }}>
+                                                {coin}
+                                            </DropdownItem>)}
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            </FormGroup>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
