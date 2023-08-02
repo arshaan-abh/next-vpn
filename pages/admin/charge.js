@@ -38,8 +38,10 @@ function Charge() {
     const [modalOpen, setModalOpen] = useState(false)
     const [barcodeOpen, setBarcodeOpen] = useState(false)
     const {Canvas} = useQRCode()
+    const arches = ["First arch", "Second arch"]
     const coins = ["USDT", "BNB", "BTC"]
-    const [newArchStatus, setNewArchStatus] = useState(coins[0])
+    const [newArchStatus, setNewArchStatus] = useState(arches[0])
+    const [newCryptoStatus, setNewCryptoStatus] = useState(coins[0])
 
     return (<>
         <Header/>
@@ -295,8 +297,29 @@ function Charge() {
             <ModalBody>
                 <Form>
                     <FormGroup className="flex gap-4 items-center">
+                        <label className="form-control-label mb-0" htmlFor="crypto-status">
+                            Crypto
+                        </label>
+                        <UncontrolledDropdown>
+                            <DropdownToggle
+                                caret
+                                id="crypto-status"
+                                type="button">
+                                {newCryptoStatus}
+                            </DropdownToggle>
+                            <DropdownMenu aria-labelledby="crypto-status">
+                                {coins.map((coin) => <DropdownItem href="#pablo" onClick={(e) => {
+                                    e.preventDefault()
+                                    setNewCryptoStatus(coin)
+                                }}>
+                                    {coin}
+                                </DropdownItem>)}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+                    </FormGroup>
+                    <FormGroup className="flex gap-4 items-center">
                         <label className="form-control-label mb-0" htmlFor="arch-status">
-                            Status
+                            Arch
                         </label>
                         <UncontrolledDropdown>
                             <DropdownToggle
@@ -306,11 +329,11 @@ function Charge() {
                                 {newArchStatus}
                             </DropdownToggle>
                             <DropdownMenu aria-labelledby="arch-status">
-                                {coins.map((coin) => <DropdownItem href="#pablo" onClick={(e) => {
+                                {arches.map((arch) => <DropdownItem href="#pablo" onClick={(e) => {
                                     e.preventDefault()
-                                    setNewArchStatus(coin)
+                                    setNewArchStatus(arch)
                                 }}>
-                                    {coin}
+                                    {arch}
                                 </DropdownItem>)}
                             </DropdownMenu>
                         </UncontrolledDropdown>

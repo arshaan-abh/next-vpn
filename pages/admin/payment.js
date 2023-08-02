@@ -31,7 +31,8 @@ const Payment = () => {
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 Et ligula ullamcorper malesuada proin.
                             </div>
-                            <div className="flex flex-row items-center gap-4 p-4 bg-secondary">
+                            <div
+                                className="flex flex-col sm:flex-row items-start justify-center gap-4 p-4 bg-secondary">
                                 <Input
                                     className="form-control-alternative"
                                     placeholder="Address here"
@@ -61,8 +62,7 @@ const Payment = () => {
             centered
             isOpen={modalNotificationOpen}
             className="modal-success"
-            contentClassName="bg-gradient-success"
-            onClick={() => setModalNotificationOpen(false)}>
+            contentClassName="bg-gradient-success">
             <div className="modal-header">
                 <h3 className="modal-title" id="modal-title-notification">
                     Your attention is required
@@ -85,7 +85,11 @@ const Payment = () => {
                 </div>
             </div>
             <div className="modal-footer">
-                <Button className="btn-white" color="default" type="button">
+                <Button
+                    className="btn-white"
+                    color="default"
+                    type="button"
+                    onClick={() => setModalNotificationOpen(false)}>
                     Ok, Got it
                 </Button>
                 <Button
