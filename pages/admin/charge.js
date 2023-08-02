@@ -291,7 +291,7 @@ function Charge() {
             </div>
             <ModalBody>
                 <Form>
-                    <FormGroup className="flex gap-4 items-center mb-0">
+                    <FormGroup className="flex gap-4 items-center">
                         <label className="form-control-label mb-0" htmlFor="arch-status">
                             Status
                         </label>
@@ -312,12 +312,13 @@ function Charge() {
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className="mb-0">
                         <label className="form-control-label" htmlFor="crypto-price">
-                            Price
+                            Wallet address
                         </label>
                         <Input
-                            placeholder="Price here"
+                            readOnly
+                            value="figjhsf78967gsdg678s7fsghsfh67sff"
                             id="crypto-price"
                             type="text">
                         </Input>
@@ -332,7 +333,7 @@ function Charge() {
                     Close
                 </Button>
                 <Button color="primary" type="button">
-                    Add
+                    Preview
                 </Button>
             </ModalFooter>
         </Modal>

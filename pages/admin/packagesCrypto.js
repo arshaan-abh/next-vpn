@@ -291,7 +291,7 @@ function PackagesCrypto() {
             </div>
             <ModalBody>
                 <Form>
-                    <FormGroup className="flex gap-4 items-center mb-0">
+                    <FormGroup className="flex gap-4 items-center">
                         <label className="form-control-label mb-0" htmlFor="arch-status">
                             Status
                         </label>
@@ -318,6 +318,16 @@ function PackagesCrypto() {
                         </label>
                         <Input
                             placeholder="Price here"
+                            id="crypto-price"
+                            type="text">
+                        </Input>
+                    </FormGroup>
+                    <FormGroup className="mb-0">
+                        <label className="form-control-label" htmlFor="crypto-price">
+                            Wallet address
+                        </label>
+                        <Input
+                            placeholder="Wallet address here"
                             id="crypto-price"
                             type="text">
                         </Input>

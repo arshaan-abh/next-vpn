@@ -295,7 +295,7 @@ function ArchesCrypto() {
                             type="text">
                         </Input>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className="mb-0">
                         <label className="form-control-label" htmlFor="crypto-symbol">
                             Symbol
                         </label>
