@@ -369,6 +369,9 @@ function Charge() {
                     onClick={() => setBarcodeOpen(!barcodeOpen)}>
                     Close
                 </Button>
+                <Button color="primary" type="button" onClick={() => router.push("/admin/payment")}>
+                    Payment
+                </Button>
             </ModalFooter>
         </Modal>
     </>)
