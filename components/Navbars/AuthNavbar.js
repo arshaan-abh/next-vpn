@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import Image from "next/future/image";
 import logo from "/assets/img/brand/nextjs_argon_white.png";
+import logoBlack from "/assets/img/brand/nextjs_argon_black.png";
 
 function AdminNavbar() {
   return (
@@ -38,9 +39,9 @@ function AdminNavbar() {
               <Row>
                 <Col className="collapse-brand" xs="6">
                   <Link href="/admin/dashboard">
-                    <img
+                    <Image
                       alt="..."
-                      src="/assets/img/brand/nextjs_argon_black.png"
+                      src={logoBlack}
                     />
                   </Link>
                 </Col>

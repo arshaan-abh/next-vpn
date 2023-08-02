@@ -27,7 +27,7 @@
     "@fullhuman/postcss-purgecss": "^3.0.0",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
-    "autoprefixer": "^10.4.12",
+    "autoprefixer": "10.4.5",
     "bootstrap": "4.6.0",
     "chart.js": "2.9.4",
     "classnames": "2.2.6",
@@ -64,9 +64,6 @@
   "devDependencies": {
     "babel-plugin-inline-react-svg": "^1.1.2",
     "babel-plugin-styled-components": "^2.1.4"
-  },
-  "resolutions": {
-    "autoprefixer": "10.4.12"
   },
   "packageManager": "yarn@3.6.1"
 }
