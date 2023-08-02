@@ -46,28 +46,10 @@ function PackagesCrypto() {
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
                             <h3 className="mb-0">Crypto</h3>
-                            <FormGroup className="flex gap-4 items-center mb-0">
-                                <UncontrolledDropdown>
-                                    <DropdownToggle
-                                        caret
-                                        size="sm"
-                                        color="primary"
-                                        id="arch-status"
-                                        type="button">
-                                        {newArchStatus}
-                                    </DropdownToggle>
-                                    <DropdownMenu aria-labelledby="arch-status">
-                                        {coins.map((coin) =>
-                                            <DropdownItem href="#pablo" onClick={(e) => {
-                                                e.preventDefault()
-                                                setNewArchStatus(coin)
-                                                setModalOpen(true)
-                                            }}>
-                                                {coin}
-                                            </DropdownItem>)}
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-                            </FormGroup>
+                            <Button color="primary" size="sm" onClick={() => setModalOpen(true)}>
+                                <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
+                                <span className="btn-inner--text">Add Crypto</span>
+                            </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -309,23 +291,34 @@ function PackagesCrypto() {
             </div>
             <ModalBody>
                 <Form>
-                    <FormGroup>
-                        <label className="form-control-label" htmlFor="crypto-name">
-                            Name
+                    <FormGroup className="flex gap-4 items-center mb-0">
+                        <label className="form-control-label mb-0" htmlFor="arch-status">
+                            Status
                         </label>
-                        <Input
-                            placeholder="Name here"
-                            id="crypto-name"
-                            type="text">
-                        </Input>
+                        <UncontrolledDropdown>
+                            <DropdownToggle
+                                caret
+                                id="arch-status"
+                                type="button">
+                                {newArchStatus}
+                            </DropdownToggle>
+                            <DropdownMenu aria-labelledby="arch-status">
+                                {coins.map((coin) => <DropdownItem href="#pablo" onClick={(e) => {
+                                    e.preventDefault()
+                                    setNewArchStatus(coin)
+                                }}>
+                                    {coin}
+                                </DropdownItem>)}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                     </FormGroup>
                     <FormGroup>
-                        <label className="form-control-label" htmlFor="crypto-symbol">
-                            Symbol
+                        <label className="form-control-label" htmlFor="crypto-price">
+                            Price
                         </label>
                         <Input
-                            placeholder="Symbol here"
-                            id="crypto-symbol"
+                            placeholder="Price here"
+                            id="crypto-price"
                             type="text">
                         </Input>
                     </FormGroup>
