@@ -31,10 +31,13 @@ import sketch from "/assets/img/theme/sketch.jpg"
 import react from "/assets/img/theme/react.jpg"
 import vue from "/assets/img/theme/vue.jpg"
 import {useRouter} from "next/router"
+import {useQRCode} from "next-qrcode"
 
 function Charge() {
     const router = useRouter()
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false)
+    const [barcodeOpen, setBarcodeOpen] = useState(false)
+    const {Canvas} = useQRCode()
     const coins = ["USDT", "BNB", "BTC"]
     const [newArchStatus, setNewArchStatus] = useState(coins[0])
 
@@ -332,8 +335,39 @@ function Charge() {
                     onClick={() => setModalOpen(!modalOpen)}>
                     Close
                 </Button>
-                <Button color="primary" type="button">
-                    Preview
+                <Button color="primary" type="button" onClick={() => setBarcodeOpen(!barcodeOpen)}>
+                Preview
+                </Button>
+            </ModalFooter>
+        </Modal>
+        <Modal toggle={() => setBarcodeOpen(!barcodeOpen)} isOpen={barcodeOpen} centered>
+            <div className="modal-header">
+                <h3>
+                    Barcode
+                </h3>
+                <button
+                    aria-label="Close"
+                    className="close"
+                    type="button"
+                    onClick={() => setBarcodeOpen(!barcodeOpen)}>
+                    <span aria-hidden={true}>×</span>
+                </button>
+            </div>
+            <ModalBody className="flex justify-center">
+                <Canvas
+                    text={"figjhsf78967gsdg678s7fsghsfh67sff"}
+                    options={{
+                        type: "image/jpeg",
+                        width: 256,
+                    }}
+                />
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="secondary"
+                    type="button"
+                    onClick={() => setBarcodeOpen(!barcodeOpen)}>
+                    Close
                 </Button>
             </ModalFooter>
         </Modal>
