@@ -34,15 +34,6 @@ import {useRouter} from "next/router"
 import {useQRCode} from "next-qrcode"
 
 function ChargeAdmin() {
-    const router = useRouter()
-    const [modalOpen, setModalOpen] = useState(false)
-    const [barcodeOpen, setBarcodeOpen] = useState(false)
-    const {Canvas} = useQRCode()
-    const arches = ["First arch", "Second arch"]
-    const coins = ["USDT", "BNB", "BTC"]
-    const [newArchStatus, setNewArchStatus] = useState(arches[0])
-    const [newCryptoStatus, setNewCryptoStatus] = useState(coins[0])
-
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
@@ -51,10 +42,6 @@ function ChargeAdmin() {
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
                             <h3 className="mb-0">Charge Admin</h3>
-                            <Button color="info" size="sm" onClick={() => setModalOpen(true)}>
-                                <span className="btn-inner--icon"><i className="ni ni-check-bold"></i></span>
-                                <span className="btn-inner--text">Charge</span>
-                            </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -293,122 +280,6 @@ function ChargeAdmin() {
                 </div>
             </Row>
         </Container>
-        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
-            <div className="modal-header">
-                <h3>
-                    Charge
-                </h3>
-                <button
-                    aria-label="Close"
-                    className="close"
-                    type="button"
-                    onClick={() => setModalOpen(!modalOpen)}>
-                    <span aria-hidden={true}>×</span>
-                </button>
-            </div>
-            <ModalBody>
-                <Form>
-                    <FormGroup className="flex gap-4 items-center">
-                        <label className="form-control-label mb-0" htmlFor="crypto-status">
-                            Crypto
-                        </label>
-                        <UncontrolledDropdown>
-                            <DropdownToggle
-                                caret
-                                id="crypto-status"
-                                type="button">
-                                {newCryptoStatus}
-                            </DropdownToggle>
-                            <DropdownMenu aria-labelledby="crypto-status">
-                                {coins.map((coin) => <DropdownItem href="#pablo" onClick={(e) => {
-                                    e.preventDefault()
-                                    setNewCryptoStatus(coin)
-                                }}>
-                                    {coin}
-                                </DropdownItem>)}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </FormGroup>
-                    <FormGroup className="flex gap-4 items-center">
-                        <label className="form-control-label mb-0" htmlFor="arch-status">
-                            Arch
-                        </label>
-                        <UncontrolledDropdown>
-                            <DropdownToggle
-                                caret
-                                id="arch-status"
-                                type="button">
-                                {newArchStatus}
-                            </DropdownToggle>
-                            <DropdownMenu aria-labelledby="arch-status">
-                                {arches.map((arch) => <DropdownItem href="#pablo" onClick={(e) => {
-                                    e.preventDefault()
-                                    setNewArchStatus(arch)
-                                }}>
-                                    {arch}
-                                </DropdownItem>)}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </FormGroup>
-                    <FormGroup className="mb-0">
-                        <label className="form-control-label" htmlFor="crypto-price">
-                            Wallet address
-                        </label>
-                        <Input
-                            readOnly
-                            value="figjhsf78967gsdg678s7fsghsfh67sff"
-                            id="crypto-price"
-                            type="text">
-                        </Input>
-                    </FormGroup>
-                </Form>
-            </ModalBody>
-            <ModalFooter>
-                <Button
-                    color="secondary"
-                    type="button"
-                    onClick={() => setModalOpen(!modalOpen)}>
-                    Close
-                </Button>
-                <Button color="primary" type="button" onClick={() => setBarcodeOpen(!barcodeOpen)}>
-                Preview
-                </Button>
-            </ModalFooter>
-        </Modal>
-        <Modal toggle={() => setBarcodeOpen(!barcodeOpen)} isOpen={barcodeOpen} centered>
-            <div className="modal-header">
-                <h3>
-                    Barcode
-                </h3>
-                <button
-                    aria-label="Close"
-                    className="close"
-                    type="button"
-                    onClick={() => setBarcodeOpen(!barcodeOpen)}>
-                    <span aria-hidden={true}>×</span>
-                </button>
-            </div>
-            <ModalBody className="flex justify-center">
-                <Canvas
-                    text={"figjhsf78967gsdg678s7fsghsfh67sff"}
-                    options={{
-                        type: "image/jpeg",
-                        width: 256,
-                    }}
-                />
-            </ModalBody>
-            <ModalFooter>
-                <Button
-                    color="secondary"
-                    type="button"
-                    onClick={() => setBarcodeOpen(!barcodeOpen)}>
-                    Close
-                </Button>
-                <Button color="primary" type="button" onClick={() => router.push("/admin/payment")}>
-                    Payment
-                </Button>
-            </ModalFooter>
-        </Modal>
     </>)
 }
 
