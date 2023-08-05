@@ -14,7 +14,6 @@ import "../assets/scss/nextjs-argon-dashboard.scss";
 import Script from "next/script";
 
 Router.events.on("routeChangeStart", (url) => {
-  document.body.classList.add("body-page-transition");
   ReactDOM.render(
     <PageChange path={url} />,
     document.getElementById("page-transition")
@@ -24,11 +23,9 @@ Router.events.on("routeChangeStart", (url) => {
 });
 Router.events.on("routeChangeComplete", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-  document.body.classList.remove("body-page-transition");
 });
 Router.events.on("routeChangeError", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-  document.body.classList.remove("body-page-transition");
 });
 
 export default withRouter(class MyApp extends App {

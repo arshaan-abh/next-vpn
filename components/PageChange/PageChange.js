@@ -1,25 +1,11 @@
-import React from "react";
+import styles from "/styles/PageChange.module.css"
 
-// reactstrap components
-import { Spinner } from "reactstrap";
-
-// core components
-
-{/* todo edit loading */}
-export default function PageChange(props) {
-  return (
-    <div>
-      <div className="page-transition-wrapper-div">
-        <div className="page-transition-icon-wrapper mb-3">
-          <Spinner
-            color="white"
-            style={{ width: "6rem", height: "6rem", borderWidth: ".3rem" }}
-          />
-        </div>
-        <h4 className="title text-white">
-          Loading page contents for: {props.path}
-        </h4>
-      </div>
-    </div>
-  );
+export default function PageChange() {
+    return (<div className={styles.bg}>
+        <div className={styles.loadRing}/>
+        <div className={styles.div}></div>
+        <div className={styles.div}></div>
+        <div className={styles.div}></div>
+        <div className={styles.div}></div>
+    </div>)
 }
