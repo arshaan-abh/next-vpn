@@ -5,7 +5,6 @@ import {
     CardFooter,
     CardHeader,
     Container,
-    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
@@ -14,12 +13,6 @@ import {
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
-import Image from "next/future/image"
-import bootstrap from "/assets/img/theme/bootstrap.jpg"
-import angular from "/assets/img/theme/angular.jpg"
-import sketch from "/assets/img/theme/sketch.jpg"
-import react from "/assets/img/theme/react.jpg"
-import vue from "/assets/img/theme/vue.jpg"
 
 function ChargeAdmin() {
     return (<>
@@ -29,7 +22,7 @@ function ChargeAdmin() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Charge Admin</h3>
+                            <h3 className="mb-0">Exchange</h3>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -37,34 +30,13 @@ function ChargeAdmin() {
                         <Table className="align-items-center table-flush" responsive>
                             <thead className="thead-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Symbol</th>
-                                <th scope="col">TXid</th>
-                                <th scope="col">Creation date</th>
+                                <th scope="col">From</th>
+                                <th scope="col">To</th>
                                 <th scope="col"/>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={bootstrap}
-                                            />
-                                        </a>
-                                        <Media>
-                                        <span className="mb-0 text-sm">
-                                            Argon Design System
-                                        </span>
-                                        </Media>
-                                    </Media>
-                                </th>
-                                <td>...</td>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
                                 <td className="text-right">
@@ -75,30 +47,11 @@ function ChargeAdmin() {
                                         type="button"
                                         onClick={() => {
                                         }}>
-                                        Detail
+                                        Version
                                     </Button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={angular}
-                                            />
-                                        </a>
-                                        <Media>
-                                        <span className="mb-0 text-sm">
-                                            Argon Design System
-                                        </span>
-                                        </Media>
-                                    </Media>
-                                </th>
-                                <td>...</td>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
                                 <td className="text-right">
@@ -109,28 +62,11 @@ function ChargeAdmin() {
                                         type="button"
                                         onClick={() => {
                                         }}>
-                                        Detail
+                                        Version
                                     </Button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={sketch}
-                                            />
-                                        </a>
-                                        <Media>
-                                            <span className="mb-0 text-sm">Black Dashboard</span>
-                                        </Media>
-                                    </Media>
-                                </th>
-                                <td>...</td>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
                                 <td className="text-right">
@@ -141,30 +77,11 @@ function ChargeAdmin() {
                                         type="button"
                                         onClick={() => {
                                         }}>
-                                        Detail
+                                        Version
                                     </Button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={react}
-                                            />
-                                        </a>
-                                        <Media>
-                                        <span className="mb-0 text-sm">
-                                            Argon Design System
-                                        </span>
-                                        </Media>
-                                    </Media>
-                                </th>
-                                <td>...</td>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
                                 <td className="text-right">
@@ -175,30 +92,11 @@ function ChargeAdmin() {
                                         type="button"
                                         onClick={() => {
                                         }}>
-                                        Detail
+                                        Version
                                     </Button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    <Media className="align-items-center">
-                                        <a
-                                            className="avatar rounded-circle mr-3"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}>
-                                            <Image
-                                                alt="..."
-                                                src={vue}
-                                            />
-                                        </a>
-                                        <Media>
-                                        <span className="mb-0 text-sm">
-                                            Argon Design System
-                                        </span>
-                                        </Media>
-                                    </Media>
-                                </th>
-                                <td>...</td>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
                                 <td className="text-right">
@@ -209,7 +107,7 @@ function ChargeAdmin() {
                                         type="button"
                                         onClick={() => {
                                         }}>
-                                        Detail
+                                        Version
                                     </Button>
                                 </td>
                             </tr>
