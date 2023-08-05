@@ -42,8 +42,8 @@ function ExchangeVersion() {
                         <Table className="align-items-center table-flush" responsive>
                             <thead className="thead-light">
                             <tr>
-                                <th scope="col">From</th>
-                                <th scope="col">To</th>
+                                <th scope="col">From Crypto</th>
+                                <th scope="col">To Crypto</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -139,7 +139,7 @@ function ExchangeVersion() {
                 <Form>
                     <FormGroup>
                         <label className="form-control-label" htmlFor="exchange-version-to">
-                            To
+                            To Crypto
                         </label>
                         <Input
                             placeholder="Symbol here"
@@ -149,7 +149,7 @@ function ExchangeVersion() {
                     </FormGroup>
                     <FormGroup className="mb-0">
                         <label className="form-control-label" htmlFor="exchange-version-from">
-                            From
+                            From Crypto
                         </label>
                         <Input
                             placeholder="Name here"

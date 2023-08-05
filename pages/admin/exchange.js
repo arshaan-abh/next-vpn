@@ -50,8 +50,8 @@ function Exchange() {
                         <Table className="align-items-center table-flush" responsive>
                             <thead className="thead-light">
                             <tr>
-                                <th scope="col">From</th>
-                                <th scope="col">To</th>
+                                <th scope="col">From Crypto</th>
+                                <th scope="col">To Crypto</th>
                                 <th scope="col"/>
                             </tr>
                             </thead>
