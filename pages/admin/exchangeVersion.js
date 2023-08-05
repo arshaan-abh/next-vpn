@@ -138,22 +138,22 @@ function ExchangeVersion() {
             <ModalBody>
                 <Form>
                     <FormGroup>
-                        <label className="form-control-label" htmlFor="exchange-version-from">
-                            From
-                        </label>
-                        <Input
-                            placeholder="Name here"
-                            id="exchange-version"
-                            type="text">
-                        </Input>
-                    </FormGroup>
-                    <FormGroup className="mb-0">
                         <label className="form-control-label" htmlFor="exchange-version-to">
                             To
                         </label>
                         <Input
                             placeholder="Symbol here"
                             id="exchange-version-to"
+                            type="text">
+                        </Input>
+                    </FormGroup>
+                    <FormGroup className="mb-0">
+                        <label className="form-control-label" htmlFor="exchange-version-from">
+                            From
+                        </label>
+                        <Input
+                            placeholder="Name here"
+                            id="exchange-version"
                             type="text">
                         </Input>
                     </FormGroup>
