@@ -50,7 +50,7 @@ function ChargeAdmin() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Charge</h3>
+                            <h3 className="mb-0">Charge Admin</h3>
                             <Button color="info" size="sm" onClick={() => setModalOpen(true)}>
                                 <span className="btn-inner--icon"><i className="ni ni-check-bold"></i></span>
                                 <span className="btn-inner--text">Charge</span>
