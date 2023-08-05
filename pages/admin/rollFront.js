@@ -1,18 +1,11 @@
-import React, {useState} from "react"
+import React from "react"
 import {
-    Badge,
     Button,
     Card,
     CardFooter,
     CardHeader,
     Container,
-    Form,
-    FormGroup,
-    Input,
     Media,
-    Modal,
-    ModalBody,
-    ModalFooter,
     Pagination,
     PaginationItem,
     PaginationLink,
@@ -29,9 +22,8 @@ import react from "/assets/img/theme/react.jpg"
 import vue from "/assets/img/theme/vue.jpg"
 import {useRouter} from "next/router"
 
-function Roll() {
+function RollFront() {
     const router = useRouter()
-    const [modalOpen, setModalOpen] = useState(false)
 
     return (<>
         <Header/>
@@ -40,11 +32,7 @@ function Roll() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Rolls</h3>
-                            <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
-                                <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                <span className="btn-inner--text">Add Roll</span>
-                            </Button>
+                            <h3 className="mb-0">Rolls Front</h3>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -53,8 +41,7 @@ function Roll() {
                             <thead className="thead-light">
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col"/>
+                                <th scope="col">Route</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -77,31 +64,7 @@ function Roll() {
                                         </Media>
                                     </Media>
                                 </th>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-warning"/>
-                                        pending
-                                    </Badge>
-                                </td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="primary"
-                                        type="button"
-                                        onClick={() => router.push("/admin/rollFront")}>
-                                        Front
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Menu
-                                    </Button>
-                                </td>
+                                <td>Route one</td>
                             </tr>
                             <tr>
                                 <th scope="row">
@@ -122,31 +85,7 @@ function Roll() {
                                         </Media>
                                     </Media>
                                 </th>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="primary"
-                                        type="button"
-                                        onClick={() => router.push("/admin/rollFront")}>
-                                        Front
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Menu
-                                    </Button>
-                                </td>
+                                <td>Route one</td>
                             </tr>
                             <tr>
                                 <th scope="row">
@@ -165,31 +104,7 @@ function Roll() {
                                         </Media>
                                     </Media>
                                 </th>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-danger"/>
-                                        delayed
-                                    </Badge>
-                                </td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="primary"
-                                        type="button"
-                                        onClick={() => router.push("/admin/rollFront")}>
-                                        Front
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Menu
-                                    </Button>
-                                </td>
+                                <td>Route one</td>
                             </tr>
                             <tr>
                                 <th scope="row">
@@ -210,31 +125,7 @@ function Roll() {
                                         </Media>
                                     </Media>
                                 </th>
-                                <td>
-                                    <Badge color="" className="badge-dot">
-                                        <i className="bg-info"/>
-                                        on schedule
-                                    </Badge>
-                                </td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="primary"
-                                        type="button"
-                                        onClick={() => router.push("/admin/rollFront")}>
-                                        Front
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Menu
-                                    </Button>
-                                </td>
+                                <td>Route one</td>
                             </tr>
                             <tr>
                                 <th scope="row">
@@ -255,31 +146,7 @@ function Roll() {
                                         </Media>
                                     </Media>
                                 </th>
-                                <td>
-                                    <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-success"/>
-                                        completed
-                                    </Badge>
-                                </td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="primary"
-                                        type="button"
-                                        onClick={() => router.push("/admin/rollFront")}>
-                                        Front
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Menu
-                                    </Button>
-                                </td>
+                                <td>Route one</td>
                             </tr>
                             </tbody>
                         </Table>
@@ -336,48 +203,9 @@ function Roll() {
                 </div>
             </Row>
         </Container>
-        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
-            <div className="modal-header">
-                <h3>
-                    Add roll
-                </h3>
-                <button
-                    aria-label="Close"
-                    className="close"
-                    type="button"
-                    onClick={() => setModalOpen(!modalOpen)}>
-                    <span aria-hidden={true}>×</span>
-                </button>
-            </div>
-            <ModalBody>
-                <Form>
-                    <FormGroup className="mb-0">
-                        <label className="form-control-label" htmlFor="roll-name">
-                            Name
-                        </label>
-                        <Input
-                            placeholder="Name here"
-                            id="roll-name"
-                            type="text">
-                        </Input>
-                    </FormGroup>
-                </Form>
-            </ModalBody>
-            <ModalFooter>
-                <Button
-                    color="secondary"
-                    type="button"
-                    onClick={() => setModalOpen(!modalOpen)}>
-                    Close
-                </Button>
-                <Button color="primary" type="button">
-                    Add
-                </Button>
-            </ModalFooter>
-        </Modal>
     </>)
 }
 
-Roll.layout = Admin
+RollFront.layout = Admin
 
-export default Roll
+export default RollFront
