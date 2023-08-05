@@ -64,6 +64,8 @@ function Charge() {
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Symbol</th>
+                                <th scope="col">TXid</th>
+                                <th scope="col">Creation date</th>
                                 <th scope="col"/>
                             </tr>
                             </thead>
@@ -88,6 +90,8 @@ function Charge() {
                                     </Media>
                                 </th>
                                 <td>...</td>
+                                <td>TXid</td>
+                                <td>1402/05/05</td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
@@ -120,6 +124,8 @@ function Charge() {
                                     </Media>
                                 </th>
                                 <td>...</td>
+                                <td>TXid</td>
+                                <td>1402/05/05</td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
@@ -150,6 +156,8 @@ function Charge() {
                                     </Media>
                                 </th>
                                 <td>...</td>
+                                <td>TXid</td>
+                                <td>1402/05/05</td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
@@ -182,6 +190,8 @@ function Charge() {
                                     </Media>
                                 </th>
                                 <td>...</td>
+                                <td>TXid</td>
+                                <td>1402/05/05</td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
@@ -214,6 +224,8 @@ function Charge() {
                                     </Media>
                                 </th>
                                 <td>...</td>
+                                <td>TXid</td>
+                                <td>1402/05/05</td>
                                 <td className="text-right">
                                     <Button
                                         size="sm"
