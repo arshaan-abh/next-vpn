@@ -6,6 +6,12 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/roll",
+    name: "Roll",
+    icon: "ni ni-circle-08 text-green",
+    layout: "/admin",
+  },
+  {
     path: "/users",
     name: "Users",
     icon: "ni ni-single-02 text-yellow",
