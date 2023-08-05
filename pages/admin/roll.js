@@ -30,7 +30,6 @@ import vue from "/assets/img/theme/vue.jpg"
 
 function Roll() {
     const [modalOpen, setModalOpen] = useState(false);
-    const [newArchStatus, setNewArchStatus] = useState("Enable");
 
     return (<>
         <Header/>
@@ -256,12 +255,12 @@ function Roll() {
             <ModalBody>
                 <Form>
                     <FormGroup className="mb-0">
-                        <label className="form-control-label" htmlFor="arch-name">
+                        <label className="form-control-label" htmlFor="roll-name">
                             Name
                         </label>
                         <Input
                             placeholder="Name here"
-                            id="arch-name"
+                            id="roll-name"
                             type="text">
                         </Input>
                     </FormGroup>
