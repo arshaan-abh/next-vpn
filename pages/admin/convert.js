@@ -190,12 +190,12 @@ function Convert() {
                         </Input>
                     </FormGroup>
                     <FormGroup className="flex gap-4 items-center mb-0">
-                        buy
+                        Buy
                         <label className="custom-toggle mb-0">
                             <input defaultChecked type="checkbox"></input>
                             <span className="custom-toggle-slider rounded-circle"></span>
                         </label>
-                        sell
+                        Sell
                     </FormGroup>
                 </Form>
             </ModalBody>
