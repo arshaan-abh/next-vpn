@@ -13,11 +13,8 @@ import {
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
-import {useRouter} from "next/router"
 
-function Exchange() {
-    const router = useRouter()
-
+function ExchangeVersion() {
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
@@ -25,7 +22,7 @@ function Exchange() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Exchange</h3>
+                            <h3 className="mb-0">Exchange Version</h3>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -49,7 +46,6 @@ function Exchange() {
                                         color="info"
                                         type="button"
                                         onClick={() => {
-                                            router.push("/admin/exchangeVersion")
                                         }}>
                                         Version
                                     </Button>
@@ -65,7 +61,6 @@ function Exchange() {
                                         color="info"
                                         type="button"
                                         onClick={() => {
-                                            router.push("/admin/exchangeVersion")
                                         }}>
                                         Version
                                     </Button>
@@ -81,7 +76,6 @@ function Exchange() {
                                         color="info"
                                         type="button"
                                         onClick={() => {
-                                            router.push("/admin/exchangeVersion")
                                         }}>
                                         Version
                                     </Button>
@@ -97,7 +91,6 @@ function Exchange() {
                                         color="info"
                                         type="button"
                                         onClick={() => {
-                                            router.push("/admin/exchangeVersion")
                                         }}>
                                         Version
                                     </Button>
@@ -113,7 +106,6 @@ function Exchange() {
                                         color="info"
                                         type="button"
                                         onClick={() => {
-                                            router.push("/admin/exchangeVersion")
                                         }}>
                                         Version
                                     </Button>
@@ -177,6 +169,6 @@ function Exchange() {
     </>)
 }
 
-Exchange.layout = Admin
+ExchangeVersion.layout = Admin
 
-export default Exchange
+export default ExchangeVersion
