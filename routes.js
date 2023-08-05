@@ -30,6 +30,12 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/chargeAdmin",
+    name: "Charge Admin",
+    icon: "ni ni-check-bold text-teal",
+    layout: "/admin",
+  },
+  {
     path: "/vpnList",
     name: "Vpn list",
     icon: "ni ni-lock-circle-open text-indigo",
