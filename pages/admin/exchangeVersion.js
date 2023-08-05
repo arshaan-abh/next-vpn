@@ -1,10 +1,16 @@
-import React from "react"
+import React, {useState} from "react"
 import {
     Button,
     Card,
     CardFooter,
     CardHeader,
     Container,
+    Form,
+    FormGroup,
+    Input,
+    Modal,
+    ModalBody,
+    ModalFooter,
     Pagination,
     PaginationItem,
     PaginationLink,
@@ -15,6 +21,8 @@ import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
 
 function ExchangeVersion() {
+    const [modalOpen, setModalOpen] = useState(false)
+
     return (<>
         <Header/>
         <Container className="mt--7" fluid>
@@ -23,6 +31,10 @@ function ExchangeVersion() {
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
                             <h3 className="mb-0">Exchange Version</h3>
+                            <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
+                                <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
+                                <span className="btn-inner--text">Add Exchange Version</span>
+                            </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
                             </Button>
@@ -32,84 +44,28 @@ function ExchangeVersion() {
                             <tr>
                                 <th scope="col">From</th>
                                 <th scope="col">To</th>
-                                <th scope="col"/>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             </tbody>
                         </Table>
@@ -166,6 +122,55 @@ function ExchangeVersion() {
                 </div>
             </Row>
         </Container>
+        <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
+            <div className="modal-header">
+                <h3>
+                    Add exchange version
+                </h3>
+                <button
+                    aria-label="Close"
+                    className="close"
+                    type="button"
+                    onClick={() => setModalOpen(!modalOpen)}>
+                    <span aria-hidden={true}>×</span>
+                </button>
+            </div>
+            <ModalBody>
+                <Form>
+                    <FormGroup>
+                        <label className="form-control-label" htmlFor="exchange-version-from">
+                            From
+                        </label>
+                        <Input
+                            placeholder="Name here"
+                            id="exchange-version"
+                            type="text">
+                        </Input>
+                    </FormGroup>
+                    <FormGroup className="mb-0">
+                        <label className="form-control-label" htmlFor="exchange-version-to">
+                            To
+                        </label>
+                        <Input
+                            placeholder="Symbol here"
+                            id="exchange-version-to"
+                            type="text">
+                        </Input>
+                    </FormGroup>
+                </Form>
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="secondary"
+                    type="button"
+                    onClick={() => setModalOpen(!modalOpen)}>
+                    Close
+                </Button>
+                <Button color="primary" type="button">
+                    Add
+                </Button>
+            </ModalFooter>
+        </Modal>
     </>)
 }
 
