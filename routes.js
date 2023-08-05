@@ -53,6 +53,12 @@ var routes = [
     icon: "ni ni-align-center text-purple",
     layout: "/admin",
   },
+  {
+    path: "/reportsAdmin",
+    name: "Reports Admin",
+    icon: "ni ni-align-center text-pink",
+    layout: "/admin",
+  },
   // {
   //   path: "/support",
   //   name: "Support",
