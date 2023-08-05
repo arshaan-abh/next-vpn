@@ -5,6 +5,9 @@ import {
     CardFooter,
     CardHeader,
     Container,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
     Form,
     FormGroup,
     Input,
@@ -16,12 +19,15 @@ import {
     PaginationLink,
     Row,
     Table,
+    UncontrolledDropdown,
 } from "reactstrap"
 import Admin from "/layouts/Admin.js"
 import Header from "/components/Headers/Header.js"
 
-function ExchangeVersion() {
+function Convert() {
     const [modalOpen, setModalOpen] = useState(false)
+    const coins = ["BNB", "BTC", "ZED", "USDT"]
+    const [btcUsdtStatus, setBtcUsdtStatus] = useState(coins[0])
 
     return (<>
         <Header/>
@@ -30,10 +36,10 @@ function ExchangeVersion() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Exchange Version</h3>
+                            <h3 className="mb-0">Convert</h3>
                             <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
                                 <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                <span className="btn-inner--text">Add Exchange Version</span>
+                                <span className="btn-inner--text">Convert</span>
                             </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
@@ -42,29 +48,41 @@ function ExchangeVersion() {
                         <Table className="align-items-center table-flush" responsive>
                             <thead className="thead-light">
                             <tr>
-                                <th scope="col">From Crypto</th>
-                                <th scope="col">To Crypto</th>
+                                <th scope="col">From crypto</th>
+                                <th scope="col">To crypto</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Creation date</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>TXid</td>
+                                <td>BNB</td>
+                                <td>BTC</td>
+                                <td>24,673,000</td>
                                 <td>1402/05/05</td>
                             </tr>
                             <tr>
-                                <td>TXid</td>
+                                <td>BNB</td>
+                                <td>BTC</td>
+                                <td>24,673,000</td>
                                 <td>1402/05/05</td>
                             </tr>
                             <tr>
-                                <td>TXid</td>
+                                <td>BNB</td>
+                                <td>BTC</td>
+                                <td>24,673,000</td>
                                 <td>1402/05/05</td>
                             </tr>
                             <tr>
-                                <td>TXid</td>
+                                <td>BNB</td>
+                                <td>BTC</td>
+                                <td>24,673,000</td>
                                 <td>1402/05/05</td>
                             </tr>
                             <tr>
-                                <td>TXid</td>
+                                <td>BNB</td>
+                                <td>BTC</td>
+                                <td>24,673,000</td>
                                 <td>1402/05/05</td>
                             </tr>
                             </tbody>
@@ -125,7 +143,7 @@ function ExchangeVersion() {
         <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered>
             <div className="modal-header">
                 <h3>
-                    Add exchange version
+                    Convert
                 </h3>
                 <button
                     aria-label="Close"
@@ -137,25 +155,47 @@ function ExchangeVersion() {
             </div>
             <ModalBody>
                 <Form>
+                    <FormGroup className="flex gap-4 items-center">
+                        <label className="form-control-label mb-0" htmlFor="BTC-USDT">
+                            BTC/USDT
+                        </label>
+                        <UncontrolledDropdown>
+                            <DropdownToggle
+                                caret
+                                color="secondary"
+                                id="BTC-USDT"
+                                type="button">
+                                {btcUsdtStatus}
+                            </DropdownToggle>
+                            <DropdownMenu aria-labelledby="arch-status">
+                                {coins.map((coin) =>
+                                    <DropdownItem href="#pablo" onClick={(e) => {
+                                        e.preventDefault()
+                                        setBtcUsdtStatus(coin)
+                                    }}>
+                                        {coin}
+                                    </DropdownItem>
+                                )}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+                    </FormGroup>
                     <FormGroup>
-                        <label className="form-control-label" htmlFor="exchange-version-to">
-                            To Crypto
+                        <label className="form-control-label" htmlFor="convert-amount">
+                            Amount
                         </label>
                         <Input
-                            placeholder="To"
-                            id="exchange-version-to"
+                            placeholder="Amount here"
+                            id="convert-amount"
                             type="text">
                         </Input>
                     </FormGroup>
-                    <FormGroup className="mb-0">
-                        <label className="form-control-label" htmlFor="exchange-version-from">
-                            From Crypto
+                    <FormGroup className="flex gap-4 items-center mb-0">
+                        buy
+                        <label className="custom-toggle mb-0">
+                            <input defaultChecked type="checkbox"></input>
+                            <span className="custom-toggle-slider rounded-circle"></span>
                         </label>
-                        <Input
-                            placeholder="From"
-                            id="exchange-version"
-                            type="text">
-                        </Input>
+                        sell
                     </FormGroup>
                 </Form>
             </ModalBody>
@@ -167,13 +207,13 @@ function ExchangeVersion() {
                     Close
                 </Button>
                 <Button color="primary" type="button">
-                    Add
+                    Convert
                 </Button>
             </ModalFooter>
         </Modal>
     </>)
 }
 
-ExchangeVersion.layout = Admin
+Convert.layout = Admin
 
-export default ExchangeVersion
+export default Convert

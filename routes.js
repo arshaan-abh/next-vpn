@@ -36,6 +36,12 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/convert",
+    name: "Convert",
+    icon: "ni ni ni-shop text-red",
+    layout: "/admin",
+  },
+  {
     path: "/exchange",
     name: "Exchange",
     icon: "ni ni-money-coins text-cyan",
