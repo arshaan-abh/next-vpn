@@ -6,7 +6,7 @@ import SeoHead from "../components/Landing/SeoHead"
 
 export default function Index() {
     return (<>
-        <SeoHead title="LaslesVPN Landing Page"/>
+        <SeoHead title="Argon VPN - Fast And Secure"/>
         <Layout>
             <Hero/>
             <Feature/>

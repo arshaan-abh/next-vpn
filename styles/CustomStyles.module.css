@@ -1,0 +1,12 @@
+.header {
+	background-color: #ffffff;
+	transition-property: background-color, padding;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.header.stick {
+	padding-top: 0;
+	background-color: #ffffff88;
+	backdrop-filter: blur(5px);
+}
