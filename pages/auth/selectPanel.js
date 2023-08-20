@@ -54,7 +54,7 @@ function SelectPanel() {
                                 className="my-4"
                                 color="primary"
                                 type="button"
-                                onClick={() => router.push("/admin/dashboard")}>
+                                onClick={() => router.push("/panel")}>
                                 Sign in
                             </Button>
                         </FormGroup>

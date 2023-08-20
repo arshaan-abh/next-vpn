@@ -1,6 +1,6 @@
 import React from "react"
 import {Button, Card, CardBody, CardHeader, Col, Container, Input, Modal, Row} from "reactstrap"
-import Admin from "/layouts/Admin.js"
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js"
 import Image from "next/future/image"
 import vpn from "/public/assets/vpn-config.jpg"
@@ -104,6 +104,6 @@ const Payment = () => {
     </>)
 }
 
-Payment.layout = Admin
+Payment.layout = User;
 
 export default Payment

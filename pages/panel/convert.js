@@ -21,7 +21,7 @@ import {
     Table,
     UncontrolledDropdown,
 } from "reactstrap"
-import Admin from "/layouts/Admin.js"
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js"
 
 function Convert() {
@@ -214,6 +214,6 @@ function Convert() {
     </>)
 }
 
-Convert.layout = Admin
+Convert.layout = User;
 
 export default Convert

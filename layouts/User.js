@@ -1,16 +1,17 @@
 import React from "react";
 import { useRouter } from "next/router";
 // core components
-import AdminNavbar from "/components/Navbars/AdminNavbar.js";
-import AdminSidebar from "/components/Sidebar/AdminSidebar.js";
+import UserNavbar from "/components/Navbars/UserNavbar.js";
+import UserSidebar from "/components/Sidebar/UserSidebar.js";
 import logo from "/assets/img/brand/nextjs_argon_black.png";
 
 import routes from "/routes.js";
 
-function Admin(props) {
+function User(props) {
 	// used for checking current route
 	const router = useRouter();
 	let mainContentRef = React.createRef();
+
 	React.useEffect(() => {
 		document.documentElement.scrollTop = 0;
 		document.scrollingElement.scrollTop = 0;
@@ -19,21 +20,21 @@ function Admin(props) {
 
 	return (
 		<div className="not-landing">
-			<AdminSidebar
+			<UserSidebar
 				{...props}
 				routes={routes}
 				logo={{
-					innerLink: "/panel/admin",
+					innerLink: "/panel",
 					imgSrc: logo,
 					imgAlt: "...",
 				}}
 			/>
 			<div className="main-content" ref={mainContentRef}>
-				<AdminNavbar {...props} brandText="Admin Dashboard" />
+				<UserNavbar {...props} brandText="User Dashboard" />
 				{props.children}
 			</div>
 		</div>
 	);
 }
 
-export default Admin;
+export default User;

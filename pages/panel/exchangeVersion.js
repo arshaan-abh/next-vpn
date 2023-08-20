@@ -5,11 +5,9 @@ import {
     CardFooter,
     CardHeader,
     Container,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
     Form,
     FormGroup,
+    Input,
     Modal,
     ModalBody,
     ModalFooter,
@@ -18,18 +16,12 @@ import {
     PaginationLink,
     Row,
     Table,
-    UncontrolledDropdown,
 } from "reactstrap"
-import Admin from "/layouts/Admin.js"
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js"
-import {useRouter} from "next/router"
 
-function Exchange() {
-    const router = useRouter()
+function ExchangeVersion() {
     const [modalOpen, setModalOpen] = useState(false)
-    const coins = ["BNB", "BTC", "ZED", "USDT"]
-    const [FromCryptoStatus, setFromCryptoStatus] = useState(coins[0])
-    const [ToCryptoStatus, setToCryptoStatus] = useState(coins[1])
 
     return (<>
         <Header/>
@@ -38,10 +30,10 @@ function Exchange() {
                 <div className="col">
                     <Card className="shadow">
                         <CardHeader className="border-0 flex items-center gap-4">
-                            <h3 className="mb-0">Exchange</h3>
+                            <h3 className="mb-0">Exchange Version</h3>
                             <Button color="primary" size="sm" onClick={() => setModalOpen(!modalOpen)}>
                                 <span className="btn-inner--icon"><i className="ni ni-fat-add"></i></span>
-                                <span className="btn-inner--text">Crypto</span>
+                                <span className="btn-inner--text">Add Exchange Version</span>
                             </Button>
                             <Button className="btn-icon ml-lg-auto" color="primary" size="sm">
                                 <i className="fas fa-search"></i>
@@ -52,89 +44,28 @@ function Exchange() {
                             <tr>
                                 <th scope="col">From Crypto</th>
                                 <th scope="col">To Crypto</th>
-                                <th scope="col"/>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                            router.push("/admin/exchangeVersion")
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                            router.push("/admin/exchangeVersion")
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                            router.push("/admin/exchangeVersion")
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                            router.push("/admin/exchangeVersion")
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             <tr>
                                 <td>TXid</td>
                                 <td>1402/05/05</td>
-                                <td className="text-right">
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        color="info"
-                                        type="button"
-                                        onClick={() => {
-                                            router.push("/admin/exchangeVersion")
-                                        }}>
-                                        Version
-                                    </Button>
-                                </td>
                             </tr>
                             </tbody>
                         </Table>
@@ -206,53 +137,25 @@ function Exchange() {
             </div>
             <ModalBody>
                 <Form>
-                    <FormGroup className="flex gap-4 items-center">
-                        <label className="form-control-label mb-0" htmlFor="from-crypto-status">
-                            From crypto
+                    <FormGroup>
+                        <label className="form-control-label" htmlFor="exchange-version-to">
+                            To Crypto
                         </label>
-                        <UncontrolledDropdown>
-                            <DropdownToggle
-                                caret
-                                color="secondary"
-                                id="from-crypto-status"
-                                type="button">
-                                {FromCryptoStatus}
-                            </DropdownToggle>
-                            <DropdownMenu aria-labelledby="arch-status">
-                                {coins.map((coin) =>
-                                    <DropdownItem href="#pablo" onClick={(e) => {
-                                        e.preventDefault()
-                                        setFromCryptoStatus(coin)
-                                    }}>
-                                        {coin}
-                                    </DropdownItem>
-                                )}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
+                        <Input
+                            placeholder="To"
+                            id="exchange-version-to"
+                            type="text">
+                        </Input>
                     </FormGroup>
-                    <FormGroup className="flex gap-4 items-center mb-0">
-                        <label className="form-control-label mb-0" htmlFor="to-crypto-status">
-                            To crypto
+                    <FormGroup className="mb-0">
+                        <label className="form-control-label" htmlFor="exchange-version-from">
+                            From Crypto
                         </label>
-                        <UncontrolledDropdown>
-                            <DropdownToggle
-                                caret
-                                color="secondary"
-                                id="to-crypto-status"
-                                type="button">
-                                {ToCryptoStatus}
-                            </DropdownToggle>
-                            <DropdownMenu aria-labelledby="arch-status">
-                                {coins.map((coin) =>
-                                    <DropdownItem href="#pablo" onClick={(e) => {
-                                        e.preventDefault()
-                                        setToCryptoStatus(coin)
-                                    }}>
-                                        {coin}
-                                    </DropdownItem>
-                                )}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
+                        <Input
+                            placeholder="From"
+                            id="exchange-version"
+                            type="text">
+                        </Input>
                     </FormGroup>
                 </Form>
             </ModalBody>
@@ -271,6 +174,6 @@ function Exchange() {
     </>)
 }
 
-Exchange.layout = Admin
+ExchangeVersion.layout = User;
 
-export default Exchange
+export default ExchangeVersion

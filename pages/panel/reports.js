@@ -18,7 +18,7 @@ import {
     Table,
     UncontrolledDropdown,
 } from "reactstrap"
-import Admin from "/layouts/Admin.js"
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js"
 import Image from "next/future/image"
 import bootstrap from "/assets/img/theme/bootstrap.jpg"
@@ -388,6 +388,6 @@ function Reports() {
     </>)
 }
 
-Reports.layout = Admin
+Reports.layout = User
 
 export default Reports

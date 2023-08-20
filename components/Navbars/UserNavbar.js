@@ -14,12 +14,12 @@ import {
 import Image from "next/future/image";
 import team from "/assets/img/theme/team-4-800x800.jpg";
 
-function AdminNavbar({ brandText }) {
-  return (
+function UserNavbar({ brandText }) {
+	return (
 		<>
 			<Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
 				<Container fluid>
-					<Link href="/panel/admin">
+					<Link href="/panel">
 						<a className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">
 							{brandText}
 						</a>
@@ -38,7 +38,7 @@ function AdminNavbar({ brandText }) {
 									</Media>
 								</Media>
 							</DropdownToggle>
-							<DropdownMenu className="dropdown-menu-arrow text-white" right>
+							<DropdownMenu className="dropdown-menu-arrow" right>
 								<DropdownItem className="noti-title" header tag="div">
 									<h6 className="text-overflow m-0">Welcome!</h6>
 								</DropdownItem>
@@ -80,4 +80,4 @@ function AdminNavbar({ brandText }) {
 	);
 }
 
-export default AdminNavbar;
+export default UserNavbar;

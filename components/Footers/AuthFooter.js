@@ -13,7 +13,7 @@ function Login() {
             <Col xl="6">
               <div className="copyright text-center text-xl-left text-muted">
                 © {new Date().getFullYear()}{" "}
-                Arshaan
+                Argon VPN
               </div>
             </Col>
             <Col xl="6">

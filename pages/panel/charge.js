@@ -22,7 +22,7 @@ import {
     Table,
     UncontrolledDropdown,
 } from "reactstrap"
-import Admin from "/layouts/Admin.js"
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js"
 import Image from "next/future/image"
 import bootstrap from "/assets/img/theme/bootstrap.jpg"
@@ -412,6 +412,6 @@ function Charge() {
     </>)
 }
 
-Charge.layout = Admin
+Charge.layout = User;
 
 export default Charge
