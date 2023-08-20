@@ -8,6 +8,7 @@ interface Props {
 	placeholder?: string;
 	label: string;
 	labelShrink?: boolean;
+	disabled?: boolean;
 	formik: FormikProps<any>;
 }
 
@@ -17,6 +18,7 @@ export default function TextInput({
 	placeholder,
 	label,
 	labelShrink,
+	disabled = false,
 	formik,
 }: Props) {
 	const error =
@@ -28,6 +30,7 @@ export default function TextInput({
 
 	return (
 		<TextField
+			disabled={disabled}
 			className={className}
 			InputLabelProps={{ shrink: labelShrink }}
 			variant="outlined"

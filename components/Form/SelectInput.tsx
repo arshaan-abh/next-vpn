@@ -11,7 +11,8 @@ interface Props {
 	fieldName: string;
 	placeholder?: string;
 	label: string;
-	options: { name: string; value: string | undefined }[];
+	options: string[];
+	labelShrink?: boolean;
 	formik: FormikProps<any>;
 }
 
@@ -21,6 +22,7 @@ export default function SelectInput({
 	placeholder,
 	label,
 	options,
+	labelShrink = false,
 	formik,
 }: Props) {
 	const value = getIn(formik.values, fieldName);
@@ -39,7 +41,7 @@ export default function SelectInput({
 
 	return (
 		<FormControl className={className} variant="outlined" fullWidth>
-			<InputLabel error={error} id={`${fieldName}-label`}>
+			<InputLabel shrink={labelShrink} error={error} id={`${fieldName}-label`}>
 				{label}
 			</InputLabel>
 			<Select
@@ -56,8 +58,8 @@ export default function SelectInput({
 				</MenuItem>
 				{options.map((item, index) => {
 					return (
-						<MenuItem key={index} value={item.value}>
-							{item.name}
+						<MenuItem key={index} value={item}>
+							{item}
 						</MenuItem>
 					); // Add key prop for each MenuItem
 				})}
