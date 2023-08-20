@@ -10,6 +10,8 @@ interface Props {
 	className?: string;
 	fieldName: string;
 	label: string;
+	link?: string;
+	linkName?: string;
 	formik: FormikProps<any>;
 }
 
@@ -17,6 +19,8 @@ export default function CheckInput({
 	className = "",
 	fieldName,
 	label,
+	link,
+	linkName,
 	formik,
 }: Props) {
 	const value = getIn(formik.values, fieldName);
@@ -43,7 +47,19 @@ export default function CheckInput({
 							name={fieldName}
 						/>
 					}
-					label={label}
+					label={
+						<>
+							{label}{" "}
+							{link ? (
+								<a
+									href={link}
+									className="text-blue-500 text-underline cursor-pointer"
+								>
+									{linkName}
+								</a>
+							) : null}
+						</>
+					}
 				/>
 			</FormGroup>
 			{error && (

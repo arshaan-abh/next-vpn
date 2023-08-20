@@ -6,6 +6,27 @@
 	height: inherit;
 }
 
+body .MuiFormControl-root {
+	padding-top: 8px;
+}
+
+.MuiFormHelperText-root {
+	margin-left: 0;
+	font-size: 0.92rem !important;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-input,
+.MuiFilledInput-root .MuiFilledInput-input {
+	height: 48px;
+}
+
+.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-shrink {
+	top: -6px;
+	left: -12px;
+	font-size: 1.2rem;
+	font-weight: 500;
+}
+
 .MuiOutlinedInput-input:-webkit-autofill {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: #32325d;
@@ -21,7 +42,7 @@
 .MuiOutlinedInput-root.Mui-focused,
 .MuiFilledInput-root:hover {
 	background-color: #ffffff;
-	box-shadow: 0 4px 20px #5e72e488;
+	box-shadow: 0 4px 20px #5e72e455;
 }
 
 .MuiInputBase-multiline {
@@ -29,34 +50,34 @@
 }
 
 .splitinputcontrol {
-    margin: 25px 0;
+	margin: 25px 0;
 }
 
 .splitinputcontrol .splitinputlabel {
-    font-size: 1.1rem;
-    top: 0;
-    margin-bottom: -3px;
+	font-size: 1.1rem;
+	top: 0;
+	margin-bottom: -3px;
 }
 
 .splitinputcontrol .splitinputcontainer {
-    display: flex;
-    direction: ltr;
+	display: flex;
+	direction: ltr;
 }
 
 .splitinputcontrol .splitinputcontainer .splitinput {
-    flex: 1;
-    margin-right: 5px;
-    text-align: center;
+	flex: 1;
+	margin-right: 5px;
+	text-align: center;
 }
 
 .splitinputcontrol .splitinputcontainer .splitinput .MuiOutlinedInput-input {
-    padding: 0;
-    height: 34px;
-    text-align: center;
+	padding: 0;
+	height: 34px;
+	text-align: center;
 }
 
 .splitinputcontrol .splitinputcontainer .splitinput:last-child {
-    margin-right: 0;
+	margin-right: 0;
 }
 
 @media screen and (max-width: 800px) {

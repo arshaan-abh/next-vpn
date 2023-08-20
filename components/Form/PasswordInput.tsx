@@ -13,7 +13,7 @@ interface Props {
 	formik: FormikProps<any>;
 }
 
-export default function PasswordTextField({
+export default function PasswordInput({
 	className = "",
 	fieldName,
 	placeholder,

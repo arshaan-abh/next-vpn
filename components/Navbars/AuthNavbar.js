@@ -21,7 +21,7 @@ function AdminNavbar() {
 		<>
 			<Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
 				<Container className="px-4">
-					<Link href="/panel">
+					<Link href="/">
 						<span className="font-zero">
 							<NavbarBrand href="#pablo">
 								<Image alt="..." src={logo} />
@@ -57,30 +57,22 @@ function AdminNavbar() {
 								</Link>
 							</NavItem>
 							<NavItem>
-								<Link href="/auth/register">
-									<NavLink href="#pablo" className="nav-link-icon">
-										<i className="ni ni-circle-08" />
-										<span className="nav-link-inner--text">Register</span>
-									</NavLink>
-								</Link>
+								<NavLink href="/auth/register" className="nav-link-icon">
+									<i className="ni ni-circle-08" />
+									<span className="nav-link-inner--text">Register</span>
+								</NavLink>
 							</NavItem>
 							<NavItem>
-								<Link href="/auth/login">
-									<NavLink href="#pablo" className="nav-link-icon">
-										<i className="ni ni-key-25" />
-										<span className="nav-link-inner--text">Login</span>
-									</NavLink>
-								</Link>
+								<NavLink href="/auth/login" className="nav-link-icon">
+									<i className="ni ni-key-25" />
+									<span className="nav-link-inner--text">Login</span>
+								</NavLink>
 							</NavItem>
 							<NavItem>
-								<Link href="/auth/forgetPassword">
-									<NavLink href="#pablo" className="nav-link-icon">
-										<i className="ni ni-lock-circle-open" />
-										<span className="nav-link-inner--text">
-											Forget Password
-										</span>
-									</NavLink>
-								</Link>
+								<NavLink href="/auth/forgotPassword" className="nav-link-icon">
+									<i className="ni ni-lock-circle-open" />
+									<span className="nav-link-inner--text">Forgot Password</span>
+								</NavLink>
 							</NavItem>
 						</Nav>
 					</UncontrolledCollapse>

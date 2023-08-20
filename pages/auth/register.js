@@ -1,105 +1,119 @@
 import * as React from "react";
 
+
 // reactstrap components
 import {
 	Button,
 	Card,
-	CardHeader,
 	CardBody,
-	FormGroup,
-	Form,
-	Input,
-	InputGroupAddon,
-	InputGroupText,
-	InputGroup,
-	Row,
 	Col,
 } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import CheckInput from "../../components/Form/CheckInput";
+import PasswordInput from "../../components/Form/PasswordInput";
+import TextInput from "../../components/Form/TextInput";
+
+const validationSchema = yup.object().shape({
+	name: yup.string()
+		.matches(
+			/^[A-Za-z\s]+$/,
+			"Name can only contain English letters and spaces"
+		)
+		.required("Name is required"),
+	email: yup
+		.string()
+		.email("Invalid email address")
+		.required("Email is required"),
+	password: yup
+		.string()
+		.matches(
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+			"Password must be at least 8 characters and include letters, numbers, and special characters"
+		)
+		.required("Password is required"),
+	agree: yup
+		.boolean()
+		.required("Please agree to our privary policy before continuing"),
+});
 
 function Register() {
+	const router = useRouter();
+
+	const formik = useFormik({
+		initialValues: {
+			name: "",
+			email: "",
+			password: "",
+			agree: false,
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			router.push("/auth/selectrole");
+		},
+	});
+
 	return (
 		<>
 			<Col lg="6" md="8">
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
-						<div className="text-center text-muted mb-4">
-							<small>Or sign up with credentials</small>
+						<div className="text-center font-bold text-lg text-slate-800 mb-5">
+							Sign up
 						</div>
-						<Form role="form">
-							<FormGroup>
-								<InputGroup className="input-group-alternative mb-3">
-									<InputGroupAddon addonType="prepend">
-										<InputGroupText>
-											<i className="ni ni-hat-3" />
-										</InputGroupText>
-									</InputGroupAddon>
-									<Input placeholder="Name" type="text" />
-								</InputGroup>
-							</FormGroup>
-							<FormGroup>
-								<InputGroup className="input-group-alternative mb-3">
-									<InputGroupAddon addonType="prepend">
-										<InputGroupText>
-											<i className="ni ni-email-83" />
-										</InputGroupText>
-									</InputGroupAddon>
-									<Input
-										placeholder="Email"
-										type="email"
-										autoComplete="new-email"
-									/>
-								</InputGroup>
-							</FormGroup>
-							<FormGroup>
-								<InputGroup className="input-group-alternative">
-									<InputGroupAddon addonType="prepend">
-										<InputGroupText>
-											<i className="ni ni-lock-circle-open" />
-										</InputGroupText>
-									</InputGroupAddon>
-									<Input
-										placeholder="Password"
-										type="password"
-										autoComplete="new-password"
-									/>
-								</InputGroup>
-							</FormGroup>
+						<form onSubmit={formik.handleSubmit}>
+							<TextInput
+								labelShrink
+								className="mb-4"
+								fieldName="name"
+								placeholder="Your name"
+								label="Name"
+								formik={formik}
+							/>
+
+							<TextInput
+								labelShrink
+								className="mb-4"
+								fieldName="email"
+								placeholder="Your email"
+								label="Email"
+								formik={formik}
+							/>
+
+							<PasswordInput
+								labelShrink
+								className="mb-4"
+								fieldName="password"
+								placeholder="Your password"
+								label="Password"
+								formik={formik}
+							/>
+
 							<div className="text-muted font-italic">
 								<small>
 									password strength:{" "}
 									<span className="text-success font-weight-700">strong</span>
 								</small>
 							</div>
-							<Row className="my-4">
-								<Col xs="12">
-									<div className="custom-control custom-control-alternative custom-checkbox">
-										<input
-											className="custom-control-input"
-											id="customCheckRegister"
-											type="checkbox"
-										/>
-										<label
-											className="custom-control-label"
-											htmlFor="customCheckRegister"
-										>
-											<span className="text-muted">
-												I agree with the{" "}
-												<a href="#pablo" onClick={(e) => e.preventDefault()}>
-													Privacy Policy
-												</a>
-											</span>
-										</label>
-									</div>
-								</Col>
-							</Row>
+
+							<CheckInput
+								className="my-2"
+								fieldName="agree"
+								label="Agree with our"
+								link="/"
+								linkName="privacy policy"
+								formik={formik}
+							/>
+
 							<div className="text-center">
-								<Button className="mt-4" color="primary" type="button">
+								<Button className="mt-4" color="primary" type="submit">
 									Create account
 								</Button>
 							</div>
-						</Form>
+						</form>
 					</CardBody>
 				</Card>
 			</Col>

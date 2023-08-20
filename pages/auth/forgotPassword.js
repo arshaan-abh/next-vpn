@@ -1,15 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { Button, Card, CardBody, Col, Form, Row } from "reactstrap";
+import Auth from "/layouts/Auth.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
-// reactstrap components
-import { Button, Card, CardBody, Row, Col } from "reactstrap";
-// layout for this page
-import Auth from "/layouts/Auth.js";
-import { useRouter } from "next/router";
-import CheckInput from "../../components/Form/CheckInput";
-import PasswordInput from "../../components/Form/PasswordInput";
 import TextInput from "../../components/Form/TextInput";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 const validationSchema = yup.object().shape({
@@ -17,17 +12,9 @@ const validationSchema = yup.object().shape({
 		.string()
 		.email("Invalid email address")
 		.required("Email is required"),
-	password: yup
-		.string()
-		.matches(
-			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-			"Password must be at least 8 characters and include letters, numbers, and special characters"
-		)
-		.required("Password is required"),
-	rememberme: yup.boolean(),
 });
 
-function Login() {
+function ForgotPassword() {
 	const router = useRouter();
 
 	const formik = useFormik({
@@ -47,8 +34,8 @@ function Login() {
 			<Col lg="5" md="7">
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
-						<div className="text-center font-bold text-lg text-slate-800 mb-5">
-							Sign in
+						<div className="text-center font-bold text-sm text-slate-800 mb-5">
+							Enter your email in order to reset your password
 						</div>
 						<form onSubmit={formik.handleSubmit}>
 							<TextInput
@@ -59,26 +46,9 @@ function Login() {
 								label="Email"
 								formik={formik}
 							/>
-
-							<PasswordInput
-								labelShrink
-								className="mb-2"
-								fieldName="password"
-								placeholder="Your password"
-								label="Password"
-								formik={formik}
-							/>
-
-							<CheckInput
-								className="mb-4"
-								fieldName="rememberme"
-								label="Remember me"
-								formik={formik}
-							/>
-
 							<div className="text-center">
-								<Button color="primary" type="submit">
-									Sign in
+								<Button className="my-4" color="primary" type="submit">
+									Send code
 								</Button>
 							</div>
 						</form>
@@ -88,16 +58,16 @@ function Login() {
 					<Col xs="6">
 						<Link
 							className="text-light"
-							href="/auth/forgotPassword"
+							href="/auth/login"
 							onClick={(e) => e.preventDefault()}
 						>
-							<small>Forgot password?</small>
+							<small>go back to login</small>
 						</Link>
 					</Col>
 					<Col className="text-right" xs="6">
 						<Link
 							className="text-light"
-							href="#pablo"
+							href="/auth/register"
 							onClick={(e) => e.preventDefault()}
 						>
 							<small>Create new account</small>
@@ -109,6 +79,6 @@ function Login() {
 	);
 }
 
-Login.layout = Auth;
+ForgetPassword.layout = Auth;
 
-export default Login;
+export default ForgotPassword;

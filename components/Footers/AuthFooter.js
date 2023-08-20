@@ -12,7 +12,7 @@ function Login() {
 					<Row className="align-items-center justify-content-xl-between">
 						<Col xl="6">
 							<div className="copyright text-center text-xl-left text-muted">
-								© {new Date().getFullYear()} Argon VPN
+								© {new Date().getFullYear()} Aragon VPN
 							</div>
 						</Col>
 						<Col xl="6">
