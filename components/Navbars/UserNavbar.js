@@ -1,15 +1,15 @@
-import React from "react";
+import * as React from "react";
 import Link from "next/link";
 // reactstrap components
 import {
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Navbar,
-  Nav,
-  Container,
-  Media,
+	DropdownMenu,
+	DropdownItem,
+	UncontrolledDropdown,
+	DropdownToggle,
+	Navbar,
+	Nav,
+	Container,
+	Media,
 } from "reactstrap";
 import Image from "next/future/image";
 import team from "/assets/img/theme/team-4-800x800.jpg";

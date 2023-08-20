@@ -1,0 +1,66 @@
+.MuiOutlinedInput-root,
+.MuiFilledInput-root {
+	border-radius: 5px;
+	transition: 150ms;
+	background-color: #f1f1f1;
+	height: inherit;
+}
+
+.MuiOutlinedInput-input:-webkit-autofill {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: #32325d;
+	transition: background-color 5000s ease-in-out 0s;
+	box-shadow: inset 0 0 20px 20px #f1f1f129;
+}
+
+.MuiOutlinedInput-notchedOutline {
+	display: none;
+}
+
+.MuiOutlinedInput-root:hover,
+.MuiOutlinedInput-root.Mui-focused,
+.MuiFilledInput-root:hover {
+	background-color: #ffffff;
+	box-shadow: 0 4px 20px #5e72e488;
+}
+
+.MuiInputBase-multiline {
+	padding-top: 10px;
+}
+
+.splitinputcontrol {
+    margin: 25px 0;
+}
+
+.splitinputcontrol .splitinputlabel {
+    font-size: 1.1rem;
+    top: 0;
+    margin-bottom: -3px;
+}
+
+.splitinputcontrol .splitinputcontainer {
+    display: flex;
+    direction: ltr;
+}
+
+.splitinputcontrol .splitinputcontainer .splitinput {
+    flex: 1;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.splitinputcontrol .splitinputcontainer .splitinput .MuiOutlinedInput-input {
+    padding: 0;
+    height: 34px;
+    text-align: center;
+}
+
+.splitinputcontrol .splitinputcontainer .splitinput:last-child {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 800px) {
+	.MuiOutlinedInput-root .MuiIconButton-root {
+		margin-left: -10px;
+	}
+}

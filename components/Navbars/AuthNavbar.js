@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Link from "next/link";
 // reactstrap components
 import {
@@ -13,8 +13,8 @@ import {
   Col,
 } from "reactstrap";
 import Image from "next/future/image";
-import logo from "/assets/img/brand/nextjs_argon_white.png";
-import logoBlack from "/assets/img/brand/nextjs_argon_black.png";
+import logo from "/assets/img/brand/nextjs_aragon_white.png";
+import logoBlack from "/assets/img/brand/nextjs_aragon_black.png";
 
 function AdminNavbar() {
   return (

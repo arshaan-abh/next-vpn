@@ -1,9 +1,9 @@
-import React from "react";
+import * as React from "react";
 import { useRouter } from "next/router";
 // core components
 import UserNavbar from "/components/Navbars/UserNavbar.js";
 import UserSidebar from "/components/Sidebar/UserSidebar.js";
-import logo from "/assets/img/brand/nextjs_argon_black.png";
+import logo from "/assets/img/brand/nextjs_aragon_black.png";
 
 import routes from "/routes.js";
 

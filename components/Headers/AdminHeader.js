@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";

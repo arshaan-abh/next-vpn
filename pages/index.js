@@ -5,12 +5,14 @@ import Layout from "../components/Landing/Layout/Layout"
 import SeoHead from "../components/Landing/SeoHead"
 
 export default function Index() {
-    return (<>
-        <SeoHead title="Argon VPN - Fast And Secure"/>
-        <Layout>
-            <Hero/>
-            <Feature/>
-            <Pricing/>
-        </Layout>
-    </>)
+    return (
+			<>
+				<SeoHead title="AragonVPN - Fast And Secure" />
+				<Layout>
+					<Hero />
+					<Feature />
+					<Pricing />
+				</Layout>
+			</>
+		);
 }

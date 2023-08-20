@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 // nodejs library to set properties for components
@@ -7,25 +7,25 @@ import { PropTypes } from "prop-types";
 
 // reactstrap components
 import {
-  Collapse,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Media,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  Row,
-  Col,
+	Collapse,
+	DropdownMenu,
+	DropdownItem,
+	UncontrolledDropdown,
+	DropdownToggle,
+	Form,
+	Input,
+	InputGroupAddon,
+	InputGroupText,
+	InputGroup,
+	Media,
+	NavbarBrand,
+	Navbar,
+	NavItem,
+	NavLink,
+	Nav,
+	Container,
+	Row,
+	Col,
 } from "reactstrap";
 import Image from "next/future/image";
 import team from "/assets/img/theme/team-1-800x800.jpg";
@@ -70,7 +70,7 @@ function UserSidebar(props) {
 	};
 	const { routes, logo } = props;
 	let navbarBrand = (
-		<NavbarBrand href="#pablo" className="pt-0">
+		<NavbarBrand href="#pablo" className="pt-0 ml--1">
 			{/* todo update project */}
 			{/* todo solve this warning */}
 			<Image

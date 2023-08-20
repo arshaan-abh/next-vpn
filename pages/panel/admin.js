@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -7,54 +7,53 @@ import Chart from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
-  Container,
-  Row,
-  Col,
+	Button,
+	Card,
+	CardHeader,
+	CardBody,
+	NavItem,
+	NavLink,
+	Nav,
+	Progress,
+	Table,
+	Container,
+	Row,
+	Col,
 } from "reactstrap";
 // layout for this page
 import Admin from "/layouts/Admin.js";
 // core components
 import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2,
+	chartOptions,
+	parseOptions,
+	chartExample1,
+	chartExample2,
 } from "/variables/charts.js";
 
 import Header from "/components/Headers/Header.js";
 
 const Dashboard = (props) => {
-  const [activeNav, setActiveNav] = React.useState(1);
-  const [chartExample1Data, setChartExample1Data] = React.useState("data1");
+	const [activeNav, setActiveNav] = React.useState(1);
+	const [chartExample1Data, setChartExample1Data] = React.useState("data1");
 
-  if (typeof window !== "undefined") {
-    if (window.Chart) {
-      parseOptions(Chart, chartOptions());
-    }
-  }
+	if (typeof window !== "undefined") {
+		if (window.Chart) {
+			parseOptions(Chart, chartOptions());
+		}
+	}
 
-  const toggleNavs = (e, index) => {
-    e.preventDefault();
-    setActiveNav(index);
-    setChartExample1Data("data" + index);
-  };
-  return (
-    <>
-      <Header />
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-      </Container>
-    </>
-  );
+	const toggleNavs = (e, index) => {
+		e.preventDefault();
+		setActiveNav(index);
+		setChartExample1Data("data" + index);
+	};
+	return (
+		<>
+			<Header />
+			{/* Page content */}
+			<Container className="mt--7" fluid></Container>
+		</>
+	);
 };
 
 Dashboard.layout = Admin;

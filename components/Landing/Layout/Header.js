@@ -3,9 +3,9 @@ import Link from "next/link";
 // Import react scroll
 import { Link as LinkScroll } from "react-scroll";
 import ButtonOutlined from "../misc/ButtonOutlined";
-import LogoVPN from "../../../public/assets/Logo.svg";
 import styles from "../../../styles/CustomStyles.module.css";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Header = () => {
 	const [activeLink, setActiveLink] = useState(null);
@@ -28,7 +28,12 @@ const Header = () => {
 			>
 				<nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
 					<div className="col-start-1 col-end-2 flex items-center">
-						<LogoVPN className="h-8 w-auto" />
+						<Image
+							src="/assets/logo.svg"
+							alt="logo"
+							height={40}
+							width={180}
+						/>
 					</div>
 					<ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
 						{/* todo Image with src "/_next/static/media/nextjs_argon_white.c7309394.png" has either width or height modified, but not the other */}

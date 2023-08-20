@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 // nodejs library to set properties for components
@@ -69,7 +69,7 @@ function AdminSidebar(props) {
 
 	const { routes, logo } = props;
 	let navbarBrand = (
-		<NavbarBrand href="#pablo" className="pt-0">
+		<NavbarBrand href="#pablo" className="pt-0 ml--1">
 			{/* todo update project */}
 			{/* todo solve this warning */}
 			<Image
