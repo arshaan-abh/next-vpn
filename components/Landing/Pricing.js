@@ -30,11 +30,11 @@ const Pricing = () => {
 							happily and cheerfully.
 						</motion.p>
 					</ScrollAnimationWrapper>
-					<div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-12 py-8 lg:py-12 px-6 sm:px-0 lg:px-6">
+					<div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 gap-0 px-0 sm:grid-cols-3 lg:gap-12 py-8 lg:py-12 sm:px-0 lg:px-6">
 						<ScrollAnimationWrapper className="flex justify-center">
 							<motion.div
 								variants={scrollAnimation}
-								className="flex flex-col justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
+								className="flex flex-col w-full mb-6 justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
 								whileHover={{
 									scale: 1.03,
 									transition: {
@@ -78,7 +78,7 @@ const Pricing = () => {
 						<ScrollAnimationWrapper className="flex justify-center">
 							<motion.div
 								variants={scrollAnimation}
-								className="flex flex-col justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
+								className="flex flex-col w-full mb-6 justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
 								whileHover={{
 									scale: 1.03,
 									transition: {
@@ -125,7 +125,7 @@ const Pricing = () => {
 						<ScrollAnimationWrapper className="flex justify-center">
 							<motion.div
 								variants={scrollAnimation}
-								className="flex flex-col justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
+								className="flex flex-col w-full mb-6 justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-12 xl:px-20"
 								whileHover={{
 									scale: 1.03,
 									transition: {

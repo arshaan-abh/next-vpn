@@ -3,6 +3,8 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import getScrollAnimation from "../../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper";
+import { Player } from "@lottiefiles/react-lottie-player";
+import styles from "../../styles/CustomStyles.module.css";
 
 const features = [
 	"Powerfull online protection.",
@@ -16,19 +18,20 @@ const Feature = () => {
 
 	return (
 		<div
-			className="max-w-screen-xl mt-8 mb-6 sm:mt-14 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
+			className="max-w-screen-xl mt-0 mb-6 sm:mt-8 sm:mb-8 px-6 sm:px-8 lg:px-16 mx-auto"
 			id="feature"
 		>
-			<div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-2 gap-8 p y-8 my-12">
+			<div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-2 gap-8 p y-8">
 				<ScrollAnimationWrapper className="flex w-full justify-end">
-					<motion.div className="h-full w-full p-4" variants={scrollAnimation}>
-						<Image
-							src="/assets/Illustration2.png"
-							alt="VPN Illustrasi"
-							layout="responsive"
-							quality={100}
-							height={414}
-							width={508}
+					<motion.div
+						className={`w-full relative overflow-hidden p-4 ${styles.playercontainer}`}
+						variants={scrollAnimation}
+					>
+						<Player
+							autoplay
+							loop
+							src="https://lottie.host/9a72a069-1b92-4602-85a8-3e8eb366dafc/dp4oSBJ62a.json"
+							className={styles.player}
 						/>
 					</motion.div>
 				</ScrollAnimationWrapper>

@@ -4,6 +4,8 @@ import ButtonPrimary from "/components/Landing/misc/ButtonPrimary";
 import { motion } from "framer-motion";
 import getScrollAnimation from "../../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper";
+import { Player } from "@lottiefiles/react-lottie-player";
+import styles from "../../styles/CustomStyles.module.css";
 
 const Hero = ({
 	listUser = [
@@ -44,14 +46,13 @@ const Hero = ({
 						<ButtonPrimary>Get Started</ButtonPrimary>
 					</div>
 					<div className="flex w-full">
-						<motion.div className="h-full w-full" variants={scrollAnimation}>
-							<Image
-								src="/assets/Illustration1.png"
-								alt="VPN Illustrasi"
-								quality={100}
-								width={612}
-								height={383}
-								layout="responsive"
+						<motion.div className="w-full relative overflow-hidden" variants={scrollAnimation}>
+							<Player
+								autoplay
+								loop
+								speed={0.5}
+								src="https://lottie.host/f3885260-73af-4018-a28f-0287afb5ba3c/pHOVeysWN1.json"
+								className={styles.player}
 							/>
 						</motion.div>
 					</div>
@@ -61,15 +62,20 @@ const Hero = ({
 				<ScrollAnimationWrapper className="rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10">
 					{listUser.map((listUsers, index) => (
 						<motion.div
-							className="flex items-center justify-start sm:justify-center py-8 sm:py-6 w-11/12 px-4 sm:w-auto mx-auto sm:mx-0"
+							className="flex items-center justify-start sm:justify-center pt-8 sm:py-6 w-11/12 px-4 sm:w-auto mx-auto sm:mx-0"
 							key={index}
 							custom={{ duration: 2 + index }}
 							variants={scrollAnimation}
 						>
 							<div className="flex mx-auto w-40 sm:w-auto">
 								<div className="flex items-center justify-center bg-orange-100 w-12 h-12 mr-6 rounded-full">
-									{/* todo turn all img tags to Image tags */}
-									<img src={listUsers.icon} className="h-6 w-6" alt="Icon" />
+									<Image
+										src={listUsers.icon}
+										width={24}
+										height={24}
+										className="h-6 w-6"
+										alt="Icon"
+									/>
 								</div>
 								<div className="flex flex-col">
 									<p className="text-xl text-black-600 font-bold">

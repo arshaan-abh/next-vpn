@@ -10,3 +10,21 @@
 	background-color: #ffffff88;
 	backdrop-filter: blur(5px);
 }
+
+.player {
+	width: 100%;
+	height: 100%;
+	margin: -20px 0;
+}
+
+@media screen and (max-width: 600px) {
+	.player {
+		margin-left: -55px !important;
+		width: calc(100% + 110px);
+		height: 100%;
+	}
+
+	.playercontainer {
+		margin-bottom: -80px;
+	}
+}
