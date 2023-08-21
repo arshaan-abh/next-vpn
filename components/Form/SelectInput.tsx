@@ -54,7 +54,7 @@ export default function SelectInput({
 				placeholder={placeholder ? placeholder : ""}
 			>
 				<MenuItem value="" disabled>
-					<em>انتخاب کنید</em>
+					<em>Choose an option</em>
 				</MenuItem>
 				{options.map((item, index) => {
 					return (

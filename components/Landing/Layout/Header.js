@@ -31,8 +31,8 @@ const Header = () => {
 						<Image
 							src="/assets/logo.svg"
 							alt="logo"
-							height={40}
-							width={180}
+							height={36}
+							width={160}
 						/>
 					</div>
 					<ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">

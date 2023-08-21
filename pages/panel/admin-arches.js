@@ -6,12 +6,6 @@ import {
 	CardFooter,
 	CardHeader,
 	Container,
-	DropdownItem,
-	DropdownMenu,
-	DropdownToggle,
-	Form,
-	FormGroup,
-	Input,
 	Media,
 	Modal,
 	ModalBody,
@@ -21,7 +15,6 @@ import {
 	PaginationLink,
 	Row,
 	Table,
-	UncontrolledDropdown,
 } from "reactstrap";
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
@@ -32,11 +25,45 @@ import sketch from "/assets/img/theme/sketch.jpg";
 import react from "/assets/img/theme/react.jpg";
 import vue from "/assets/img/theme/vue.jpg";
 import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import TextInput from "/components/Form/TextInput";
+import ToggleInput from "../../components/Form/ToggleInput";
+
+const validationSchema = yup.object().shape({
+	name: yup
+		.string()
+		.matches(
+			/^[A-Za-z\s]+$/,
+			"Name can only contain English letters and spaces"
+		)
+		.required("Name is required"),
+	symbol: yup
+		.string()
+		.matches(
+			/^[A-Za-z\s]+$/,
+			"Symbol can only contain English letters and spaces"
+		)
+		.required("Symbol is required"),
+	status: yup.string().required("Status is required"),
+});
 
 function Arches() {
 	const router = useRouter();
+
+	const formik = useFormik({
+		initialValues: {
+			name: "",
+			symbol: "",
+			status: "Enable",
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
+
 	const [modalOpen, setModalOpen] = useState(false);
-	const [newArchStatus, setNewArchStatus] = useState("Enable");
 
 	return (
 		<>
@@ -65,7 +92,7 @@ function Arches() {
 									<i className="fas fa-search"></i>
 								</Button>
 							</CardHeader>
-							<Table className="align-items-center table-flush" responsive>
+							<Table className="text-left table-flush" responsive>
 								<thead className="thead-light">
 									<tr>
 										<th scope="col">Name</th>
@@ -105,7 +132,7 @@ function Arches() {
 												outline
 												color="info"
 												type="button"
-												onClick={() => router.push("/admin/admin-archesCrypto")}
+												onClick={() => router.push("/panel/admin-archesCrypto")}
 											>
 												Crypto
 											</Button>
@@ -141,7 +168,7 @@ function Arches() {
 												outline
 												color="info"
 												type="button"
-												onClick={() => router.push("/admin/admin-archesCrypto")}
+												onClick={() => router.push("/panel/admin-archesCrypto")}
 											>
 												Crypto
 											</Button>
@@ -175,7 +202,7 @@ function Arches() {
 												outline
 												color="info"
 												type="button"
-												onClick={() => router.push("/admin/admin-archesCrypto")}
+												onClick={() => router.push("/panel/admin-archesCrypto")}
 											>
 												Crypto
 											</Button>
@@ -211,7 +238,7 @@ function Arches() {
 												outline
 												color="info"
 												type="button"
-												onClick={() => router.push("/admin/admin-archesCrypto")}
+												onClick={() => router.push("/panel/admin-archesCrypto")}
 											>
 												Crypto
 											</Button>
@@ -247,7 +274,7 @@ function Arches() {
 												outline
 												color="info"
 												type="button"
-												onClick={() => router.push("/admin/admin-archesCrypto")}
+												onClick={() => router.push("/panel/admin-archesCrypto")}
 											>
 												Crypto
 											</Button>
@@ -331,59 +358,31 @@ function Arches() {
 					</button>
 				</div>
 				<ModalBody>
-					<Form>
-						<FormGroup>
-							<label className="form-control-label" htmlFor="arch-name">
-								Name
-							</label>
-							<Input placeholder="Name here" id="arch-name" type="text"></Input>
-						</FormGroup>
-						<FormGroup>
-							<label className="form-control-label" htmlFor="arch-symbol">
-								Symbol
-							</label>
-							<Input
-								placeholder="Symbol here"
-								id="arch-symbol"
-								type="text"
-							></Input>
-						</FormGroup>
-						<FormGroup className="flex gap-4 items-center mb-0">
-							<label className="form-control-label mb-0" htmlFor="arch-status">
-								Status
-							</label>
-							<UncontrolledDropdown>
-								<DropdownToggle
-									caret
-									color="secondary"
-									id="arch-status"
-									type="button"
-								>
-									{newArchStatus}
-								</DropdownToggle>
-								<DropdownMenu aria-labelledby="arch-status">
-									<DropdownItem
-										href="#pablo"
-										onClick={(e) => {
-											e.preventDefault();
-											setNewArchStatus("Enable");
-										}}
-									>
-										Enable
-									</DropdownItem>
-									<DropdownItem
-										href="#pablo"
-										onClick={(e) => {
-											e.preventDefault();
-											setNewArchStatus("Disable");
-										}}
-									>
-										Disable
-									</DropdownItem>
-								</DropdownMenu>
-							</UncontrolledDropdown>
-						</FormGroup>
-					</Form>
+					<form>
+						<TextInput
+							labelShrink
+							className="mb-4"
+							fieldName="name"
+							label="Name"
+							placeholder="Arch name"
+							formik={formik}
+						/>
+
+						<TextInput
+							labelShrink
+							className="mb-4"
+							fieldName="symbol"
+							label="Symbol"
+							placeholder="Arch symbol(abr)"
+							formik={formik}
+						/>
+
+						<ToggleInput
+							fieldName="status"
+							options={["Enable", "Disable"]}
+							formik={formik}
+						/>
+					</form>
 				</ModalBody>
 				<ModalFooter>
 					<Button
@@ -393,7 +392,7 @@ function Arches() {
 					>
 						Close
 					</Button>
-					<Button color="primary" type="button">
+					<Button color="primary" type="submit" onClick={formik.handleSubmit}>
 						Add
 					</Button>
 				</ModalFooter>

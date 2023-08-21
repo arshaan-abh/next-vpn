@@ -5,12 +5,6 @@ import {
 	CardFooter,
 	CardHeader,
 	Container,
-	DropdownItem,
-	DropdownMenu,
-	DropdownToggle,
-	Form,
-	FormGroup,
-	Input,
 	Media,
 	Modal,
 	ModalBody,
@@ -20,7 +14,6 @@ import {
 	PaginationLink,
 	Row,
 	Table,
-	UncontrolledDropdown,
 } from "reactstrap";
 import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js";
@@ -35,7 +28,7 @@ import { useQRCode } from "next-qrcode";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
-import SelectInput from "/components/Form/SelectInput";
+import AutoCompleteInput from "../../components/Form/AutoCompleteInput";
 
 const validationSchema = yup.object().shape({
 	crypto: yup.string().required("Crypto is required"),
@@ -92,7 +85,7 @@ function Charge() {
 									<i className="fas fa-search"></i>
 								</Button>
 							</CardHeader>
-							<Table className="align-items-center table-flush" responsive>
+							<Table className="text-left table-flush" responsive>
 								<thead className="thead-light">
 									<tr>
 										<th scope="col">Name</th>
@@ -340,7 +333,7 @@ function Charge() {
 				</div>
 				<ModalBody>
 					<form>
-						<SelectInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
 							fieldName="crypto"
@@ -349,7 +342,7 @@ function Charge() {
 							formik={formik}
 						/>
 
-						<SelectInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
 							fieldName="arch"

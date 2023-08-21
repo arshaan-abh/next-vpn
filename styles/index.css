@@ -1,0 +1,19 @@
+@media screen and (min-width: 800px) {
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+	::-webkit-scrollbar-track {
+		background: #5e72e4;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ffffff;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #dbdbdb;
+	}
+
+	body {
+		scrollbar-width: thin; /* "auto" or "thin" */
+		scrollbar-color: #ffffff #5e72e4; /* scroll thumb and track */
+	}
+}

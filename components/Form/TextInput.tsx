@@ -5,6 +5,7 @@ import { FormikProps, getIn } from "formik";
 interface Props {
 	className?: string;
 	fieldName: string;
+	type?: "text" | "number";
 	placeholder?: string;
 	label: string;
 	labelShrink?: boolean;
@@ -15,9 +16,10 @@ interface Props {
 export default function TextInput({
 	className = "",
 	fieldName,
+	type = "text",
 	placeholder,
 	label,
-	labelShrink,
+	labelShrink = false,
 	disabled = false,
 	formik,
 }: Props) {
@@ -37,6 +39,7 @@ export default function TextInput({
 			label={label}
 			placeholder={placeholder ? placeholder : ""}
 			fullWidth
+			type={type}
 			{...formik.getFieldProps(fieldName)}
 			error={error}
 			helperText={helperText}

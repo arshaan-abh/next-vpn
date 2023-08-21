@@ -55,7 +55,7 @@ function Packages() {
 									<i className="fas fa-search"></i>
 								</Button>
 							</CardHeader>
-							<Table className="align-items-center table-flush" responsive>
+							<Table className="text-left table-flush" responsive>
 								<thead className="thead-light">
 									<tr>
 										<th scope="col">Package name</th>
