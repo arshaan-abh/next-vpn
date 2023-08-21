@@ -46,7 +46,10 @@ const Hero = ({
 						<ButtonPrimary>Get Started</ButtonPrimary>
 					</div>
 					<div className="flex w-full">
-						<motion.div className="w-full relative overflow-hidden" variants={scrollAnimation}>
+						<motion.div
+							className="w-full relative overflow-hidden"
+							variants={scrollAnimation}
+						>
 							<Player
 								autoplay
 								loop
@@ -62,7 +65,7 @@ const Hero = ({
 				<ScrollAnimationWrapper className="rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10">
 					{listUser.map((listUsers, index) => (
 						<motion.div
-							className="flex items-center justify-start sm:justify-center pt-8 sm:py-6 w-11/12 px-4 sm:w-auto mx-auto sm:mx-0"
+							className="flex items-center justify-start sm:justify-center py-6 sm:pt-8 sm:px-4 w-11/12 sm:w-auto mx-auto sm:mx-0"
 							key={index}
 							custom={{ duration: 2 + index }}
 							variants={scrollAnimation}
