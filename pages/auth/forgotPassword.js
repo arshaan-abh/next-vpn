@@ -55,21 +55,13 @@ function ForgotPassword() {
 					</CardBody>
 				</Card>
 				<Row className="mt-3">
-					<Col xs="6">
-						<Link
-							className="text-light"
-							href="/auth/login"
-							onClick={(e) => e.preventDefault()}
-						>
+					<Col className="text-slate-300" xs="6">
+						<Link href="/auth/login" onClick={(e) => e.preventDefault()}>
 							<small>go back to login</small>
 						</Link>
 					</Col>
-					<Col className="text-right" xs="6">
-						<Link
-							className="text-light"
-							href="/auth/register"
-							onClick={(e) => e.preventDefault()}
-						>
+					<Col className="text-right text-slate-300" xs="6">
+						<Link href="/auth/register" onClick={(e) => e.preventDefault()}>
 							<small>Create new account</small>
 						</Link>
 					</Col>
@@ -79,6 +71,6 @@ function ForgotPassword() {
 	);
 }
 
-ForgetPassword.layout = Auth;
+ForgotPassword.layout = Auth;
 
 export default ForgotPassword;

@@ -85,21 +85,16 @@ function Login() {
 					</CardBody>
 				</Card>
 				<Row className="mt-3">
-					<Col xs="6">
+					<Col className="text-slate-300" xs="6">
 						<Link
-							className="text-light"
 							href="/auth/forgotPassword"
 							onClick={(e) => e.preventDefault()}
 						>
 							<small>Forgot password?</small>
 						</Link>
 					</Col>
-					<Col className="text-right" xs="6">
-						<Link
-							className="text-light"
-							href="#pablo"
-							onClick={(e) => e.preventDefault()}
-						>
+					<Col className="text-right text-slate-300" xs="6">
+						<Link href="/auth/register" onClick={(e) => e.preventDefault()}>
 							<small>Create new account</small>
 						</Link>
 					</Col>

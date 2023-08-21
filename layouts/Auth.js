@@ -24,9 +24,9 @@ function Auth(props) {
 							<Row className="justify-content-center">
 								<Col lg="5" md="6">
 									<h1 className="text-white">Welcome!</h1>
-									<p className="text-lead text-light">
+									<div style={{color: "#f1f1f1"}}>
 										Use your AragonVPN panel to get the most out of our product!
-									</p>
+									</div>
 								</Col>
 							</Row>
 						</div>

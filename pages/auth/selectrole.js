@@ -73,17 +73,12 @@ function SelectPanel() {
 				</CardBody>
 			</Card>
 			<Row className="mt-3">
-				<Col xs="6">
-					<Link
-						className="text-light"
-						href="/auth/login"
-						onClick={(e) => e.preventDefault()}
-					>
+				<Col className="text-slate-300" xs="6">
+					<Link href="/auth/login" onClick={(e) => e.preventDefault()}>
 						<small>Logout from account</small>
 					</Link>
 				</Col>
-				<Col className="text-right" xs="6">
-				</Col>
+				<Col className="text-right" xs="6"></Col>
 			</Row>
 		</Col>
 	);

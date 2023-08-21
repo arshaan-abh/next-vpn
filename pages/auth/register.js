@@ -7,6 +7,7 @@ import {
 	Card,
 	CardBody,
 	Col,
+	Row
 } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
@@ -16,6 +17,7 @@ import * as yup from "yup";
 import CheckInput from "../../components/Form/CheckInput";
 import PasswordInput from "../../components/Form/PasswordInput";
 import TextInput from "../../components/Form/TextInput";
+import Link from "next/link";
 
 const validationSchema = yup.object().shape({
 	name: yup.string()
@@ -116,6 +118,13 @@ function Register() {
 						</form>
 					</CardBody>
 				</Card>
+				<Row className="mt-3">
+					<Col className="text-slate-300" xs="6">
+						<Link href="/auth/login" onClick={(e) => e.preventDefault()}>
+							<small>Already have an acount?</small>
+						</Link>
+					</Col>
+				</Row>
 			</Col>
 		</>
 	);
