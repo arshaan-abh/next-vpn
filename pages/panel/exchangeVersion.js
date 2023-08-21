@@ -5,9 +5,6 @@ import {
 	CardFooter,
 	CardHeader,
 	Container,
-	Form,
-	FormGroup,
-	Input,
 	Modal,
 	ModalBody,
 	ModalFooter,
@@ -19,9 +16,32 @@ import {
 } from "reactstrap";
 import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import AutoCompleteInput from "../../components/Form/AutoCompleteInput";
+
+const validationSchema = yup.object().shape({
+	from: yup.string().required("This field is required"),
+	to: yup.string().required("This field is required"),
+});
 
 function ExchangeVersion() {
+	const router = useRouter();
+
+	const formik = useFormik({
+		initialValues: {
+			from: "",
+			to: "",
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
+
 	const [modalOpen, setModalOpen] = useState(false);
+	const coins = ["BNB", "BTC", "ZED", "USDT"];
 
 	return (
 		<>
@@ -156,34 +176,24 @@ function ExchangeVersion() {
 					</button>
 				</div>
 				<ModalBody>
-					<Form>
-						<FormGroup>
-							<label
-								className="form-control-label"
-								htmlFor="exchange-version-to"
-							>
-								To Crypto
-							</label>
-							<Input
-								placeholder="To"
-								id="exchange-version-to"
-								type="text"
-							></Input>
-						</FormGroup>
-						<FormGroup className="mb-0">
-							<label
-								className="form-control-label"
-								htmlFor="exchange-version-from"
-							>
-								From Crypto
-							</label>
-							<Input
-								placeholder="From"
-								id="exchange-version"
-								type="text"
-							></Input>
-						</FormGroup>
-					</Form>
+					<form>
+						<AutoCompleteInput
+							labelShrink
+							className="mb-4"
+							fieldName="from"
+							label="From"
+							options={coins}
+							formik={formik}
+						/>
+
+						<AutoCompleteInput
+							labelShrink
+							fieldName="to"
+							label="To"
+							options={coins}
+							formik={formik}
+						/>
+					</form>
 				</ModalBody>
 				<ModalFooter>
 					<Button
@@ -193,7 +203,7 @@ function ExchangeVersion() {
 					>
 						Close
 					</Button>
-					<Button color="primary" type="button">
+					<Button color="primary" type="submit" onClick={formik.handleSubmit}>
 						Add
 					</Button>
 				</ModalFooter>

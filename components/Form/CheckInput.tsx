@@ -30,6 +30,7 @@ export default function CheckInput({
 	const helperText = getIn(formik.touched, fieldName) && (
 		<>{getIn(formik.errors, fieldName)}</>
 	);
+	
 	return (
 		<FormControl
 			error={error}

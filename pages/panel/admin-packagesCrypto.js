@@ -5,12 +5,6 @@ import {
 	CardFooter,
 	CardHeader,
 	Container,
-	DropdownItem,
-	DropdownMenu,
-	DropdownToggle,
-	Form,
-	FormGroup,
-	Input,
 	Media,
 	Modal,
 	ModalBody,
@@ -20,7 +14,6 @@ import {
 	PaginationLink,
 	Row,
 	Table,
-	UncontrolledDropdown,
 } from "reactstrap";
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
@@ -31,9 +24,38 @@ import sketch from "/assets/img/theme/sketch.jpg";
 import react from "/assets/img/theme/react.jpg";
 import vue from "/assets/img/theme/vue.jpg";
 import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import TextInput from "/components/Form/TextInput";
+import AutoCompleteInput from "../../components/Form/AutoCompleteInput";
+
+const validationSchema = yup.object().shape({
+	crypto: yup.string().required("Crypto is required"),
+	price: yup
+		.number()
+		.typeError("Price should be a number")
+		.test("minimum", "Price should be bigger than 0", function (value) {
+			return value > 0;
+		})
+		.required("Price is required"),
+	address: yup.string().required("Symbol is required"),
+});
 
 function PackagesCrypto() {
 	const router = useRouter();
+
+	const formik = useFormik({
+		initialValues: {
+			crypto: "",
+			price: "",
+			address: "",
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
+
 	const [modalOpen, setModalOpen] = useState(false);
 	const coins = ["USDT", "BNB", "BTC"];
 	const [newArchStatus, setNewArchStatus] = useState(coins[0]);
@@ -300,51 +322,33 @@ function PackagesCrypto() {
 					</button>
 				</div>
 				<ModalBody>
-					<Form>
-						<FormGroup className="flex gap-4 items-center">
-							<label className="form-control-label mb-0" htmlFor="arch-status">
-								Status
-							</label>
-							<UncontrolledDropdown>
-								<DropdownToggle caret id="arch-status" type="button">
-									{newArchStatus}
-								</DropdownToggle>
-								<DropdownMenu aria-labelledby="arch-status">
-									{coins.map((coin) => (
-										<DropdownItem
-											href="#pablo"
-											onClick={(e) => {
-												e.preventDefault();
-												setNewArchStatus(coin);
-											}}
-										>
-											{coin}
-										</DropdownItem>
-									))}
-								</DropdownMenu>
-							</UncontrolledDropdown>
-						</FormGroup>
-						<FormGroup>
-							<label className="form-control-label" htmlFor="crypto-price">
-								Price
-							</label>
-							<Input
-								placeholder="Price here"
-								id="crypto-price"
-								type="text"
-							></Input>
-						</FormGroup>
-						<FormGroup className="mb-0">
-							<label className="form-control-label" htmlFor="crypto-price">
-								Wallet address
-							</label>
-							<Input
-								placeholder="Wallet address here"
-								id="crypto-price"
-								type="text"
-							></Input>
-						</FormGroup>
-					</Form>
+					<form>
+						<AutoCompleteInput
+							labelShrink
+							className="mb-4"
+							fieldName="crypto"
+							label="Crypto"
+							options={coins}
+							formik={formik}
+						/>
+
+						<TextInput
+							labelShrink
+							className="mb-4"
+							fieldName="price"
+							type="number"
+							label="Price"
+							formik={formik}
+						/>
+
+						<TextInput
+							disabled
+							labelShrink
+							fieldName="address"
+							label="Wallet address"
+							formik={formik}
+						/>
+					</form>
 				</ModalBody>
 				<ModalFooter>
 					<Button
@@ -354,7 +358,7 @@ function PackagesCrypto() {
 					>
 						Close
 					</Button>
-					<Button color="primary" type="button">
+					<Button color="primary" type="button" onClick={formik.handleSubmit}>
 						Add
 					</Button>
 				</ModalFooter>

@@ -27,7 +27,6 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
-import ToggleInput from "../../components/Form/ToggleInput";
 
 const validationSchema = yup.object().shape({
 	name: yup

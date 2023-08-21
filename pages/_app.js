@@ -15,7 +15,6 @@ import PageChange from "../components/PageChange/PageChange.js";
 import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../assets/scss/nextjs-argon-dashboard.scss";
-import Script from "next/script";
 
 Router.events.on("routeChangeStart", (url) => {
 	ReactDOM.render(
