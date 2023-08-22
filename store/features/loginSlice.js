@@ -5,51 +5,10 @@ import axios from "axios";
 import configData from "../config.json";
 const url = `${configData.AddressAPI}`;
 
-export const userLogin = createAsyncThunk("login/userLogin", async (data) => {
+export const login = createAsyncThunk("login/login", async (data) => {
 	clearStorage();
 	const login = await axios
-		.post(`${url}/User/login`, data)
-		.then((response) => response.data);
-
-	return { login, data };
-});
-
-export const managerLogin = createAsyncThunk(
-	"login/managerLogin",
-	async (data) => {
-		clearStorage();
-		const login = await axios
-			.post(`${url}/identity/manager/login`, data)
-			.then((response) => response.data);
-		
-		// console.log(login);
-
-		const manager = await axios
-			.get(`${url}/identity/manager/username?username=${data.username}`, {
-				headers: {
-					Authorization: `Bearer ${login.token}`,
-				},
-			})
-			.then((response) => response.data);
-		// console.log(manager);
-
-		const organization = await axios
-			.get(`${url}/Organization/${manager.organizationId}`, {
-				headers: {
-					Authorization: `Bearer ${login.token}`,
-				},
-			})
-			.then((response) => response.data);
-		// console.log(organization);
-
-		return { login, data, manager, organization };
-	}
-);
-
-export const adminLogin = createAsyncThunk("login/adminLogin", async (data) => {
-	clearStorage();
-	const login = await axios
-		.post(`${url}/identity/admin/login`, data)
+		.post(`${url}/auth/login`, data)
 		.then((response) => response.data);
 
 	return { login, data };
@@ -59,95 +18,47 @@ export const slice = createSlice({
 	name: "login",
 	initialState: {
 		loading: false,
+		error: false,
 		logged: false,
-		error: "",
+		snackMessage: "",
 	},
 	reducers: {
 		logout: (state, action) => {
 			clearStorage();
-			state.logged = false;
 		},
-		clearError: (state, action) => {
-			state.error = "";
+		clearLogged: (state, action) => {
+			state.logged = false;
 		},
 	},
 	extraReducers: (builder) => {
-		//user login
-		builder.addCase(userLogin.pending, (state, action) => {
+		//login
+		builder.addCase(login.pending, (state, action) => {
 			state.loading = true;
-			state.error = "";
 		});
-		builder.addCase(userLogin.fulfilled, (state, action) => {
+		builder.addCase(login.fulfilled, (state, action) => {
 			clearStorage();
-			localStorage.setItem("token", JSON.stringify(action.payload.login));
 			localStorage.setItem(
-				"username",
-				JSON.stringify(action.payload.data.username)
+				"token",
+				JSON.stringify(action.payload.login.result.token)
 			);
-			state.logged = true;
+			localStorage.setItem(
+				"role",
+				JSON.stringify(
+					action.payload.login.result.roles.map((item, i) => item.name)
+				)
+			);
 			state.loading = false;
-			state.error = "";
+			state.logged = true;
 		});
-		builder.addCase(userLogin.rejected, (state, action) => {
+		builder.addCase(login.rejected, (state, action) => {
 			clearStorage();
 			state.loading = false;
-			state.error = action.error.message;
-		});
 
-		//manager login
-		builder.addCase(managerLogin.pending, (state, action) => {
-			state.loading = true;
-			state.error = "";
-		});
-		builder.addCase(managerLogin.fulfilled, (state, action) => {
-			clearStorage();
-			localStorage.setItem("token", JSON.stringify(action.payload.login));
-			localStorage.setItem(
-				"managername",
-				JSON.stringify(action.payload.data.username)
-			);
-			localStorage.setItem(
-				"organid",
-				JSON.stringify(action.payload.manager.organizationId)
-			);
-			localStorage.setItem(
-				"departmentid",
-				JSON.stringify(action.payload.organization.rootDepartmentId)
-			);
-			localStorage.setItem(
-				"code",
-				JSON.stringify(action.payload.organization.refrenceCode)
-			);
-			state.logged = true;
-			state.loading = false;
-			state.error = "";
-		});
-		builder.addCase(managerLogin.rejected, (state, action) => {
-			clearStorage();
-			state.loading = false;
-			state.error = action.error.message;
-		});
-
-		//admin login
-		builder.addCase(adminLogin.pending, (state, action) => {
-			state.loading = true;
-			state.error = "";
-		});
-		builder.addCase(adminLogin.fulfilled, (state, action) => {
-			clearStorage();
-			localStorage.setItem("token", JSON.stringify(action.payload.login));
-			localStorage.setItem(
-				"adminname",
-				JSON.stringify(action.payload.data.username)
-			);
-			state.logged = true;
-			state.loading = false;
-			state.error = "";
-		});
-		builder.addCase(adminLogin.rejected, (state, action) => {
-			clearStorage();
-			state.loading = false;
-			state.error = action.error.message;
+			if (action.error.code === "ERR_BAD_REQUEST") {
+				state.snackMessage = "Email or username is not correct.";
+			} else {
+				state.snackMessage = action.error.message;
+			}
 		});
 	},
 });

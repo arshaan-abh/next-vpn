@@ -56,13 +56,13 @@ function ForgotPassword() {
 				</Card>
 				<Row className="mt-3">
 					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login" onClick={(e) => e.preventDefault()}>
-							<small>go back to login</small>
+						<Link href="/auth/login">
+							go back to login
 						</Link>
 					</Col>
 					<Col className="text-right text-slate-300" xs="6">
-						<Link href="/auth/register" onClick={(e) => e.preventDefault()}>
-							<small>Create new account</small>
+						<Link href="/auth/register">
+							Create new account
 						</Link>
 					</Col>
 				</Row>

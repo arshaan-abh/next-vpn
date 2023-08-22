@@ -1,14 +1,6 @@
 import * as React from "react";
-
-
 // reactstrap components
-import {
-	Button,
-	Card,
-	CardBody,
-	Col,
-	Row
-} from "reactstrap";
+import { Button, Card, CardBody, Col, Row } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
 import { useRouter } from "next/router";
@@ -18,27 +10,42 @@ import CheckInput from "../../components/Form/CheckInput";
 import PasswordInput from "../../components/Form/PasswordInput";
 import TextInput from "../../components/Form/TextInput";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	emailRegister,
+	registerActions,
+} from "../../store/features/registerSlice";
+import LoadingSmall from "../../components/Dynamic/LoadingSmall";
+import SnackAlert from "../../components/Dynamic/SnackAlert";
 
 const validationSchema = yup.object().shape({
-	name: yup.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
-		)
-		.required("Name is required"),
-	email: yup
+	username: yup
 		.string()
-		.email("Invalid email address")
-		.required("Email is required"),
+		.matches(
+			/^[A-Za-z0-9_]+$/,
+			"Username can only contain letters, numbers, and underscores"
+		)
+		.required("Username is required"),
 	password: yup
 		.string()
 		.matches(
 			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-			"Password must be at least 8 characters and include letters, numbers, and special characters"
+			"Password must be at least 8 characters and include letters and numbers"
 		)
 		.required("Password is required"),
+	email: yup
+		.string()
+		.email("Invalid email address")
+		.required("Email is required"),
 	agree: yup
 		.boolean()
+		.test(
+			"agree",
+			"Please agree to our privary policy before continuing",
+			function (value) {
+				return value;
+			}
+		)
 		.required("Please agree to our privary policy before continuing"),
 });
 
@@ -47,19 +54,61 @@ function Register() {
 
 	const formik = useFormik({
 		initialValues: {
-			name: "",
+			username: "",
 			email: "",
 			password: "",
+			referralCode: "",
 			agree: false,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			router.push("/auth/selectrole");
+			let temp = values;
+			delete temp["agree"];
+			dispatch(emailRegister(temp)).unwrap();
 		},
 	});
 
+	const dispatch = useDispatch();
+
+	const loading = useSelector((state) => state.register.loading);
+	const error = useSelector((state) => state.register.error);
+	const snackMessage = useSelector((state) => state.register.snackMessage);
+	const stage = useSelector((state) => state.register.stage);
+
+	React.useEffect(() => {
+		if (snackMessage != "") handleOpenSnack();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [snackMessage]);
+
+	React.useEffect(() => {
+		if (stage === "register") {
+			router.push("/auth/registerVerification");
+			registerActions.clearStage();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [stage]);
+
+	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
+
+	const handleOpenSnack = (text) => {
+		setIsSnackOpen(true);
+	};
+
+	const handleCloseSnack = () => {
+		setIsSnackOpen(false);
+	};
+
 	return (
 		<>
+			<SnackAlert
+				props={{
+					isSnackOpen,
+					handleCloseSnack,
+					snackMessage,
+					error: error,
+				}}
+			/>
+
 			<Col lg="6" md="8">
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
@@ -70,9 +119,9 @@ function Register() {
 							<TextInput
 								labelShrink
 								className="mb-4"
-								fieldName="name"
-								placeholder="Your name"
-								label="Name"
+								fieldName="username"
+								placeholder="Pick a username"
+								label="Username"
 								formik={formik}
 							/>
 
@@ -94,15 +143,15 @@ function Register() {
 								formik={formik}
 							/>
 
-							<div className="text-muted font-italic">
+							{/* <div className="text-muted font-italic">
 								<small>
 									password strength:{" "}
 									<span className="text-success font-weight-700">strong</span>
 								</small>
-							</div>
+							</div> */}
 
 							<CheckInput
-								className="my-2"
+								className="mb-2"
 								fieldName="agree"
 								label="Agree with our"
 								link="/"
@@ -111,8 +160,14 @@ function Register() {
 							/>
 
 							<div className="text-center">
-								<Button className="mt-4" color="primary" type="submit">
+								<Button
+									disabled={loading}
+									className="mt-4"
+									color="primary"
+									type="submit"
+								>
 									Create account
+									{loading ? <LoadingSmall color="text-white-200" /> : null}
 								</Button>
 							</div>
 						</form>
@@ -120,8 +175,8 @@ function Register() {
 				</Card>
 				<Row className="mt-3">
 					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login" onClick={(e) => e.preventDefault()}>
-							<small>Already have an acount?</small>
+						<Link href="/auth/login">
+							Already have an acount?
 						</Link>
 					</Col>
 				</Row>

@@ -3,12 +3,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 interface Props {
 	className?: string;
+	color?: string;
 }
 
-export default function LoadingSmall({ className = "" }: Props) {
+export default function LoadingSmall({ className = "", color }: Props) {
 	return (
-		<span className={`${className} ml-2`}>
-			<CircularProgress size="1.5rem" />
+		<span className={`${className} ${color} ml-3`}>
+			<CircularProgress color={color ? "inherit" : "primary"} size="1.4rem" />
 		</span>
 	);
 };

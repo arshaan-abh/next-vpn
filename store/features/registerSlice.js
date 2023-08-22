@@ -2,21 +2,40 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import configData from "../config.json";
+import { clearStorage } from "../../utils/clearLocalStorage";
 const url = `${configData.AddressAPI}`;
 
-export const userRegister = createAsyncThunk("register/userRegister", async (data) => {
-	const register = await axios
-		.post(`${url}/User/register`, data)
-		.then((response) => response.data);
-
-	return { register, data };
-});
-
-export const managerRegister = createAsyncThunk(
-	"register/managerRegister",
+export const emailRegister = createAsyncThunk(
+	"register/emailRegister",
 	async (data) => {
 		const register = await axios
-			.post(`${url}/User/register`, data)
+			.post(`${url}/auth/email/register`, data)
+			.then((response) => response.data);
+
+		return { register, data };
+	}
+);
+
+export const emailResend = createAsyncThunk(
+	"register/emailResend",
+	async () => {
+		const email = JSON.parse(localStorage.getItem("verifyemail"));
+
+		const register = await axios
+			.post(`${url}/auth/email/resend`, {
+				email: email,
+			})
+			.then((response) => response.data);
+
+		return { register };
+	}
+);
+
+export const emailVerify = createAsyncThunk(
+	"register/emailVerify",
+	async (data) => {
+		const register = await axios
+			.post(`${url}/auth/email/verify`, data)
 			.then((response) => response.data);
 
 		return { register, data };
@@ -26,45 +45,93 @@ export const managerRegister = createAsyncThunk(
 export const slice = createSlice({
 	name: "register",
 	initialState: {
+		stage: "",
 		loading: false,
-		handleLoading: false,
-		logged: false,
-		error: "",
-		handleError: "",
+		error: false,
+		snackMessage: "",
 	},
 	reducers: {
-		clearError: (state, action) => {
-			state.error = "";
+		clearStage: (state, action) => {
+			state.stage = "";
 		},
-		clearHandleError: (state, action) => {
-			state.handleError = "";
+		clearSnackMessage: (state, action) => {
+			state.snackMessage = "";
 		},
 	},
 	extraReducers: (builder) => {
-		// userRegister
-		builder.addCase(userRegister.pending, (state, action) => {
-			state.handleLoading = true;
+		//emailRegister
+		builder.addCase(emailRegister.pending, (state, action) => {
+			clearStorage();
+			state.stage = "";
+			state.loading = true;
+			state.error = false;
+			state.snackMessage = "";
 		});
-		builder.addCase(userRegister.fulfilled, (state, action) => {
-			state.handleLoading = false;
-			state.handleError = "success";
+		builder.addCase(emailRegister.fulfilled, (state, action) => {
+			state.stage = "register";
+			state.loading = false;
+			state.error = false;
+			state.snackMessage = "A verification token is sent to your email.";
+			localStorage.setItem(
+				"verifyemail",
+				JSON.stringify(action.payload.data.email)
+			);
 		});
-		builder.addCase(userRegister.rejected, (state, action) => {
-			state.handleLoading = false;
-			state.handleError = action.error.message;
+		builder.addCase(emailRegister.rejected, (state, action) => {
+			state.loading = false;
+			state.error = true;
+
+			if (action.error.code === "ERR_BAD_REQUEST") {
+				state.snackMessage = "Email or username already exists.";
+			} else {
+				state.snackMessage = action.error.message;
+			}
 		});
 
-		// managerRegister
-		builder.addCase(managerRegister.pending, (state, action) => {
-			state.handleLoading = true;
+		//emailResend
+		builder.addCase(emailResend.pending, (state, action) => {
+			state.loading = true;
+			state.error = false;
+			state.snackMessage = "";
 		});
-		builder.addCase(managerRegister.fulfilled, (state, action) => {
-			state.handleLoading = false;
-			state.handleError = "success";
+		builder.addCase(emailResend.fulfilled, (state, action) => {
+			state.loading = false;
+			state.error = false;
+			state.snackMessage = "Your verification token is resent to your email.";
 		});
-		builder.addCase(managerRegister.rejected, (state, action) => {
-			state.handleLoading = false;
-			state.handleError = action.error.message;
+		builder.addCase(emailResend.rejected, (state, action) => {
+			state.loading = false;
+			state.error = true;
+
+			if (action.error.code === "ERR_BAD_REQUEST") {
+				state.snackMessage = "Email already exists.";
+			} else {
+				state.snackMessage = action.error.message;
+			}
+		});
+
+		//emailVerify
+		builder.addCase(emailVerify.pending, (state, action) => {
+			state.loading = true;
+			state.error = false;
+			state.snackMessage = "";
+		});
+		builder.addCase(emailVerify.fulfilled, (state, action) => {
+			state.stage = "verify";
+			clearStorage();
+			state.loading = false;
+			state.error = false;
+			state.snackMessage = "Your email is successfully verified.";
+		});
+		builder.addCase(emailVerify.rejected, (state, action) => {
+			state.loading = false;
+			state.error = true;
+
+			if (action.error.code === "ERR_BAD_REQUEST") {
+				state.snackMessage = "Token is not correct.";
+			} else {
+				state.snackMessage = action.error.message;
+			}
 		});
 	},
 });
