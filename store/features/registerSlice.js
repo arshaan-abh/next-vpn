@@ -76,7 +76,7 @@ export const slice = createSlice({
 			state.loading = false;
 			state.error = false;
 			state.snackMessage = "A verification token is sent to your email.";
-			setLocalStorageItem("verifyemail", action.payload.data.email, 10);
+			setLocalStorageItem("verifyemail", action.payload.data.email, 1);
 		});
 		builder.addCase(emailRegister.rejected, (state, action) => {
 			state.loading = false;

@@ -38,11 +38,11 @@ export const slice = createSlice({
 		});
 		builder.addCase(login.fulfilled, (state, action) => {
 			clearLocalStorage();
-			setLocalStorageItem("token", action.payload.login.result.token, 360);
+			setLocalStorageItem("token", action.payload.login.result.token, 30);
 			setLocalStorageItem(
 				"role",
 				action.payload.login.result.roles.map((item, i) => item.name),
-				360
+				30
 			);
 			state.loading = false;
 			state.logged = true;

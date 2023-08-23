@@ -6,11 +6,11 @@ export function removeLocalStorageItem(key) {
 	localStorage.removeItem(key);
 }
 
-export function setLocalStorageItem(key, value, minutes) {
+export function setLocalStorageItem(key, value, days) {
 	const now = new Date();
 	const item = {
 		value: value,
-		expiry: now.getTime() + minutes * 60 * 1000,
+		expiry: now.getTime() + days * 24 * 60 * 60 * 1000,
 	};
 	localStorage.setItem(key, JSON.stringify(item));
 }
