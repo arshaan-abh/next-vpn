@@ -144,7 +144,7 @@ function Register() {
 								formik={formik}
 							/>
 
-							{/* <div className="text-muted font-italic">
+							{/* <div className="text-muted">
 								<small>
 									password strength:{" "}
 									<span className="text-success font-weight-700">strong</span>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
 
@@ -8,6 +9,8 @@ import AuthFooter from "/components/Footers/AuthFooter.js";
 import { getLocalStorageItem } from "../utils/handleLocalStorage";
 
 function Auth(props) {
+	const router = useRouter();
+
 	React.useEffect(() => {
 		const roletoken = getLocalStorageItem("roletoken");
 		if (roletoken) router.push("/panel");
