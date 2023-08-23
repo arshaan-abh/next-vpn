@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import AutoCompleteInput from "../../components/Form/AutoCompleteInput";
 import { useDispatch, useSelector } from "react-redux";
-import { login, loginActions } from "../../store/features/loginSlice";
+import { loginActions, addRole } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
@@ -33,9 +33,9 @@ function SelectRole() {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			let temp = values;
-			delete temp["rememberme"];
-			dispatch(login(temp)).unwrap();
+			dispatch(
+				addRole({ id: roles.find((item) => item.name === values.role)._id })
+			).unwrap();
 		},
 	});
 
@@ -43,9 +43,9 @@ function SelectRole() {
 		const token = getLocalStorageItem("token");
 		if (!token) router.push("/auth/login");
 
-		const roles = getLocalStorageItem("roles");
-		setRoles(roles);
-		setRoleNames(roles.map((item, i) => item.name));
+		const rolesTemp = getLocalStorageItem("roles");
+		setRoles(rolesTemp);
+		setRoleNames(rolesTemp.map((item, i) => item.name));
 	}, []);
 
 	React.useEffect(() => {
@@ -55,7 +55,12 @@ function SelectRole() {
 
 	React.useEffect(() => {
 		if (stage === "roleadd") {
-			router.push("/panel");
+			if (formik.values.role === "user") {
+				router.push("/panel");
+			} else if (formik.values.role === "admin") {
+				router.push("/panel/admin");
+			}
+
 			dispatch(loginActions.clearStage());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

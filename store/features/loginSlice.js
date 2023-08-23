@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
 	clearLocalStorage,
+	getLocalStorageItem,
 	removeLocalStorageItem,
 } from "../../utils/handleLocalStorage";
 import axios from "axios";
@@ -19,9 +20,10 @@ export const login = createAsyncThunk("login/login", async (data) => {
 });
 
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
-	clearLocalStorage();
+	const token = getLocalStorageItem("token");
+	const headers = { Authorization: `Bearer ${token}` };
 	const role = await axios
-		.post(`${url}/auth/add-role`, data)
+		.post(`${url}/auth/add-role${data.id}`, null, {headers})
 		.then((response) => response.data);
 
 	return { role, data };
@@ -74,6 +76,7 @@ export const slice = createSlice({
 			removeLocalStorageItem("token");
 			setLocalStorageItem("roletoken", action.payload.role.result.token, 30);
 			state.loading = false;
+			state.stage = "roleadd";
 		});
 		builder.addCase(addRole.rejected, (state, action) => {
 			state.loading = false;

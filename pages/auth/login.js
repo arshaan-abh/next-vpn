@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, loginActions } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
+import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
 	username: yup
@@ -54,6 +55,11 @@ function Login() {
 			dispatch(login(temp)).unwrap();
 		},
 	});
+
+	React.useEffect(() => {
+		const token = getLocalStorageItem("token");
+		if (token) router.push("/auth/selectrole");
+	}, []);
 
 	React.useEffect(() => {
 		if (snackMessage != "") handleOpenSnack();

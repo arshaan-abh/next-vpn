@@ -13,8 +13,17 @@ import {
 } from "reactstrap";
 import Image from "next/future/image";
 import team from "/assets/img/theme/team-4-800x800.jpg";
+import { useRouter } from "next/router";
+import { clearLocalStorage } from "../../utils/handleLocalStorage";
 
 function AdminNavbar({ brandText }) {
+	const router = useRouter();
+
+	const logout = () => {
+		clearLocalStorage();
+		router.push("/auth/login");
+	};
+
 	return (
 		<>
 			<Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -67,7 +76,7 @@ function AdminNavbar({ brandText }) {
 									</DropdownItem>
 								</Link>
 								<DropdownItem divider />
-								<DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+								<DropdownItem onClick={logout}>
 									<i className="ni ni-user-run" />
 									<span>Logout</span>
 								</DropdownItem>
