@@ -88,7 +88,7 @@ function Register() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 
-	const [isSnackOpen, setIsSnackOpen] = React.useState(false); 
+	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
 	const handleOpenSnack = (text) => {
 		setIsSnackOpen(true);
@@ -163,7 +163,7 @@ function Register() {
 							<div className="text-center">
 								<Button
 									disabled={loading}
-									className="mt-4 flex flex-row h-12"
+									className="mt-4 !flex flex-row align-items-center h-12"
 									color="primary"
 									type="submit"
 								>

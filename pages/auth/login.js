@@ -62,9 +62,9 @@ function Login() {
 
 	React.useEffect(() => {
 		if (stage === "login") {
-			router.push("/selectrole");
+			router.push("/auth/selectrole");
 			dispatch(loginActions.clearStage());
-		};
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 
@@ -125,7 +125,7 @@ function Login() {
 							<div className="text-center">
 								<Button
 									disabled={loading}
-									className="mt-4 flex flex-row h-12"
+									className="mt-4 !flex flex-row align-items-center h-12"
 									color="primary"
 									type="submit"
 								>

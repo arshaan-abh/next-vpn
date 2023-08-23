@@ -51,7 +51,7 @@ export const slice = createSlice({
 		builder.addCase(login.fulfilled, (state, action) => {
 			clearLocalStorage();
 			setLocalStorageItem("token", action.payload.login.result.token, 30);
-			setLocalStorageItem("role", action.payload.login.result.roles, 30);
+			setLocalStorageItem("roles", action.payload.login.result.roles, 30);
 			state.loading = false;
 			state.stage = "login";
 		});
@@ -65,14 +65,14 @@ export const slice = createSlice({
 				state.snackMessage = action.error.message;
 			}
 		});
-		
+
 		//addRole
 		builder.addCase(addRole.pending, (state, action) => {
 			state.loading = true;
 		});
 		builder.addCase(addRole.fulfilled, (state, action) => {
 			removeLocalStorageItem("token");
-			setLocalStorageItem("token", action.payload.role.result.token, 30);
+			setLocalStorageItem("roletoken", action.payload.role.result.token, 30);
 			state.loading = false;
 		});
 		builder.addCase(addRole.rejected, (state, action) => {

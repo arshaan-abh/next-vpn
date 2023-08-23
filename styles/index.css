@@ -1,3 +1,10 @@
+body .btn.btn-primary {
+	display: inline-flex !important;
+	justify-content: center;
+	align-items: center;
+	height: 52px;
+}
+
 @media screen and (min-width: 800px) {
 	::-webkit-scrollbar {
 		width: 5px;
