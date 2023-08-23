@@ -123,7 +123,12 @@ function Login() {
 							/>
 
 							<div className="text-center">
-								<Button color="primary" type="submit">
+								<Button
+									disabled={loading}
+									className="mt-4 flex flex-row h-12"
+									color="primary"
+									type="submit"
+								>
 									Sign in
 									{loading ? <LoadingSmall color="text-white-200" /> : null}
 								</Button>

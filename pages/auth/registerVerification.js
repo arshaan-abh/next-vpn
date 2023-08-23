@@ -122,7 +122,7 @@ function RegisterVerification() {
 								{formik.touched.token && !formik.errors.token ? (
 									<Button
 										disabled={loading}
-										className="mt-4"
+										className="mt-4 flex flex-row h-12"
 										color="primary"
 										type="submit"
 									>
@@ -131,9 +131,9 @@ function RegisterVerification() {
 									</Button>
 								) : (
 									<Button
-										className="mt-4"
+										className="mt-4 flex flex-row h-12"
 										color="primary"
-										disabled={timer !== 0}
+										disabled={timer !== 0 || loading}
 										onClick={handleResend}
 									>
 										{timer === 0 ? (

@@ -163,7 +163,7 @@ function Register() {
 							<div className="text-center">
 								<Button
 									disabled={loading}
-									className="mt-4"
+									className="mt-4 flex flex-row h-12"
 									color="primary"
 									type="submit"
 								>
