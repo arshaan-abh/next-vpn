@@ -1,7 +1,7 @@
 import * as React from "react";
 
 // reactstrap components
-import { Button, Card, CardBody, Col, } from "reactstrap";
+import { Button, Card, CardBody, Col } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
 import { useRouter } from "next/router";
@@ -9,9 +9,14 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import TextInput from "../../components/Form/TextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { emailResend, emailVerify, registerActions } from "../../store/features/registerSlice";
+import {
+	emailResend,
+	emailVerify,
+	registerActions,
+} from "../../store/features/registerSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
+import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
 	token: yup
@@ -44,8 +49,7 @@ function RegisterVerification() {
 	const stage = useSelector((state) => state.register.stage);
 
 	React.useEffect(() => {
-		const email = JSON.parse(localStorage.getItem("verifyemail"));
-
+		const email = getLocalStorageItem("verifyemail");
 		if (!email) router.push("/auth/register");
 	}, []);
 
@@ -59,6 +63,7 @@ function RegisterVerification() {
 
 	React.useEffect(() => {
 		if (snackMessage != "") handleOpenSnack();
+		registerActions.clearSnackMessage();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -132,9 +137,7 @@ function RegisterVerification() {
 										onClick={handleResend}
 									>
 										{timer === 0 ? (
-											<>
-												Resend code
-											</>
+											<>Resend code</>
 										) : (
 											<>
 												{Math.floor(timer / 60)}:

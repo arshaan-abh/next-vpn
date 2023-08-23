@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { clearStorage } from "../../utils/clearLocalStorage";
+import { clearLocalStorage } from "../../utils/handleLocalStorage";
 import axios from "axios";
 import configData from "../config.json";
+import { setLocalStorageItem } from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const login = createAsyncThunk("login/login", async (data) => {
-	clearStorage();
+	clearLocalStorage();
 	const login = await axios
 		.post(`${url}/auth/login`, data)
 		.then((response) => response.data);
@@ -23,11 +24,11 @@ export const slice = createSlice({
 		snackMessage: "",
 	},
 	reducers: {
-		logout: (state, action) => {
-			clearStorage();
-		},
 		clearLogged: (state, action) => {
 			state.logged = false;
+		},
+		clearSnackMessage: (state, action) => {
+			state.snackMessage = "";
 		},
 	},
 	extraReducers: (builder) => {
@@ -36,22 +37,18 @@ export const slice = createSlice({
 			state.loading = true;
 		});
 		builder.addCase(login.fulfilled, (state, action) => {
-			clearStorage();
-			localStorage.setItem(
-				"token",
-				JSON.stringify(action.payload.login.result.token)
-			);
-			localStorage.setItem(
+			clearLocalStorage();
+			setLocalStorageItem("token", action.payload.login.result.token, 360);
+			setLocalStorageItem(
 				"role",
-				JSON.stringify(
-					action.payload.login.result.roles.map((item, i) => item.name)
-				)
+				action.payload.login.result.roles.map((item, i) => item.name),
+				360
 			);
 			state.loading = false;
 			state.logged = true;
 		});
 		builder.addCase(login.rejected, (state, action) => {
-			clearStorage();
+			clearLocalStorage();
 			state.loading = false;
 
 			if (action.error.code === "ERR_BAD_REQUEST") {

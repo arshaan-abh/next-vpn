@@ -96,6 +96,7 @@ function Register() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
+		registerActions.clearSnackMessage();
 	};
 
 	return (

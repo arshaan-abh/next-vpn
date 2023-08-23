@@ -56,11 +56,6 @@ function Login() {
 	});
 
 	React.useEffect(() => {
-		const token = JSON.parse(localStorage.getItem("token"));
-		if (token) router.push("/panel");
-	}, []);
-
-	React.useEffect(() => {
 		if (snackMessage != "") handleOpenSnack();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -81,6 +76,7 @@ function Login() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
+		loginActions.clearSnackMessage();
 	};
 
 	return (

@@ -6,6 +6,7 @@ import AdminSidebar from "/components/Sidebar/AdminSidebar.js";
 import logo from "/assets/img/brand/nextjs_aragon_black.png";
 
 import routes from "/routes.js";
+import { getLocalStorageItem } from "../utils/handleLocalStorage";
 
 function Admin(props) {
 	// used for checking current route
@@ -16,7 +17,7 @@ function Admin(props) {
 		document.scrollingElement.scrollTop = 0;
 		mainContentRef.current.scrollTop = 0;
 
-		const token = JSON.parse(localStorage.getItem("token"));
+		const token = getLocalStorageItem("token");
 		if (!token) router.push("/auth/login");
 	}, []);
 

@@ -5,15 +5,20 @@ import { Container, Row, Col } from "reactstrap";
 // core components
 import AuthNavbar from "/components/Navbars/AuthNavbar.js";
 import AuthFooter from "/components/Footers/AuthFooter.js";
+import { getLocalStorageItem } from "../utils/handleLocalStorage";
 
 function Auth(props) {
 	React.useEffect(() => {
+		const token = getLocalStorageItem("token");
+		if (token) router.push("/panel");
+
 		document.body.classList.add("bg-default");
 		// Specify how to clean up after this effect:
 		return function cleanup() {
 			document.body.classList.remove("bg-default");
 		};
 	}, []);
+
 	return (
 		<div className="not-landing">
 			<div className="main-content">
@@ -24,7 +29,7 @@ function Auth(props) {
 							<Row className="justify-content-center">
 								<Col lg="5" md="6">
 									<h1 className="text-white">Welcome!</h1>
-									<div style={{color: "#f1f1f1"}}>
+									<div style={{ color: "#f1f1f1" }}>
 										Use your AragonVPN panel to get the most out of our product!
 									</div>
 								</Col>

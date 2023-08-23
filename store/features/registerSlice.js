@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import configData from "../config.json";
-import { clearStorage } from "../../utils/clearLocalStorage";
+import { clearLocalStorage } from "../../utils/handleLocalStorage";
+import {
+	getLocalStorageItem,
+	setLocalStorageItem,
+} from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const emailRegister = createAsyncThunk(
@@ -19,7 +23,7 @@ export const emailRegister = createAsyncThunk(
 export const emailResend = createAsyncThunk(
 	"register/emailResend",
 	async () => {
-		const email = JSON.parse(localStorage.getItem("verifyemail"));
+		const email = getLocalStorageItem("verifyemail");
 
 		const register = await axios
 			.post(`${url}/auth/email/resend`, {
@@ -61,7 +65,7 @@ export const slice = createSlice({
 	extraReducers: (builder) => {
 		//emailRegister
 		builder.addCase(emailRegister.pending, (state, action) => {
-			clearStorage();
+			clearLocalStorage();
 			state.stage = "";
 			state.loading = true;
 			state.error = false;
@@ -72,10 +76,7 @@ export const slice = createSlice({
 			state.loading = false;
 			state.error = false;
 			state.snackMessage = "A verification token is sent to your email.";
-			localStorage.setItem(
-				"verifyemail",
-				JSON.stringify(action.payload.data.email)
-			);
+			setLocalStorageItem("verifyemail", action.payload.data.email, 10);
 		});
 		builder.addCase(emailRegister.rejected, (state, action) => {
 			state.loading = false;
@@ -118,7 +119,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(emailVerify.fulfilled, (state, action) => {
 			state.stage = "verify";
-			clearStorage();
+			clearLocalStorage();
 			state.loading = false;
 			state.error = false;
 			state.snackMessage = "Your email is successfully verified.";
