@@ -83,12 +83,12 @@ function Register() {
 	React.useEffect(() => {
 		if (stage === "register") {
 			router.push("/auth/registerVerification");
-			registerActions.clearStage();
+			dispatch(registerActions.clearStage());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 
-	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
+	const [isSnackOpen, setIsSnackOpen] = React.useState(false); 
 
 	const handleOpenSnack = (text) => {
 		setIsSnackOpen(true);
@@ -96,7 +96,7 @@ function Register() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		registerActions.clearSnackMessage();
+		dispatch(registerActions.clearSnackMessage());
 	};
 
 	return (
@@ -176,9 +176,7 @@ function Register() {
 				</Card>
 				<Row className="mt-3">
 					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login">
-							Already have an acount?
-						</Link>
+						<Link href="/auth/login">Already have an acount?</Link>
 					</Col>
 				</Row>
 			</Col>

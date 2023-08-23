@@ -56,14 +56,13 @@ function RegisterVerification() {
 	React.useEffect(() => {
 		if (stage === "verify") {
 			router.push("/auth/login");
-			registerActions.clearStage();
+			dispatch(registerActions.clearStage());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 
 	React.useEffect(() => {
 		if (snackMessage != "") handleOpenSnack();
-		registerActions.clearSnackMessage();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -75,6 +74,7 @@ function RegisterVerification() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
+		dispatch(registerActions.clearSnackMessage());
 	};
 
 	const [timer, setTimer] = React.useState(180);

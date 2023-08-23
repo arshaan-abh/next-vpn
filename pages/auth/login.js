@@ -1,15 +1,15 @@
 import * as React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
 // reactstrap components
 import { Button, Card, CardBody, Row, Col } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import CheckInput from "../../components/Form/CheckInput";
 import PasswordInput from "../../components/Form/PasswordInput";
 import TextInput from "../../components/Form/TextInput";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { login, loginActions } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
@@ -38,7 +38,7 @@ function Login() {
 	const dispatch = useDispatch();
 
 	const loading = useSelector((state) => state.login.loading);
-	const logged = useSelector((state) => state.login.logged);
+	const stage = useSelector((state) => state.login.stage);
 	const snackMessage = useSelector((state) => state.login.snackMessage);
 
 	const formik = useFormik({
@@ -61,12 +61,12 @@ function Login() {
 	}, [snackMessage]);
 
 	React.useEffect(() => {
-		if (logged) {
-			router.push("/panel");
-			loginActions.clearLogged();
+		if (stage === "login") {
+			router.push("/selectrole");
+			dispatch(loginActions.clearStage());
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [logged]);
+	}, [stage]);
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
@@ -76,7 +76,7 @@ function Login() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		loginActions.clearSnackMessage();
+		dispatch(loginActions.clearSnackMessage());
 	};
 
 	return (

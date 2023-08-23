@@ -17,11 +17,11 @@ import { useRouter } from "next/router";
 import { clearLocalStorage } from "../../utils/handleLocalStorage";
 
 function UserNavbar({ brandText }) {
-	const router = useRouter();
+	const router = useRouter(); 
 
 	const logout = () => {
 		clearLocalStorage();
-		setTimeout(() => router.push("/auth/login"), 100);
+		router.push("/auth/login");
 	};
 
 	return (

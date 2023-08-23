@@ -9,8 +9,8 @@ import { getLocalStorageItem } from "../utils/handleLocalStorage";
 
 function Auth(props) {
 	React.useEffect(() => {
-		const token = getLocalStorageItem("token");
-		if (token) router.push("/panel");
+		const roletoken = getLocalStorageItem("roletoken");
+		if (roletoken) router.push("/panel");
 
 		document.body.classList.add("bg-default");
 		// Specify how to clean up after this effect:

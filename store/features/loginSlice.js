@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { clearLocalStorage } from "../../utils/handleLocalStorage";
+import {
+	clearLocalStorage,
+	removeLocalStorageItem,
+} from "../../utils/handleLocalStorage";
 import axios from "axios";
 import configData from "../config.json";
 import { setLocalStorageItem } from "../../utils/handleLocalStorage";
@@ -15,17 +18,26 @@ export const login = createAsyncThunk("login/login", async (data) => {
 	return { login, data };
 });
 
+export const addRole = createAsyncThunk("login/addRole", async (data) => {
+	clearLocalStorage();
+	const role = await axios
+		.post(`${url}/auth/add-role`, data)
+		.then((response) => response.data);
+
+	return { role, data };
+});
+
 export const slice = createSlice({
 	name: "login",
 	initialState: {
 		loading: false,
 		error: false,
-		logged: false,
+		stage: "",
 		snackMessage: "",
 	},
 	reducers: {
-		clearLogged: (state, action) => {
-			state.logged = false;
+		clearStage: (state, action) => {
+			state.stage = "";
 		},
 		clearSnackMessage: (state, action) => {
 			state.snackMessage = "";
@@ -39,13 +51,9 @@ export const slice = createSlice({
 		builder.addCase(login.fulfilled, (state, action) => {
 			clearLocalStorage();
 			setLocalStorageItem("token", action.payload.login.result.token, 30);
-			setLocalStorageItem(
-				"role",
-				action.payload.login.result.roles.map((item, i) => item.name),
-				30
-			);
+			setLocalStorageItem("role", action.payload.login.result.roles, 30);
 			state.loading = false;
-			state.logged = true;
+			state.stage = "login";
 		});
 		builder.addCase(login.rejected, (state, action) => {
 			clearLocalStorage();
@@ -56,6 +64,20 @@ export const slice = createSlice({
 			} else {
 				state.snackMessage = action.error.message;
 			}
+		});
+		
+		//addRole
+		builder.addCase(addRole.pending, (state, action) => {
+			state.loading = true;
+		});
+		builder.addCase(addRole.fulfilled, (state, action) => {
+			removeLocalStorageItem("token");
+			setLocalStorageItem("token", action.payload.role.result.token, 30);
+			state.loading = false;
+		});
+		builder.addCase(addRole.rejected, (state, action) => {
+			state.loading = false;
+			state.snackMessage = action.error.message;
 		});
 	},
 });

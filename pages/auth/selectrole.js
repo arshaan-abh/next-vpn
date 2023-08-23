@@ -15,10 +15,26 @@ import {
 import Auth from "/layouts/Auth.js";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import SelectInput from "@mui/material/Select/SelectInput";
+import { useDispatch, useSelector } from "react-redux";
+import { login, loginActions } from "../../store/features/loginSlice";
+import LoadingSmall from "../../components/Dynamic/LoadingSmall";
+import SnackAlert from "../../components/Dynamic/SnackAlert";
+
+const validationSchema = yup.object().shape({
+	role: yup.string().required("Role is required"),
+});
 
 function SelectPanel() {
 	const router = useRouter();
 	const [selectedDashboard, setSelectedDashboard] = useState("Admin");
+
+	React.useEffect(() => {
+		const token = getLocalStorageItem("token");
+		if (!token) router.push("/auth/login");
+	}, []);
 
 	return (
 		<Col lg="5" md="7">
