@@ -160,17 +160,15 @@ function Register() {
 								formik={formik}
 							/>
 
-							<div className="text-center">
-								<Button
-									disabled={loading}
-									className="mt-4 !flex flex-row align-items-center h-12"
-									color="primary"
-									type="submit"
-								>
-									Create account
-									{loading ? <LoadingSmall color="text-white-200" /> : null}
-								</Button>
-							</div>
+							<Button
+								disabled={loading}
+								className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+								color="primary"
+								type="submit"
+							>
+								Create account
+								{loading ? <LoadingSmall color="text-white-200" /> : null}
+							</Button>
 						</form>
 					</CardBody>
 				</Card>

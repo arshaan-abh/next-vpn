@@ -117,36 +117,33 @@ function RegisterVerification() {
 								label="Verification token"
 								formik={formik}
 							/>
-
-							<div className="text-center">
-								{formik.touched.token && !formik.errors.token ? (
-									<Button
-										disabled={loading}
-										className="mt-4 !flex flex-row align-items-center h-12"
-										color="primary"
-										type="submit"
-									>
-										Verify email
-										{loading ? <LoadingSmall color="text-white-200" /> : null}
-									</Button>
-								) : (
-									<Button
-										className="mt-4 !flex flex-row align-items-center h-12"
-										color="primary"
-										disabled={timer !== 0 || loading}
-										onClick={handleResend}
-									>
-										{timer === 0 ? (
-											<>Resend code</>
-										) : (
-											<>
-												{Math.floor(timer / 60)}:
-												{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
-											</>
-										)}
-									</Button>
-								)}
-							</div>
+							{formik.touched.token && !formik.errors.token ? (
+								<Button
+									disabled={loading}
+									className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+									color="primary"
+									type="submit"
+								>
+									Verify email
+									{loading ? <LoadingSmall color="text-white-200" /> : null}
+								</Button>
+							) : (
+								<Button
+									className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+									color="primary"
+									disabled={timer !== 0 || loading}
+									onClick={handleResend}
+								>
+									{timer === 0 ? (
+										<>Resend code</>
+									) : (
+										<>
+											{Math.floor(timer / 60)}:
+											{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
+										</>
+									)}
+								</Button>
+							)}
 						</form>
 					</CardBody>
 				</Card>

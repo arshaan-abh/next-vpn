@@ -17,8 +17,8 @@ function Admin(props) {
 		document.scrollingElement.scrollTop = 0;
 		mainContentRef.current.scrollTop = 0;
 
-		const token = getLocalStorageItem("token");
-		if (!token) router.push("/auth/login");
+		const roletoken = getLocalStorageItem("roletoken");
+		if (!roletoken) router.push("/auth/login");
 	}, []);
 
 	return (

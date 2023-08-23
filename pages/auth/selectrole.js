@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import SelectInput from "@mui/material/Select/SelectInput";
+import AutoCompleteInput from "../../components/Form/AutoCompleteInput";
 import { useDispatch, useSelector } from "react-redux";
 import { login, loginActions } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
+import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
 	role: yup.string().required("Role is required"),
@@ -22,8 +23,9 @@ function SelectRole() {
 	const loading = useSelector((state) => state.login.loading);
 	const stage = useSelector((state) => state.login.stage);
 	const snackMessage = useSelector((state) => state.login.snackMessage);
-	const roles = getLocalStorageItem("roles");
-	const roleNames = roles.map((item, i) => item.name);
+
+	const [roles, setRoles] = React.useState([]);
+	const [roleNames, setRoleNames] = React.useState([]);
 
 	const formik = useFormik({
 		initialValues: {
@@ -40,6 +42,10 @@ function SelectRole() {
 	React.useEffect(() => {
 		const token = getLocalStorageItem("token");
 		if (!token) router.push("/auth/login");
+
+		const roles = getLocalStorageItem("roles");
+		setRoles(roles);
+		setRoleNames(roles.map((item, i) => item.name));
 	}, []);
 
 	React.useEffect(() => {
@@ -84,27 +90,24 @@ function SelectRole() {
 							Select role
 						</div>
 						<form onSubmit={formik.handleSubmit}>
-							<SelectInput
+							<AutoCompleteInput
 								labelShrink
 								className="mb-4"
 								fieldName="role"
-								placeholder="Select desired role"
 								label="Role"
-								options={[]}
+								options={roleNames}
 								formik={formik}
 							/>
 
-							<div className="text-center">
-								<Button
-									disabled={loading}
-									className="mt-4 !flex flex-row align-items-center h-12"
-									color="primary"
-									type="submit"
-								>
-									Open panel
-									{loading ? <LoadingSmall color="text-white-200" /> : null}
-								</Button>
-							</div>
+							<Button
+								disabled={loading}
+								className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+								color="primary"
+								type="submit"
+							>
+								Open panel
+								{loading ? <LoadingSmall color="text-white-200" /> : null}
+							</Button>
 						</form>
 					</CardBody>
 				</Card>
