@@ -6,14 +6,17 @@ import ButtonOutlined from "../misc/ButtonOutlined";
 import styles from "../../../styles/CustomStyles.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import {getLocalStorageItem} from "../../../utils/handleLocalStorage";
 
 const Header = () => {
 	const [activeLink, setActiveLink] = useState(null);
 	const [scrollActive, setScrollActive] = useState(false);
+	const [token, setToken] = useState(null);
 	useEffect(() => {
 		window.addEventListener("scroll", () => {
 			setScrollActive(window.scrollY > 20);
 		});
+		setToken(getLocalStorageItem("roletoken"))
 	}, []);
 	const router = useRouter();
 
@@ -118,14 +121,16 @@ const Header = () => {
             */}
 					</ul>
 					<div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-						<Link href="/auth/login">
-							<a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
-								  Sign In
-							</a>
-						</Link>
-						<ButtonOutlined onClick={() => router.push("/auth/register")}>
-							Sign Up
-						</ButtonOutlined>
+						{token === null ? <>
+							<Link href="/auth/login">
+								<a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
+									Sign In
+								</a>
+							</Link>
+							<ButtonOutlined onClick={() => router.push("/auth/register")}>
+								Sign Up
+							</ButtonOutlined>
+						</> : <ButtonOutlined onClick={() => router.push("/panel")}>Dashboard</ButtonOutlined>}
 					</div>
 				</nav>
 			</header>
