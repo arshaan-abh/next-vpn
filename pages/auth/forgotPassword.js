@@ -6,6 +6,10 @@ import * as yup from "yup";
 import TextInput from "../../components/Form/TextInput";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import SnackAlert from "../../components/Dynamic/SnackAlert";
+import {useDispatch, useSelector} from "react-redux";
+import LoadingSmall from "../../components/Dynamic/LoadingSmall";
+import {passwordActions, resetPassword} from "../../store/features/passwordSlice";
 
 const validationSchema = yup.object().shape({
 	email: yup
@@ -16,21 +20,44 @@ const validationSchema = yup.object().shape({
 
 function ForgotPassword() {
 	const router = useRouter();
+	const dispatch = useDispatch();
+
+	const loading = useSelector((state) => state.password.loading);
+	const error = useSelector((state) => state.password.error);
+	const snackMessage = useSelector((state) => state.password.snackMessage);
 
 	const formik = useFormik({
 		initialValues: {
 			email: "",
-			password: "",
-			rememberme: false,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			router.push("/auth/selectrole");
+			dispatch(resetPassword(values)).unwrap();
 		},
 	});
 
+	React.useEffect(() => {
+		if (snackMessage !== "") handleOpenSnack();
+	}, [snackMessage]);
+
+	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
+
+	const handleOpenSnack = (text) => {
+		setIsSnackOpen(true);
+	};
+
+	const handleCloseSnack = () => {
+		setIsSnackOpen(false);
+		dispatch(passwordActions.clearSnackMessage());
+	};
+
 	return (
 		<>
+			<SnackAlert
+				props={{
+					isSnackOpen, handleCloseSnack, snackMessage, error: error,
+				}}
+			/>
 			<Col lg="5" md="7">
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
@@ -47,8 +74,9 @@ function ForgotPassword() {
 								formik={formik}
 							/>
 							<div className="text-center">
-								<Button className="my-4" color="primary" type="submit">
+								<Button disabled={loading} className="my-4" color="primary" type="submit">
 									Send code
+									{loading ? <LoadingSmall color="text-white-200"/> : null}
 								</Button>
 							</div>
 						</form>
