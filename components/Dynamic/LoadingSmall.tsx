@@ -8,7 +8,7 @@ interface Props {
 
 export default function LoadingSmall({ className = "", color }: Props) {
 	return (
-		<span className={`${className} ${color} ml-3`}>
+		<span className={`${className} ${color} ml-3 flex flex-row align-items-center justify-center`}>
 			<CircularProgress color={color ? "inherit" : "primary"} size="1.4rem" />
 		</span>
 	);
