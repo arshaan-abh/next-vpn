@@ -7,9 +7,12 @@ import TextInput from "../../components/Form/TextInput";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
-import {passwordActions, resetPassword} from "../../store/features/passwordSlice";
+import {
+	passwordActions,
+	resetPassword,
+} from "../../store/features/passwordSlice";
 
 const validationSchema = yup.object().shape({
 	email: yup
@@ -46,7 +49,7 @@ function ForgotPassword() {
 			setTimeout(() => {
 				dispatch(passwordActions.clearStage());
 				router.push("/auth/login");
-			}, 2000)
+			}, 2000);
 		}
 	}, [stage]);
 
@@ -65,7 +68,10 @@ function ForgotPassword() {
 		<>
 			<SnackAlert
 				props={{
-					isSnackOpen, handleCloseSnack, snackMessage, error: error,
+					isSnackOpen,
+					handleCloseSnack,
+					snackMessage,
+					error: error,
 				}}
 			/>
 			<Col lg="5" md="7">
@@ -83,25 +89,25 @@ function ForgotPassword() {
 								label="Email"
 								formik={formik}
 							/>
-							<div className="text-center">
-								<Button disabled={loading} className="my-4" color="primary" type="submit">
-									Send code
-									{loading ? <LoadingSmall color="text-white-200"/> : null}
-								</Button>
-							</div>
+
+							<Button
+								disabled={loading}
+								className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+								color="primary"
+								type="submit"
+							>
+								Send code
+								{loading ? <LoadingSmall color="text-white-200" /> : null}
+							</Button>
 						</form>
 					</CardBody>
 				</Card>
 				<Row className="mt-3">
 					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login">
-							go back to login
-						</Link>
+						<Link href="/auth/login">go back to login</Link>
 					</Col>
 					<Col className="text-right text-slate-300" xs="6">
-						<Link href="/auth/register">
-							Create new account
-						</Link>
+						<Link href="/auth/register">Create new account</Link>
 					</Col>
 				</Row>
 			</Col>

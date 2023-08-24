@@ -21,23 +21,28 @@ export const login = createAsyncThunk("login/login", async (data) => {
 
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
 	const token = getLocalStorageItem("token");
+	const roles = getLocalStorageItem("roles");
+	const roleName = roles.find((item) => item._id === data.id).name;	
 	const headers = { Authorization: `Bearer ${token}` };
 	const role = await axios
-		.post(`${url}/auth/add-role${data.id}`, null, {headers})
+		.post(`${url}/auth/add-role${data.id}`, null, { headers })
 		.then((response) => response.data);
 
-	return { role, data };
+	return { role, data, roleName };
 });
 
 export const slice = createSlice({
 	name: "login",
 	initialState: {
 		loading: false,
-		error: false,
 		stage: "",
 		snackMessage: "",
 	},
 	reducers: {
+		logout: (state, action) => {
+			state.stage = "";
+			clearLocalStorage();
+		},
 		clearStage: (state, action) => {
 			state.stage = "";
 		},
@@ -75,6 +80,7 @@ export const slice = createSlice({
 		builder.addCase(addRole.fulfilled, (state, action) => {
 			removeLocalStorageItem("token");
 			setLocalStorageItem("roletoken", action.payload.role.result.token, 30);
+			setLocalStorageItem("role", action.payload.roleName, 30);
 			state.loading = false;
 			state.stage = "roleadd";
 		});

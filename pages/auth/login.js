@@ -11,7 +11,7 @@ import CheckInput from "../../components/Form/CheckInput";
 import PasswordInput from "../../components/Form/PasswordInput";
 import TextInput from "../../components/Form/TextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { login, loginActions } from "../../store/features/loginSlice";
+import { addRole, login, loginActions } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
@@ -68,9 +68,26 @@ function Login() {
 
 	React.useEffect(() => {
 		if (stage === "login") {
-			router.push("/auth/selectrole");
-			dispatch(loginActions.clearStage());
+			const roles = getLocalStorageItem("roles");
+
+			if (roles.length === 1) {
+				dispatch(addRole({ id: roles[0]._id })).unwrap();
+			} else {
+				router.push("/auth/selectrole");
+			}
 		}
+
+		if (stage === "roleadd") {
+			const roles = getLocalStorageItem("roles");
+
+			if (roles[0].name === "user") {
+				router.push("/panel");
+			} else if (roles[0].name === "admin") {
+				router.push("/panel/admin");
+			}
+		}
+
+		dispatch(loginActions.clearStage());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 

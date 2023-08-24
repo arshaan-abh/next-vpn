@@ -37,7 +37,8 @@ export const slice = createSlice({
             state.error = true;
 
             if (action.error.code === "ERR_BAD_REQUEST") {
-                state.snackMessage = "Email is not correct.";
+                state.snackMessage =
+									"Email is not correct or token is already sent.";
             } else {
                 state.snackMessage = action.error.message;
             }

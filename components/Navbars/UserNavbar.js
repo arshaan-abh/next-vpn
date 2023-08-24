@@ -14,13 +14,15 @@ import {
 import Image from "next/future/image";
 import team from "/assets/img/theme/team-4-800x800.jpg";
 import { useRouter } from "next/router";
-import { clearLocalStorage } from "../../utils/handleLocalStorage";
+import { useDispatch } from "react-redux";
+import { loginActions } from "../../store/features/loginSlice";
 
 function UserNavbar({ brandText }) {
-	const router = useRouter(); 
+	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const logout = () => {
-		clearLocalStorage();
+		dispatch(loginActions.logout());
 		router.push("/auth/login");
 	};
 
