@@ -23,6 +23,7 @@ function ForgotPassword() {
 	const dispatch = useDispatch();
 
 	const loading = useSelector((state) => state.password.loading);
+	const stage = useSelector((state) => state.password.stage);
 	const error = useSelector((state) => state.password.error);
 	const snackMessage = useSelector((state) => state.password.snackMessage);
 
@@ -39,6 +40,15 @@ function ForgotPassword() {
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 	}, [snackMessage]);
+
+	React.useEffect(() => {
+		if (stage === "reset") {
+			setTimeout(() => {
+				dispatch(passwordActions.clearStage());
+				router.push("/auth/login");
+			}, 2000)
+		}
+	}, [stage]);
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 

@@ -29,6 +29,7 @@ export const slice = createSlice({
         });
         builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.loading = false;
+            state.stage = "reset";
             state.snackMessage = "Reset password instructions was sent to your email.";
         });
         builder.addCase(resetPassword.rejected, (state, action) => {
