@@ -11,7 +11,6 @@ import { setLocalStorageItem } from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const login = createAsyncThunk("login/login", async (data) => {
-	clearLocalStorage();
 	const login = await axios
 		.post(`${url}/auth/login`, data)
 		.then((response) => response.data);
@@ -21,9 +20,10 @@ export const login = createAsyncThunk("login/login", async (data) => {
 
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
 	const token = getLocalStorageItem("token");
-	const roles = getLocalStorageItem("roles");
-	const roleName = roles.find((item) => item._id === data.id).name;	
 	const headers = { Authorization: `Bearer ${token}` };
+	
+	const roles = getLocalStorageItem("roles");
+	const roleName = roles.find((item) => item._id === data.id).name;
 	const role = await axios
 		.post(`${url}/auth/add-role${data.id}`, null, { headers })
 		.then((response) => response.data);

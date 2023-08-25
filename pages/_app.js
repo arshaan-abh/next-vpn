@@ -8,6 +8,7 @@ import store from "../store/store";
 import "../styles/tailwind.css";
 import "../styles/slick.css";
 import "../styles/MUIStyle.css";
+import "../styles/DataGrid.scss";
 import "../styles/index.css";
 
 import PageChange from "../components/PageChange/PageChange.js";

@@ -6,7 +6,7 @@ import { FormikProps, getIn } from "formik";
 interface Props {
 	className?: string;
 	fieldName: string;
-	options: string[];
+	options: { label: string; value: string | boolean | number }[];
 	formik: FormikProps<any>;
 }
 
@@ -36,7 +36,7 @@ export default function ToggleInput({
 			onChange={handleChange}
 		>
 			{options.map((item, index) => {
-				return <ToggleButton value={item}>{item}</ToggleButton>;
+				return <ToggleButton value={item.value}>{item.label}</ToggleButton>;
 			})}
 		</ToggleButtonGroup>
 	);

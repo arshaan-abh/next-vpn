@@ -1,0 +1,149 @@
+@import "./globals.scss";
+@import "./mixins.scss";
+
+.MuiDataGrid-withBorderColor {
+	border-color: #e9ecef !important;
+}
+
+.MuiDataGrid-root {
+	.MuiDataGrid-main {
+		.MuiDataGrid-columnHeaders {
+			border-top: 1px solid #e9ecef;
+			border-bottom: 1px solid #e9ecef;
+			background-color: #f6f9fc;
+
+			.MuiDataGrid-columnHeader:first-child {
+				padding-left: 28px;
+			}
+
+			.MuiDataGrid-columnHeader:last-child {
+				padding-right: 28px;
+			}
+
+			.MuiDataGrid-columnHeaderTitle {
+				color: #8898aa;
+				font-size: $font-size-rs;
+				letter-spacing: 1px;
+				font-weight: $font-weight-bold;
+				text-transform: uppercase;
+			}
+		}
+
+		.MuiDataGrid-virtualScroller {
+			min-height: 200px;
+
+			.MuiDataGrid-overlay {
+				color: #8898aa;
+				font-size: $font-size-vs;
+				letter-spacing: 1px;
+				font-weight: $font-weight-bold;
+				text-transform: uppercase;
+			}
+
+			.MuiDataGrid-cell:first-child {
+				padding-left: 28px;
+			}
+
+			.MuiDataGrid-cell:last-child {
+				padding-right: 28px;
+			}
+		}
+	}
+
+	.MuiDataGrid-footerContainer {
+		border-top: none;
+		padding-top: 10px;
+
+		.MuiTablePagination-root {
+			.MuiToolbar-root {
+				.MuiTablePagination-displayedRows {
+					display: none;
+				}
+
+				.MuiPagination-root {
+					padding-right: 30px;
+
+					.MuiPaginationItem-root {
+						color: #8898aa;
+						border: 1px solid #e9ecef;
+					}
+
+					.MuiPaginationItem-root.Mui-selected {
+						color: #f1f1f1;
+						background-color: #5e72e4;
+						border-color: #5e72e4;
+					}
+				}
+			}
+		}
+	}
+}
+
+.grid-cell {
+	@include flex-row;
+	align-items: center;
+	width: 100%;
+
+	.image {
+		@include background-cover;
+
+		width: 35px;
+		height: 35px;
+		margin-right: 10px;
+	}
+
+	.text {
+		@include overflow-ellipsis;
+		width: 100%;
+		position: relative;
+		font-size: $font-size-s;
+		font-weight: $font-weight-bold;
+		color: #525f7f;
+
+		.secondary {
+			color: var(--font-color-secondary);
+		}
+
+		.secondary-small {
+			position: absolute;
+			width: 100%;
+			color: var(--font-color-secondary);
+			font-size: $font-size-vs;
+			bottom: calc(-7px - $font-size-vs);
+			left: 0;
+		}
+
+		.accent {
+			color: var(--primary-color);
+		}
+	}
+
+	.text.ltr {
+		direction: ltr;
+		text-align: right;
+	}
+
+	.text.link {
+		cursor: pointer;
+
+		.icon {
+			margin-right: 5px;
+			color: var(--blue-color);
+			font-size: $font-size-em;
+			vertical-align: middle;
+		}
+	}
+
+	.text.link:hover {
+		text-decoration: underline;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.grid-cell:has(.primary-button) {
+		width: 300px;
+		margin-bottom: -10px;
+		padding-bottom: 10px;
+		overflow-x: auto;
+	}
+}

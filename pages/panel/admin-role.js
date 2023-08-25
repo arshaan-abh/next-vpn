@@ -1,421 +1,69 @@
-import React, { useState } from "react";
-import {
-	Badge,
-	Button,
-	Card,
-	CardFooter,
-	CardHeader,
-	Container,
-	Form,
-	FormGroup,
-	Input,
-	Media,
-	Modal,
-	ModalBody,
-	ModalFooter,
-	Pagination,
-	PaginationItem,
-	PaginationLink,
-	Row,
-	Table,
-} from "reactstrap";
+import React from "react";
+import { Card, CardHeader, Container, Row } from "reactstrap";
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
-import Image from "next/future/image";
-import bootstrap from "/assets/img/theme/bootstrap.jpg";
-import angular from "/assets/img/theme/angular.jpg";
-import sketch from "/assets/img/theme/sketch.jpg";
-import react from "/assets/img/theme/react.jpg";
-import vue from "/assets/img/theme/vue.jpg";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
-
-const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
-		)
-		.required("Name is required"),
-});
+import RoleTable from "../../components/Panel/Role/RoleTable";
+import RoleAdd from "../../components/Panel/Role/RoleAdd";
+import SnackAlert from "../../components/Dynamic/SnackAlert";
+import { useDispatch, useSelector } from "react-redux";
+import { roleActions } from "../../store/features/roleSlice";
 
 function Roll() {
 	const router = useRouter();
+	const dispatch = useDispatch();
 
-	const formik = useFormik({
-		initialValues: {
-			name: "",
-		},
-		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			console.log(values);
-		},
-    });
-    
-	const [modalOpen, setModalOpen] = useState(false);
+	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const error = useSelector((state) => state.role.error);
+
+	React.useEffect(() => {
+		if (snackMessage != "") handleOpenSnack();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [snackMessage]);
+
+	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
+
+	const handleOpenSnack = (text) => {
+		setIsSnackOpen(true);
+	};
+
+	const handleCloseSnack = () => {
+		setIsSnackOpen(false);
+		dispatch(roleActions.clearSnackMessage());
+	};
 
 	return (
 		<>
+			<SnackAlert
+				props={{
+					isSnackOpen,
+					handleCloseSnack,
+					snackMessage,
+					error: error,
+				}}
+			/>
+
 			<Header />
-			<Container className="mt--7" fluid>
+			<Container className="mt--9" fluid>
 				<Row>
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
 								<h3 className="mb-0">Rolls</h3>
-								<Button
-									color="primary"
-									size="sm"
-									onClick={() => setModalOpen(!modalOpen)}
-								>
-									<span className="btn-inner--icon">
-										<i className="ni ni-fat-add"></i>
-									</span>
-									<span className="btn-inner--text">Add Roll</span>
-								</Button>
-								<Button
+								<RoleAdd />
+								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
 									size="sm"
 								>
 									<i className="fas fa-search"></i>
-								</Button>
+								</Button> */}
 							</CardHeader>
-							<Table className="text-left table-flush" responsive>
-								<thead className="thead-light">
-									<tr>
-										<th scope="col">Name</th>
-										<th scope="col">Status</th>
-										<th scope="col" />
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">
-											<Media className="align-items-center">
-												<a
-													className="avatar rounded-circle mr-3"
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<Image alt="..." src={bootstrap} />
-												</a>
-												<Media>
-													<span className="mb-0 text-sm">
-														Argon Design System
-													</span>
-												</Media>
-											</Media>
-										</th>
-										<td>
-											<Badge color="" className="badge-dot mr-4">
-												<i className="bg-warning" />
-												pending
-											</Badge>
-										</td>
-										<td className="text-right">
-											<Button
-												size="sm"
-												outline
-												color="primary"
-												type="button"
-												onClick={() => router.push("/admin/rollFront")}
-											>
-												Front
-											</Button>
-											<Button
-												size="sm"
-												outline
-												color="info"
-												type="button"
-												onClick={() => {}}
-											>
-												Menu
-											</Button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<Media className="align-items-center">
-												<a
-													className="avatar rounded-circle mr-3"
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<Image alt="..." src={angular} />
-												</a>
-												<Media>
-													<span className="mb-0 text-sm">
-														Argon Design System
-													</span>
-												</Media>
-											</Media>
-										</th>
-										<td>
-											<Badge color="" className="badge-dot">
-												<i className="bg-success" />
-												completed
-											</Badge>
-										</td>
-										<td className="text-right">
-											<Button
-												size="sm"
-												outline
-												color="primary"
-												type="button"
-												onClick={() => router.push("/admin/rollFront")}
-											>
-												Front
-											</Button>
-											<Button
-												size="sm"
-												outline
-												color="info"
-												type="button"
-												onClick={() => {}}
-											>
-												Menu
-											</Button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<Media className="align-items-center">
-												<a
-													className="avatar rounded-circle mr-3"
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<Image alt="..." src={sketch} />
-												</a>
-												<Media>
-													<span className="mb-0 text-sm">Black Dashboard</span>
-												</Media>
-											</Media>
-										</th>
-										<td>
-											<Badge color="" className="badge-dot mr-4">
-												<i className="bg-danger" />
-												delayed
-											</Badge>
-										</td>
-										<td className="text-right">
-											<Button
-												size="sm"
-												outline
-												color="primary"
-												type="button"
-												onClick={() => router.push("/admin/rollFront")}
-											>
-												Front
-											</Button>
-											<Button
-												size="sm"
-												outline
-												color="info"
-												type="button"
-												onClick={() => {}}
-											>
-												Menu
-											</Button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<Media className="align-items-center">
-												<a
-													className="avatar rounded-circle mr-3"
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<Image alt="..." src={react} />
-												</a>
-												<Media>
-													<span className="mb-0 text-sm">
-														Argon Design System
-													</span>
-												</Media>
-											</Media>
-										</th>
-										<td>
-											<Badge color="" className="badge-dot">
-												<i className="bg-info" />
-												on schedule
-											</Badge>
-										</td>
-										<td className="text-right">
-											<Button
-												size="sm"
-												outline
-												color="primary"
-												type="button"
-												onClick={() => router.push("/admin/rollFront")}
-											>
-												Front
-											</Button>
-											<Button
-												size="sm"
-												outline
-												color="info"
-												type="button"
-												onClick={() => {}}
-											>
-												Menu
-											</Button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<Media className="align-items-center">
-												<a
-													className="avatar rounded-circle mr-3"
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<Image alt="..." src={vue} />
-												</a>
-												<Media>
-													<span className="mb-0 text-sm">
-														Argon Design System
-													</span>
-												</Media>
-											</Media>
-										</th>
-										<td>
-											<Badge color="" className="badge-dot mr-4">
-												<i className="bg-success" />
-												completed
-											</Badge>
-										</td>
-										<td className="text-right">
-											<Button
-												size="sm"
-												outline
-												color="primary"
-												type="button"
-												onClick={() => router.push("/admin/rollFront")}
-											>
-												Front
-											</Button>
-											<Button
-												size="sm"
-												outline
-												color="info"
-												type="button"
-												onClick={() => {}}
-											>
-												Menu
-											</Button>
-										</td>
-									</tr>
-								</tbody>
-							</Table>
-							<CardFooter className="py-4">
-								<nav aria-label="...">
-									<div className="flex gap-4 items-center">
-										<div className="grow"></div>
-										<Pagination
-											className="pagination justify-content-end mb-0"
-											listClassName="justify-content-end mb-0"
-										>
-											<PaginationItem className="disabled">
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-													tabIndex="-1"
-												>
-													<i className="fas fa-angle-left" />
-													<span className="sr-only">Previous</span>
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem className="active">
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													1
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													2 <span className="sr-only">(current)</span>
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													3
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-												>
-													<i className="fas fa-angle-right" />
-													<span className="sr-only">Next</span>
-												</PaginationLink>
-											</PaginationItem>
-										</Pagination>
-									</div>
-								</nav>
-							</CardFooter>
+							<RoleTable />
 						</Card>
 					</div>
 				</Row>
 			</Container>
-			<Modal
-				toggle={() => setModalOpen(!modalOpen)}
-				isOpen={modalOpen}
-				centered
-			>
-				<div className="modal-header">
-					<h3>Add roll</h3>
-					<button
-						aria-label="Close"
-						className="close"
-						type="button"
-						onClick={() => setModalOpen(!modalOpen)}
-					>
-						<span aria-hidden={true}>×</span>
-					</button>
-				</div>
-				<ModalBody>
-					<form>
-						<TextInput
-							labelShrink
-							fieldName="name"
-							label="Name"
-							placeholder="Role name"
-							formik={formik}
-						/>
-					</form>
-				</ModalBody>
-				<ModalFooter>
-					<Button
-						color="secondary"
-						type="button"
-						onClick={() => setModalOpen(!modalOpen)}
-					>
-						Close
-					</Button>
-					<Button
-						color="primary"
-						type="submit"
-						onClick={formik.handleSubmit}
-					>
-						Add
-					</Button>
-				</ModalFooter>
-			</Modal>
 		</>
 	);
 }

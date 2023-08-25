@@ -11,8 +11,8 @@ body .MuiFormHelperText-root {
 	font-size: 0.88rem !important;
 }
 
-.MuiInputBase-root.MuiOutlinedInput-root,
-.MuiInputBase-root.MuiFilledInput-root {
+body .MuiInputBase-root.MuiOutlinedInput-root,
+body .MuiInputBase-root.MuiFilledInput-root {
 	height: 48px;
 	padding-top: 0;
 	padding-bottom: 0;
