@@ -12,6 +12,9 @@ function Auth(props) {
 	const router = useRouter();
 
 	React.useEffect(() => {
+		// todo remove the initial lag in firefox:
+		document.querySelector(":root").classList.add("not-landing");
+
 		const roletoken = getLocalStorageItem("roletoken");
 		if (roletoken) router.push("/panel");
 

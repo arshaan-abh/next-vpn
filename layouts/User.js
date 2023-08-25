@@ -14,6 +14,8 @@ function User(props) {
 	let mainContentRef = React.createRef();
 
 	React.useEffect(() => {
+		document.querySelector(":root").classList.add("not-landing");
+
 		document.documentElement.scrollTop = 0;
 		document.scrollingElement.scrollTop = 0;
 		mainContentRef.current.scrollTop = 0;
