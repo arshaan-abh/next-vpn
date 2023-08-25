@@ -12,11 +12,14 @@ const Header = () => {
 	const [activeLink, setActiveLink] = useState(null);
 	const [scrollActive, setScrollActive] = useState(false);
 	const [token, setToken] = useState(null);
+	const [role, setRole] = useState(null);
 	useEffect(() => {
 		window.addEventListener("scroll", () => {
 			setScrollActive(window.scrollY > 20);
 		});
 		setToken(getLocalStorageItem("roletoken"))
+		const tempRole = getLocalStorageItem("role")
+		setRole(tempRole === "user" ? "" : tempRole)
 	}, []);
 	const router = useRouter();
 
@@ -130,7 +133,7 @@ const Header = () => {
 							<ButtonOutlined onClick={() => router.push("/auth/register")}>
 								Sign Up
 							</ButtonOutlined>
-						</> : <ButtonOutlined onClick={() => router.push("/panel")}>Dashboard</ButtonOutlined>}
+						</> : <ButtonOutlined onClick={() => router.push(`/panel/${role}`)}>Dashboard</ButtonOutlined>}
 					</div>
 				</nav>
 			</header>
