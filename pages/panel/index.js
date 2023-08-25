@@ -52,7 +52,7 @@ const Dashboard = (props) => {
 		<>
 			<Header />
 			{/* Page content */}
-			<Container className="mt--7" fluid></Container>
+			<Container className="mt--9" fluid></Container>
 		</>
 	);
 };

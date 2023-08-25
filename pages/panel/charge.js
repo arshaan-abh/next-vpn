@@ -61,7 +61,7 @@ function Charge() {
 	return (
 		<>
 			<Header />
-			<Container className="mt--7" fluid>
+			<Container className="mt--9" fluid>
 				<Row>
 					<div className="col">
 						<Card className="shadow">
