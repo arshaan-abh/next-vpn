@@ -92,7 +92,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.22.10, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.22.10, @babel/runtime@npm:^7.22.11, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.22.11
   resolution: "@babel/runtime@npm:7.22.11"
   dependencies:
@@ -638,7 +638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^5.14.6":
+"@mui/utils@npm:^5.14.5, @mui/utils@npm:^5.14.6":
   version: 5.14.6
   resolution: "@mui/utils@npm:5.14.6"
   dependencies:
@@ -650,6 +650,24 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: c5d2f37dec7984b9cf4da10a2fd9eabe23e7481ad0f3674cc9cdc2b7a3938eca28e92068f6d58b42cc807192dbb5e40d4885f8d896a4a01bab32a05c5ac3920b
+  languageName: node
+  linkType: hard
+
+"@mui/x-data-grid@npm:^6.9.0":
+  version: 6.12.0
+  resolution: "@mui/x-data-grid@npm:6.12.0"
+  dependencies:
+    "@babel/runtime": ^7.22.11
+    "@mui/utils": ^5.14.5
+    clsx: ^2.0.0
+    prop-types: ^15.8.1
+    reselect: ^4.1.8
+  peerDependencies:
+    "@mui/material": ^5.4.1
+    "@mui/system": ^5.4.1
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 7d191f0cf658fd6c0c66afe2563d61c664faad0004f9fc8f7196ad78dd18ded2cc57e9cc6d09a9ecf45e690719fa2522227444fce09a0916bd5d21b5367b17b1
   languageName: node
   linkType: hard
 
@@ -5359,6 +5377,7 @@ __metadata:
     "@lottiefiles/react-lottie-player": ^3.5.3
     "@mui/icons-material": ^5.14.3
     "@mui/material": ^5.14.5
+    "@mui/x-data-grid": ^6.9.0
     "@reduxjs/toolkit": ^1.9.5
     "@types/react": ^18.2.17
     "@types/react-dom": ^18.2.7
