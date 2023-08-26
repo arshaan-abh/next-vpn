@@ -29,15 +29,11 @@ export const addRole = createAsyncThunk("role/addRole", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	console.log(`${url}/role/create`);
-	console.log(headers);
-	console.log(data);
-
-	const roles = await axios
+	const role = await axios
 		.post(`${url}/role/create`, data, { headers })
 		.then((response) => response.data);
 
-	return { roles, data };
+	return { role, data };
 });
 
 export const updateRole = createAsyncThunk(
@@ -57,9 +53,6 @@ export const updateRole = createAsyncThunk(
 export const deleteRole = createAsyncThunk("role/deleteRole", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
-	console.log(`${url}/role/remove/${id}`);
-	console.log(headers);
-	console.log(id);
 
 	const role = await axios
 		.delete(`${url}/role/remove/${id}`, { headers })
@@ -87,6 +80,7 @@ export const slice = createSlice({
 		//fetchRoles
 		builder.addCase(fetchRoles.pending, (state, action) => {
 			state.loadingData = true;
+			state.snackMessage = "";
 		});
 		builder.addCase(fetchRoles.fulfilled, (state, action) => {
 			state.loadingData = false;
@@ -101,6 +95,7 @@ export const slice = createSlice({
 		//addRole
 		builder.addCase(addRole.pending, (state, action) => {
 			state.loadingAction = true;
+			state.snackMessage = "";
 		});
 		builder.addCase(addRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
@@ -116,6 +111,7 @@ export const slice = createSlice({
 		//updateRole
 		builder.addCase(updateRole.pending, (state, action) => {
 			state.loadingAction = true;
+			state.snackMessage = "";
 		});
 		builder.addCase(updateRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
@@ -131,6 +127,7 @@ export const slice = createSlice({
 		//deleteRole
 		builder.addCase(deleteRole.pending, (state, action) => {
 			state.loadingAction = true;
+			state.snackMessage = "";
 		});
 		builder.addCase(deleteRole.fulfilled, (state, action) => {
 			state.loadingAction = false;

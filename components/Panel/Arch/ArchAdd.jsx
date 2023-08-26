@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
-import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRole, fetchRoles } from "../../../store/features/roleSlice";
+import { addArch, fetchArches } from "../../../store/features/archSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup
@@ -17,34 +16,38 @@ const validationSchema = yup.object().shape({
 			"Name can only contain English letters and spaces"
 		)
 		.required("Name is required"),
-	status: yup.boolean(),
-	isDefault: yup.boolean(),
+	symbol: yup
+		.string()
+		.matches(
+			/^[A-Za-z\s]+$/,
+			"Symbol can only contain English letters and spaces"
+		)
+		.required("Symbol is required"),
 });
 
-export default function RoleEdit({ currentValue }) {
+export default function ArchAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.role.loadingAction);
-	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.arch.loadingAction);
+	const snackMessage = useSelector((state) => state.arch.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchRoles());
+			dispatch(fetchArches());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const formik = useFormik({
 		initialValues: {
-			name: currentValue.name,
-			status: currentValue.status,
-			isDefault: currentValue.isDefault,
+			name: "",
+			symbol: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateRole({ id: currentValue.id, data: values }));
+			dispatch(addArch(values));
 		},
 	});
 
@@ -53,13 +56,14 @@ export default function RoleEdit({ currentValue }) {
 	return (
 		<>
 			<Button
+				color="primary"
 				size="sm"
-				outline
-				color="warning"
-				type="button"
 				onClick={() => setModalOpen(!modalOpen)}
 			>
-				Edit
+				<span className="btn-inner--icon">
+					<i className="ni ni-fat-add"></i>
+				</span>
+				<span className="btn-inner--text">Add Roll</span>
 			</Button>
 
 			<Modal
@@ -69,7 +73,7 @@ export default function RoleEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit role</h3>
+					<h3>Add arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -86,26 +90,16 @@ export default function RoleEdit({ currentValue }) {
 							className="mb-4"
 							fieldName="name"
 							label="Name"
-							placeholder="Role name"
+							placeholder="Arch name"
 							formik={formik}
 						/>
 
-						<ToggleInput
+						<TextInput
+							labelShrink
 							className="mb-4"
-							fieldName="status"
-							options={[
-								{ label: "Active", value: true },
-								{ label: "Inactive", value: false },
-							]}
-							formik={formik}
-						/>
-
-						<ToggleInput
-							fieldName="isDefault"
-							options={[
-								{ label: "Normal", value: false },
-								{ label: "Default", value: true },
-							]}
+							fieldName="symbol"
+							label="Symbol"
+							placeholder="Arch symbol(abr)"
 							formik={formik}
 						/>
 					</form>
@@ -118,8 +112,8 @@ export default function RoleEdit({ currentValue }) {
 					>
 						Close
 					</Button>
-					<Button color="warning" type="submit" onClick={formik.handleSubmit}>
-						Edit
+					<Button color="success" type="submit" onClick={formik.handleSubmit}>
+						Add
 					</Button>
 				</ModalFooter>
 			</Modal>
