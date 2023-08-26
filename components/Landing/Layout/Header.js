@@ -102,11 +102,11 @@ const Header = () => {
 						>
 							Pricing
 						</LinkScroll>
-						<div
+						<ButtonOutlined
 							onClick={() => router.push("/getStarted")}
-							className={"px-4 py-2 mx-2 cursor-pointer inline-block relative text-white-500 bg-orange-500 rounded-full"}>
+							filled>
 							Get Started
-						</div>
+						</ButtonOutlined>
 						{/*}
             <LinkScroll
               activeClass="active"

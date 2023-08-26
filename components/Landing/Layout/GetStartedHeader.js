@@ -35,11 +35,11 @@ const Header = () => {
                     />
                 </div>
                 <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500 items-center">
-                    <div
+                    <ButtonOutlined
                         onClick={() => router.push("/")}
-                        className={"px-4 py-2 mx-2 cursor-pointer inline-block relative text-white-500 bg-orange-500 rounded-full"}>
+                        filled>
                         Back to Home
-                    </div>
+                    </ButtonOutlined>
                     <LinkScroll
                         activeClass="active"
                         to="windows"
