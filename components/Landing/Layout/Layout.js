@@ -1,10 +1,11 @@
 import React from "react"
 import Footer from "./Footer"
-import Header from "./Header"
+import Header from "./Header";
+import GetStartedHeader from "./GetStartedHeader";
 
-const Layout = ({children}) => {
+const Layout = ({children, page}) => {
     return (<>
-        <Header/>
+        {page === undefined ? <Header/> : page === "getStarted" ? <GetStartedHeader/> : <Header/>}
         {children}
         <Footer/>
     </>)
