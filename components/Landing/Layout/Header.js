@@ -102,6 +102,11 @@ const Header = () => {
 						>
 							Pricing
 						</LinkScroll>
+						<div
+							onClick={() => router.push("/getStarted")}
+							className={"px-4 py-2 mx-2 cursor-pointer inline-block relative text-white-500 bg-orange-500 rounded-full"}>
+							Get Started
+						</div>
 						{/*}
             <LinkScroll
               activeClass="active"
@@ -238,6 +243,24 @@ const Header = () => {
 							</svg>
 							Pricing
 						</LinkScroll>
+						<div
+							onClick={() => router.push("/getStarted")}
+							className={"mx-1 sm:mx-2 px-3 sm:px-4 py-2 flex flex-col items-center text-xs border-t-2 transition-all border-orange-500 text-orange-500"}>
+							<svg
+								className="w-6 h-6"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+							Get Started
+						</div>
 						{/*
             <LinkScroll
               activeClass="active"
