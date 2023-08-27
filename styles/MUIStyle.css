@@ -83,6 +83,12 @@ body .MuiToggleButtonGroup-root .MuiButtonBase-root {
 	text-transform: none;
 }
 
+.MuiFormControl-root .MuiFormLabel-root.toggle-label {
+	top: -10px;
+	left: -14px;
+	font-size: 1.1rem;
+}
+
 @media screen and (max-width: 800px) {
 	.MuiOutlinedInput-root .MuiIconButton-root {
 		margin-left: -10px;

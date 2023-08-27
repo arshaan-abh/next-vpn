@@ -91,20 +91,23 @@ export default function RoleEdit({ currentValue }) {
 						/>
 
 						<ToggleInput
-							className="mb-4"
+							className="mt-3 mb-4"
 							fieldName="status"
+							label="Active"
 							options={[
-								{ label: "Active", value: true },
-								{ label: "Inactive", value: false },
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
 							]}
 							formik={formik}
 						/>
 
 						<ToggleInput
+							className="mt-3"
 							fieldName="isDefault"
+							label="Default"
 							options={[
-								{ label: "Normal", value: false },
-								{ label: "Default", value: true },
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
 							]}
 							formik={formik}
 						/>

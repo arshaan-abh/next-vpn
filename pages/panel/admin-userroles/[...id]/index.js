@@ -1,16 +1,12 @@
-import * as React from "react";
-import {
-	Card,
-	CardHeader,
-	Container,
-	Row,
-} from "reactstrap";
+import React from "react";
+import { Card, CardHeader, Container, Row } from "reactstrap";
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
-import UserTable from "../../components/Panel/User/UserTable";
 import { useRouter } from "next/router";
+import UserRoleAdd from "../../../../components/Panel/User/UserRoleAdd";
+import UserRoleTable from "../../../../components/Panel/User/UserRoleTable";
 
-function Users() {
+function Page() {
 	const router = useRouter();
 
 	return (
@@ -21,7 +17,8 @@ function Users() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Users</h3>
+								<h3 className="mb-0">User roles</h3>
+								<UserRoleAdd />
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
@@ -30,7 +27,7 @@ function Users() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<UserTable />
+							<UserRoleTable />
 						</Card>
 					</div>
 				</Row>
@@ -39,6 +36,6 @@ function Users() {
 	);
 }
 
-Users.layout = Admin;
+Page.layout = Admin;
 
-export default Users;
+export default Page;

@@ -3,51 +3,47 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addArch, fetchArches } from "../../../store/features/archSlice";
+import { addUserRole, fetchUserRoles } from "../../../store/features/userSlice";
+import { fetchRoles } from "../../../store/features/roleSlice";
+import AutoCompleteInput from "../../Form/AutoCompleteInput";
 
 const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
-		)
-		.required("Name is required"),
-	symbol: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Symbol can only contain English letters and spaces"
-		)
-		.required("Symbol is required"),
+	roleId: yup.string().required("Role is required"),
 });
 
-export default function ArchAdd() {
+export default function UserRoleAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const { id } = router.query;
+
+	const loadingAction = useSelector((state) => state.user.loadingAction);
+	const snackMessage = useSelector((state) => state.user.snackMessage);
+	const roleData = useSelector((state) => state.role.data);
+
+	React.useEffect(() => {
+		dispatch(fetchRoles());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchArches());
+			dispatch(fetchUserRoles(id[0]));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const formik = useFormik({
 		initialValues: {
-			name: "",
-			symbol: "",
+			userId: id[1],
+			roleId: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addArch(values));
+			dispatch(addUserRole(values));
 		},
 	});
 
@@ -63,7 +59,7 @@ export default function ArchAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add arch</span>
+				<span className="btn-inner--text">Set Role</span>
 			</Button>
 
 			<Modal
@@ -73,7 +69,7 @@ export default function ArchAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add arch</h3>
+					<h3>Set role</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -85,21 +81,14 @@ export default function ArchAdd() {
 				</div>
 				<ModalBody>
 					<form>
-						<TextInput
+						<AutoCompleteInput
 							labelShrink
-							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Arch name"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							className="mb-4"
-							fieldName="symbol"
-							label="Symbol"
-							placeholder="Arch symbol(abr)"
+							fieldName="roleId"
+							labelName="name"
+							valueName="_id"
+							label="Role"
+							placeholder="Select a role"
+							options={roleData}
 							formik={formik}
 						/>
 					</form>
@@ -113,7 +102,7 @@ export default function ArchAdd() {
 						Close
 					</Button>
 					<Button color="success" type="submit" onClick={formik.handleSubmit}>
-						Add
+						Set
 					</Button>
 				</ModalFooter>
 			</Modal>

@@ -6,28 +6,24 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addArch, fetchArches } from "../../../store/features/archSlice";
+import { fetchCryptoArches, updateCryptoArch } from "../../../store/features/archSlice";
+import ToggleInput from "../../Form/ToggleInput";
 
 const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
-		)
-		.required("Name is required"),
-	symbol: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Symbol can only contain English letters and spaces"
-		)
-		.required("Symbol is required"),
+	idSmartContract: yup.string().required("Smart contract ID is required"),
+	decimal: yup
+		.number()
+		.typeError("Decimal should be a number")
+		.required("Decimal is required"),
+	isStableCoin: yup.boolean().required(),
+	isCoin: yup.boolean().required(),
 });
 
-export default function ArchAdd() {
+export default function CryptoArchEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { id } = router.query;
 
 	const loadingAction = useSelector((state) => state.arch.loadingAction);
 	const snackMessage = useSelector((state) => state.arch.snackMessage);
@@ -35,19 +31,21 @@ export default function ArchAdd() {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchArches());
+			dispatch(fetchCryptoArches({ id }));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const formik = useFormik({
 		initialValues: {
-			name: "",
-			symbol: "",
+			idSmartContract: currentValue.idSmartContract,
+			decimal: currentValue.decimal,
+			isStableCoin: currentValue.isStableCoin,
+			isCoin: currentValue.isCoin,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addArch(values));
+			dispatch(updateCryptoArch({ id: currentValue.id, data: values }));
 		},
 	});
 
@@ -56,14 +54,13 @@ export default function ArchAdd() {
 	return (
 		<>
 			<Button
-				color="primary"
 				size="sm"
+				outline
+				color="warning"
+				type="button"
 				onClick={() => setModalOpen(!modalOpen)}
 			>
-				<span className="btn-inner--icon">
-					<i className="ni ni-fat-add"></i>
-				</span>
-				<span className="btn-inner--text">Add arch</span>
+				Edit
 			</Button>
 
 			<Modal
@@ -73,7 +70,7 @@ export default function ArchAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add arch</h3>
+					<h3>Edit crypto</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -88,18 +85,41 @@ export default function ArchAdd() {
 						<TextInput
 							labelShrink
 							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Arch name"
+							fieldName="idSmartContract"
+							label="Smart contract ID"
+							placeholder="Smart contract ID(based on crypto)"
 							formik={formik}
 						/>
 
 						<TextInput
 							labelShrink
 							className="mb-4"
-							fieldName="symbol"
-							label="Symbol"
-							placeholder="Arch symbol(abr)"
+							fieldName="decimal"
+							type="number"
+							label="Decimal"
+							placeholder="Crypto descimal"
+							formik={formik}
+						/>
+
+						<ToggleInput
+							className="mt-3 mb-4"
+							fieldName="isStableCoin"
+							label="Is stable coin"
+							options={[
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
+							]}
+							formik={formik}
+						/>
+
+						<ToggleInput
+							className="mt-3"
+							fieldName="isCoin"
+							label="Is coin"
+							options={[
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
+							]}
 							formik={formik}
 						/>
 					</form>
@@ -112,8 +132,8 @@ export default function ArchAdd() {
 					>
 						Close
 					</Button>
-					<Button color="success" type="submit" onClick={formik.handleSubmit}>
-						Add
+					<Button color="warning" type="submit" onClick={formik.handleSubmit}>
+						Edit
 					</Button>
 				</ModalFooter>
 			</Modal>

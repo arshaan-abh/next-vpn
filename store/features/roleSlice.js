@@ -80,7 +80,6 @@ export const slice = createSlice({
 		//fetchRoles
 		builder.addCase(fetchRoles.pending, (state, action) => {
 			state.loadingData = true;
-			state.snackMessage = "";
 		});
 		builder.addCase(fetchRoles.fulfilled, (state, action) => {
 			state.loadingData = false;

@@ -60,7 +60,7 @@ export default function RoleAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add Roll</span>
+				<span className="btn-inner--text">Add Role</span>
 			</Button>
 
 			<Modal
@@ -92,20 +92,22 @@ export default function RoleAdd() {
 						/>
 
 						<ToggleInput
-							className="mb-4"
+							className="mt-3 mb-4"
 							fieldName="status"
+							label="Active"
 							options={[
-								{ label: "Active", value: true },
-								{ label: "Inactive", value: false },
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
 							]}
 							formik={formik}
 						/>
 
 						<ToggleInput
 							fieldName="isDefault"
+							label="Default"
 							options={[
-								{ label: "Normal", value: false },
-								{ label: "Default", value: true },
+								{ label: "Yes", value: true },
+								{ label: "No", value: false },
 							]}
 							formik={formik}
 						/>

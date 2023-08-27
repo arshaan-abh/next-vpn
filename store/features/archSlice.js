@@ -32,7 +32,6 @@ export const fetchCryptoArches = createAsyncThunk(
 		data = {
 			sort: "id",
 			order: -1,
-			filter: {},
 		},
 	}) => {
 		const roletoken = getLocalStorageItem("roletoken");
@@ -42,7 +41,7 @@ export const fetchCryptoArches = createAsyncThunk(
 		dataFix.archId = id;
 
 		const cryptoarches = await axios
-			.post(`${url}/arch/get-crypto-arch`, data, { headers })
+			.post(`${url}/arch/get-crypto-arch`, dataFix, { headers })
 			.then((response) => response.data);
 
 		return { cryptoarches, data };
@@ -144,7 +143,6 @@ export const slice = createSlice({
 		//fetchArchs
 		builder.addCase(fetchArches.pending, (state, action) => {
 			state.loadingData = true;
-			state.snackMessage = "";
 		});
 		builder.addCase(fetchArches.fulfilled, (state, action) => {
 			state.loadingData = false;
@@ -159,11 +157,10 @@ export const slice = createSlice({
 		//fetchCryptoArches
 		builder.addCase(fetchCryptoArches.pending, (state, action) => {
 			state.loadingData = true;
-			state.snackMessage = "";
 		});
 		builder.addCase(fetchCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.cryptoarches.result.data;
+			state.cryptoData = action.payload.cryptoarches.result;
 		});
 		builder.addCase(fetchCryptoArches.rejected, (state, action) => {
 			state.loadingData = false;
@@ -194,7 +191,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(addCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto arch was added successfully";
+			state.snackMessage = "Crypto was added successfully";
 			state.error = false;
 		});
 		builder.addCase(addCryptoArch.rejected, (state, action) => {
@@ -226,7 +223,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto arch was updated successfully";
+			state.snackMessage = "Crypto was updated successfully";
 			state.error = false;
 		});
 		builder.addCase(updateCryptoArch.rejected, (state, action) => {
@@ -258,7 +255,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto arch was deleted successfully";
+			state.snackMessage = "Crypto was deleted successfully";
 			state.error = false;
 		});
 		builder.addCase(deleteCryptoArch.rejected, (state, action) => {

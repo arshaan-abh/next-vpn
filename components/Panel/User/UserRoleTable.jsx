@@ -1,16 +1,17 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Badge, Button } from "reactstrap";
+import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, userActions } from "../../../store/features/userSlice";
-import UserEdit from "./UserEdit";
-import UserDelete from "./UserDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import UserRoleDelete from "./UserRoleDelete";
+import { fetchUserRoles, userActions } from "../../../store/features/userSlice";
 
-export default function UserTable() {
+export default function UserRoleTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { id } = router.query;
 
 	const snackMessage = useSelector((state) => state.user.snackMessage);
 	const error = useSelector((state) => state.user.error);
@@ -32,43 +33,30 @@ export default function UserTable() {
 	};
 
 	const loadingData = useSelector((state) => state.user.loadingData);
-	const data = useSelector((state) => state.user.data);
+	const data = useSelector((state) => state.user.roleData);
 	const dataFix = data.map((row) => {
-		const { postgresId, ...rest } = row;
+		const { _id, ...rest } = row;
 		return {
 			...rest,
-			id: postgresId,
+			id: _id,
 		};
 	});
 
 	React.useEffect(() => {
-		dispatch(fetchUsers());
+		dispatch(fetchUserRoles(id[0]));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "username",
-			headerName: "Username",
-			flex: 1,
-			minWidth: 120,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.username}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "email",
-			headerName: "Email",
+			field: "name",
+			headerName: "Name",
 			flex: 1,
 			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.email}</div>
+						<div className="text">{params.row.name}</div>
 					</div>
 				);
 			},
@@ -82,28 +70,15 @@ export default function UserTable() {
 				return (
 					<div className="grid-cell">
 						<div className="text">
-							{params.row.status === "active" && (
+							{params.row.status ? (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-success" />
 									Active
 								</Badge>
-							)}
-							{params.row.status === "inactive" && (
+							) : (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-warning" />
 									Inactive
-								</Badge>
-							)}
-							{params.row.status === "pending" && (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-info" />
-									Pending
-								</Badge>
-							)}
-							{params.row.status === "blocked" && (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-danger" />
-									Blocked
 								</Badge>
 							)}
 						</div>
@@ -112,14 +87,26 @@ export default function UserTable() {
 			},
 		},
 		{
-			field: "referralCode",
-			headerName: "Referral code",
+			field: "isDefault",
+			headerName: "Default",
 			flex: 1,
 			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.referralCode}</div>
+						<div className="text">
+							{params.row.isDefault ? (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Default
+								</Badge>
+							) : (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-info" />
+									Normal
+								</Badge>
+							)}
+						</div>
 					</div>
 				);
 			},
@@ -132,21 +119,7 @@ export default function UserTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<UserEdit currentValue={params.row} />
-						<UserDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(
-									`/panel/admin-userroles/${params.row.id}/${params.row.mongoId}`
-								)
-							}
-						>
-							Roles
-						</Button>
+						<UserRoleDelete roleId={params.row.id} />
 					</div>
 				);
 			},
@@ -168,7 +141,7 @@ export default function UserTable() {
 				columns={columns}
 				rows={dataFix}
 				pageSize={6}
-				rowHeight={68}
+				rowHeight={70}
 				loading={loadingData}
 				pagination
 			/>

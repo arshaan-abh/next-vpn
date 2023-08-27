@@ -28,7 +28,7 @@ import react from "/assets/img/theme/react.jpg";
 import vue from "/assets/img/theme/vue.jpg";
 import { useRouter } from "next/router";
 
-function RollFront() {
+function RoleFront() {
 	const router = useRouter();
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -40,7 +40,7 @@ function RollFront() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Rolls Front</h3>
+								<h3 className="mb-0">Roles Front</h3>
 								<Button
 									color="primary"
 									size="sm"
@@ -49,7 +49,7 @@ function RollFront() {
 									<span className="btn-inner--icon">
 										<i className="ni ni-fat-add"></i>
 									</span>
-									<span className="btn-inner--text">Add Roll Front</span>
+									<span className="btn-inner--text">Add Role Front</span>
 								</Button>
 								<Button
 									className="btn-icon ml-lg-auto"
@@ -274,6 +274,6 @@ function RollFront() {
 	);
 }
 
-RollFront.layout = Admin;
+RoleFront.layout = Admin;
 
-export default RollFront;
+export default RoleFront;
