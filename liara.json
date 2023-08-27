@@ -1,8 +1,0 @@
-{
-  "next": {
-    "modifyConfig": false
-  },
-  "node": {
-    "version": "16"
-  }
-}
