@@ -4,19 +4,22 @@ import getScrollAnimation from "../../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper";
 import styles from "../../styles/CustomStyles.module.css";
 import Image from "next/future/image";
-import androidOne from "/public/assets/android-1.png";
-import androidTwo from "/public/assets/android-2.png";
-import androidThree from "/public/assets/android-3.png";
-import androidFour from "/public/assets/android-4.png";
-import androidFive from "/public/assets/android-5.png";
-import androidSix from "/public/assets/android-6.png";
+import iosOne from "/public/assets/ios-1.png";
+import iosTwo from "/public/assets/ios-2.png";
+import iosThree from "/public/assets/ios-3.png";
+import iosFour from "/public/assets/ios-4.png";
+import iosFiveOne from "/public/assets/ios-5.png";
+import iosFiveTwo from "/public/assets/ios-5.png";
+import iosSix from "/public/assets/ios-6.png";
+import iosSeven from "/public/assets/ios-6.png";
+import iosEight from "/public/assets/ios-6.png";
 
 const OpenVPNForIOS = () => {
     const scrollAnimation = useMemo(() => getScrollAnimation(), []);
 
     return (
         <div className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto" id="ios">
-        <div
+            <div
                 className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
             >
                 <div>
@@ -34,7 +37,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidOne} className={styles.fullImage} alt="..."/>
+                            <Image src={iosOne} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -45,7 +48,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidTwo} className={styles.fullImage} alt="..."/>
+                            <Image src={iosTwo} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -56,7 +59,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidThree} className={styles.fullImage} alt="..."/>
+                            <Image src={iosThree} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -66,7 +69,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidFour} className={styles.fullImage} alt="..."/>
+                            <Image src={iosFour} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -77,7 +80,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidFive} className={styles.fullImage} alt="..."/>
+                            <Image src={iosFiveOne} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -89,7 +92,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidFive} className={styles.fullImage} alt="..."/>
+                            <Image src={iosFiveTwo} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -100,7 +103,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidSix} className={styles.fullImage} alt="..."/>
+                            <Image src={iosSix} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -111,7 +114,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidSix} className={styles.fullImage} alt="..."/>
+                            <Image src={iosSeven} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
@@ -122,7 +125,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
-                            <Image src={androidSix} className={styles.fullImage} alt="..."/>
+                            <Image src={iosEight} className={styles.fullImage} alt="..."/>
                         </motion.div>
                     </ScrollAnimationWrapper>
                 </div>
