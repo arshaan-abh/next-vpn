@@ -3,6 +3,7 @@ import Layout from "../components/Landing/Layout/Layout";
 import OpenVPNForWindows from "../components/Landing/OpenVPNForWindows";
 import OpenVPNForAndroid from "../components/Landing/OpenVPNForAndroid";
 import OpenVPNForIOS from "../components/Landing/OpenVPNForIOS";
+import OpenVPNCopyWrite from "../components/Landing/OpenVPNCopyWrite";
 
 export default function GetStarted() {
     return <>
@@ -11,6 +12,7 @@ export default function GetStarted() {
             <OpenVPNForWindows/>
             <OpenVPNForAndroid/>
             <OpenVPNForIOS/>
+            <OpenVPNCopyWrite/>
         </Layout>
     </>
 }
