@@ -17,6 +17,14 @@
 	margin: -20px 0;
 }
 
+.fullImage {
+	border-radius: 8px;
+	padding: 8px;
+	border: 1px solid rgb(245 56 85);
+	background-color: rgba(245, 56, 85, .1);
+	margin: 1rem 0;
+}
+
 @media screen and (max-width: 600px) {
 	.player {
 		margin-left: -55px !important;
