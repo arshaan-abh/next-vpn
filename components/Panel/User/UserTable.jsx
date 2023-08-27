@@ -3,39 +3,52 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { Badge, Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRoles } from "../../../store/features/roleSlice";
-import RoleEdit from "./RoleEdit";
-import RoleDelete from "./RoleDelete";
+import { fetchUsers } from "../../../store/features/userSlice";
+import UserEdit from "./UserEdit";
+import UserDelete from "./UserDelete";
 
-export default function RoleTable() {
+export default function UserTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingData = useSelector((state) => state.role.loadingData);
-	const data = useSelector((state) => state.role.data);
+	const loadingData = useSelector((state) => state.user.loadingData);
+	const data = useSelector((state) => state.user.data);
 	const dataFix = data.map((row) => {
-		const { _id, ...rest } = row;
+		const { postgresId, ...rest } = row;
 		return {
 			...rest,
-			id: _id,
+			id: postgresId,
 		};
 	});
 
 	React.useEffect(() => {
-		dispatch(fetchRoles());
+		dispatch(fetchUsers());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "name",
-			headerName: "Name",
+			field: "username",
+			headerName: "Username",
+			flex: 1,
+			minWidth: 120,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.username}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "email",
+			headerName: "Email",
 			flex: 1,
 			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.email}</div>
 					</div>
 				);
 			},
@@ -49,15 +62,28 @@ export default function RoleTable() {
 				return (
 					<div className="grid-cell">
 						<div className="text">
-							{params.row.status ? (
+							{params.row.status === "active" && (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-success" />
 									Active
 								</Badge>
-							) : (
+							)}
+							{params.row.status === "inactive" && (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-warning" />
 									Inactive
+								</Badge>
+							)}
+							{params.row.status === "pending" && (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-info" />
+									Pending
+								</Badge>
+							)}
+							{params.row.status === "blocked" && (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-danger" />
+									Blocked
 								</Badge>
 							)}
 						</div>
@@ -66,26 +92,14 @@ export default function RoleTable() {
 			},
 		},
 		{
-			field: "isDefault",
-			headerName: "Default",
+			field: "referralCode",
+			headerName: "Referral code",
 			flex: 1,
 			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.isDefault ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Default
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-info" />
-									Normal
-								</Badge>
-							)}
-						</div>
+						<div className="text">{params.row.referralCode}</div>
 					</div>
 				);
 			},
@@ -98,26 +112,8 @@ export default function RoleTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<RoleEdit currentValue={params.row} />
-						<RoleDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="primary"
-							type="button"
-							onClick={() => {}}
-						>
-							Front
-						</Button>
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() => {}}
-						>
-							Menu
-						</Button>
+						<UserEdit currentValue={params.row} />
+						<UserDelete id={params.row.id} />
 					</div>
 				);
 			},
@@ -129,7 +125,7 @@ export default function RoleTable() {
 			columns={columns}
 			rows={dataFix}
 			pageSize={6}
-			rowHeight={70}
+			rowHeight={68}
 			loading={loadingData}
 			pagination
 		/>

@@ -7,44 +7,42 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRole, fetchRoles } from "../../../store/features/roleSlice";
+import { fetchUsers, updateUser } from "../../../store/features/userSlice";
 
 const validationSchema = yup.object().shape({
-	name: yup
+	referralCode: yup
 		.string()
 		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
+			/^[A-Za-z0-9\s]+$/,
+			"Referral code can only contain English letters, numbers, and spaces"
 		)
-		.required("Name is required"),
-	status: yup.boolean(),
-	isDefault: yup.boolean(),
+		.required("Referral code is required"),
+	status: yup.string().required("Status is required"),
 });
 
-export default function RoleEdit({ currentValue }) {
+export default function UserEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.role.loadingAction);
-	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.user.loadingAction);
+	const snackMessage = useSelector((state) => state.user.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchRoles());
+			dispatch(fetchUsers());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const formik = useFormik({
 		initialValues: {
-			name: currentValue.name,
+			referralCode: currentValue.referralCode,
 			status: currentValue.status,
-			isDefault: currentValue.isDefault,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateRole({ id: currentValue.id, data: values }));
+			dispatch(updateUser({ id: currentValue.id, data: values }));
 		},
 	});
 
@@ -69,7 +67,7 @@ export default function RoleEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit role</h3>
+					<h3>Edit user</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -84,27 +82,19 @@ export default function RoleEdit({ currentValue }) {
 						<TextInput
 							labelShrink
 							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Role name"
+							fieldName="referralCode"
+							label="Referral code"
+							placeholder="User referral code"
 							formik={formik}
 						/>
 
 						<ToggleInput
-							className="mb-4"
 							fieldName="status"
 							options={[
-								{ label: "Active", value: true },
-								{ label: "Inactive", value: false },
-							]}
-							formik={formik}
-						/>
-
-						<ToggleInput
-							fieldName="isDefault"
-							options={[
-								{ label: "Normal", value: false },
-								{ label: "Default", value: true },
+								{ label: "Active", value: "active" },
+								{ label: "Deactive", value: "deactive" },
+								{ label: "Pending", value: "pending" },
+								{ label: "Blocked", value: "blocked" },
 							]}
 							formik={formik}
 						/>

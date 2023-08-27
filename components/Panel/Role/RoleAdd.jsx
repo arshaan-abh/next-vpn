@@ -31,9 +31,7 @@ export default function RoleAdd() {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(
-				fetchRoles()
-			);
+			dispatch(fetchRoles());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -98,7 +96,7 @@ export default function RoleAdd() {
 							fieldName="status"
 							options={[
 								{ label: "Active", value: true },
-								{ label: "Deactive", value: false },
+								{ label: "Inactive", value: false },
 							]}
 							formik={formik}
 						/>
