@@ -13,7 +13,7 @@ import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
-	role: yup.string().required("Role is required"),
+	id: yup.string().required("Role is required"),
 });
 
 function SelectRole() {
@@ -25,17 +25,14 @@ function SelectRole() {
 	const snackMessage = useSelector((state) => state.login.snackMessage);
 
 	const [roles, setRoles] = React.useState([]);
-	const [roleNames, setRoleNames] = React.useState([]);
 
 	const formik = useFormik({
 		initialValues: {
-			role: "",
+			id: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(
-				addRole({ id: roles.find((item) => item.name === values.role)._id })
-			).unwrap();
+			dispatch(addRole(values)).unwrap();
 		},
 	});
 
@@ -43,9 +40,8 @@ function SelectRole() {
 		const token = getLocalStorageItem("token");
 		if (!token) router.push("/auth/login");
 
-		const rolesTemp = getLocalStorageItem("roles");
-		setRoles(rolesTemp);
-		setRoleNames(rolesTemp.map((item, i) => item.name));
+		const storedRoles = getLocalStorageItem("roles");
+		setRoles(storedRoles);
 	}, []);
 
 	React.useEffect(() => {
@@ -55,9 +51,11 @@ function SelectRole() {
 
 	React.useEffect(() => {
 		if (stage === "roleadd") {
-			if (formik.values.role === "user") {
+			let role = roles.find((item) => item._id === formik.values.id).name;
+
+			if (role === "user") {
 				router.push("/panel");
-			} else if (formik.values.role === "admin") {
+			} else if (role === "admin") {
 				router.push("/panel/admin");
 			}
 
@@ -98,9 +96,12 @@ function SelectRole() {
 							<AutoCompleteInput
 								labelShrink
 								className="mb-4"
-								fieldName="role"
+								fieldName="id"
+								labelName="name"
+								valueName="_id"
 								label="Role"
-								options={roleNames}
+								placeholder="Select a role"
+								options={roles}
 								formik={formik}
 							/>
 
