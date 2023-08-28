@@ -54,7 +54,13 @@ export default function PackageEdit({ currentValue }) {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updatePackage({ id: currentValue.id, data: values }));
+			let valueFix = {
+				title: values.title,
+				duration: `${values.duration}`,
+				userCount: values.userCount,
+				trafficAmount: `${values.trafficAmount}GB`,
+			};
+			dispatch(updatePackage({ id: currentValue.id, data: valueFix }));
 		},
 	});
 
