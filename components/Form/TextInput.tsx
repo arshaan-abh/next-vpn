@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextField } from "@mui/material";
+import { TextField, InputAdornment } from "@mui/material";
 import { FormikProps, getIn } from "formik";
 
 interface Props {
@@ -37,6 +37,15 @@ export default function TextInput({
 			disabled={disabled}
 			className={className}
 			InputLabelProps={{ shrink: labelShrink }}
+			InputProps={
+				adornmentText
+					? {
+							endAdornment: (
+								<InputAdornment position="end">{adornmentText}</InputAdornment>
+							),
+					  }
+					: undefined
+			}
 			variant="outlined"
 			label={label}
 			placeholder={placeholder ? placeholder : ""}
