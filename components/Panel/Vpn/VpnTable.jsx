@@ -74,7 +74,7 @@ export default function VpnTable() {
 					<div className="grid-cell">
 						<VpnEdit currentValue={params.row} />
 						<VpnDelete id={params.row.id} />
-						<VpnAddPackage />
+						<VpnAddPackage id={params.row.id} />
 					</div>
 				);
 			},
