@@ -7,6 +7,7 @@ import userSlice from "./features/userSlice";
 import archSlice from "./features/archSlice";
 import vpnSlice from "./features/vpnSlice";
 import cryptoSlice from "./features/cryptoSlice";
+import chargeSlice from "./features/chargeSlice";
 import packageSlice from "./features/packageSlice";
 
 const store = configureStore({
@@ -16,6 +17,7 @@ const store = configureStore({
 		password: passwordSlice,
 		role: roleSlice,
 		user: userSlice,
+		charge: chargeSlice,
 		package: packageSlice,
 		arch: archSlice,
 		crypto: cryptoSlice,
