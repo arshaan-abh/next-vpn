@@ -6,6 +6,7 @@ import { fetchVpns, vpnActions } from "../../../store/features/vpnSlice";
 import VpnEdit from "./VpnEdit";
 import VpnDelete from "./VpnDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import VpnAddPackage from "./VpnAddPackage";
 
 export default function VpnTable() {
 	const router = useRouter();
@@ -73,6 +74,7 @@ export default function VpnTable() {
 					<div className="grid-cell">
 						<VpnEdit currentValue={params.row} />
 						<VpnDelete id={params.row.id} />
+						<VpnAddPackage />
 					</div>
 				);
 			},
