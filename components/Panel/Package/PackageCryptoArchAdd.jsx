@@ -6,32 +6,28 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addCryptoArch } from "../../../store/features/archSlice";
-import ToggleInput from "../../Form/ToggleInput";
+import { fetchAllCryptoArches } from "../../../store/features/archSlice";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
-import { fetchCryptos } from "../../../store/features/cryptoSlice";
+import { addPackageCryptoArch } from "../../../store/features/packageSlice";
 
 const validationSchema = yup.object().shape({
-	cryptoId: yup.string().required("Crypto is required"),
-	idSmartContract: yup.string().required("Smart contract ID is required"),
-	decimal: yup
+	cryptoArchId: yup.string().required("Crypto arch is required"),
+	price: yup
 		.number()
-		.typeError("Decimal should be a number")
-		.required("Decimal is required"),
-	isStableCoin: yup.boolean().required(),
-	isCoin: yup.boolean().required(),
+		.typeError("Price should be a number")
+		.required("Price is required"),
 });
 
-export default function CryptoArchAdd() {
+export default function PackageCryptoArchAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
-	const cryptoData = useSelector((state) => state.crypto.data);
+	const loadingAction = useSelector((state) => state.package.loadingAction);
+	const snackMessage = useSelector((state) => state.package.snackMessage);
+	const cryptoArchData = useSelector((state) => state.arch.cryptoData);
 
 	React.useEffect(() => {
-		dispatch(fetchCryptos());
+		dispatch(fetchAllCryptoArches());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -46,16 +42,13 @@ export default function CryptoArchAdd() {
 
 	const formik = useFormik({
 		initialValues: {
-			archId: id,
-			cryptoId: "",
-			idSmartContract: "",
-			decimal: null,
-			isStableCoin: false,
-			isCoin: true,
+			packageId: id,
+			cryptoArchId: "",
+			price: null,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addCryptoArch(values));
+			dispatch(addPackageCryptoArch(values));
 		},
 	});
 
@@ -71,7 +64,7 @@ export default function CryptoArchAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add crypto arch</span>
+				<span className="btn-inner--text">Add package crypto arch</span>
 			</Button>
 
 			<Modal
@@ -81,7 +74,7 @@ export default function CryptoArchAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add crypto arch</h3>
+					<h3>Add package crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -96,53 +89,27 @@ export default function CryptoArchAdd() {
 						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
-							fieldName="cryptoId"
+							fieldName="cryptoArchId"
 							labelName="name"
 							valueName="id"
-							label="Crypto"
-							placeholder="Select a crypto"
-							options={cryptoData}
+							label="Crypto arch"
+							placeholder="Select a crypto arch"
+							options={cryptoArchData[0]?.map((item, i) => {
+								return {
+									id: item?.id,
+									name: `${item?.arch?.name}(${item?.arch?.symbol}) - ${item?.crypto?.name}(${item?.crypto?.symbol})`,
+								};
+							})}
 							formik={formik}
 						/>
 
 						<TextInput
 							labelShrink
 							className="mb-4"
-							fieldName="idSmartContract"
-							label="Smart contract ID"
-							placeholder="Smart contract ID(based on crypto)"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							className="mb-4"
-							fieldName="decimal"
+							fieldName="price"
 							type="number"
-							label="Decimal"
-							placeholder="Crypto descimal"
-							formik={formik}
-						/>
-
-						<ToggleInput
-							className="mt-3 mb-4"
-							fieldName="isStableCoin"
-							label="Is stable coin"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
-							formik={formik}
-						/>
-
-						<ToggleInput
-							className="mt-3"
-							fieldName="isCoin"
-							label="Is coin"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
+							label="Price"
+							placeholder="Amount of crypto"
 							formik={formik}
 						/>
 					</form>

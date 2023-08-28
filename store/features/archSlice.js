@@ -48,6 +48,26 @@ export const fetchCryptoArches = createAsyncThunk(
 	}
 );
 
+export const fetchAllCryptoArches = createAsyncThunk(
+	"arch/fetchAllCryptoArches",
+	async (
+		data = {
+			sort: "id",
+			order: -1,
+			filter: {},
+		}
+	) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const cryptoarches = await axios
+			.post(`${url}/arch/find-all-cryptoarch`, data, { headers })
+			.then((response) => response.data);
+
+		return { cryptoarches, data };
+	}
+);
+
 export const addArch = createAsyncThunk("arch/addArch", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
@@ -163,6 +183,20 @@ export const slice = createSlice({
 			state.cryptoData = action.payload.cryptoarches.result;
 		});
 		builder.addCase(fetchCryptoArches.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchAllCryptoArches
+		builder.addCase(fetchAllCryptoArches.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchAllCryptoArches.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.cryptoData = action.payload.cryptoarches.result;
+		});
+		builder.addCase(fetchAllCryptoArches.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

@@ -3,14 +3,14 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCryptoArch } from "../../../store/features/archSlice";
+import { deletePackageCryptoArch } from "../../../store/features/packageSlice";
 
-export default function CryptoArchDelete({ id }) {
+export default function PackageCryptoArchDelete({ id }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.package.loadingAction);
+	const snackMessage = useSelector((state) => state.package.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -22,7 +22,7 @@ export default function CryptoArchDelete({ id }) {
 	const [modalOpen, setModalOpen] = React.useState(false);
 
 	const handleDelete = () => {
-		dispatch(deleteCryptoArch(id));
+		dispatch(deletePackageCryptoArch(id));
 	};
 
 	return (
@@ -44,7 +44,7 @@ export default function CryptoArchDelete({ id }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Delete crypto arch</h3>
+					<h3>Delete package crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -54,7 +54,9 @@ export default function CryptoArchDelete({ id }) {
 						<span aria-hidden={true}>×</span>
 					</button>
 				</div>
-				<ModalBody>Are you sure you want to delete this crypto arch?</ModalBody>
+				<ModalBody>
+					Are you sure you want to delete this package crypto arch?
+				</ModalBody>
 				<ModalFooter>
 					<Button
 						color="secondary"

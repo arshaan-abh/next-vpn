@@ -6,27 +6,26 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCryptoArch } from "../../../store/features/archSlice";
-import ToggleInput from "../../Form/ToggleInput";
+import { updatePackageCryptoArch } from "../../../store/features/packageSlice";
+import AutoCompleteInput from "../../Form/AutoCompleteInput";
 
 const validationSchema = yup.object().shape({
-	idSmartContract: yup.string().required("Smart contract ID is required"),
-	decimal: yup
+	cryptoArchId: yup.string().required("Crypto arch is required"),
+	price: yup
 		.number()
-		.typeError("Decimal should be a number")
-		.required("Decimal is required"),
-	isStableCoin: yup.boolean().required(),
-	isCoin: yup.boolean().required(),
+		.typeError("Price should be a number")
+		.required("Price is required"),
 });
 
-export default function CryptoArchEdit({ currentValue }) {
+export default function PackageCryptoArchEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
 	const { id } = router.query;
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.package.loadingAction);
+	const snackMessage = useSelector((state) => state.package.snackMessage);
+	const cryptoArchData = useSelector((state) => state.arch.cryptoData);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -37,14 +36,13 @@ export default function CryptoArchEdit({ currentValue }) {
 
 	const formik = useFormik({
 		initialValues: {
-			idSmartContract: currentValue.smartContractId,
-			decimal: currentValue.decimal,
-			isStableCoin: currentValue.isStableCoin,
-			isCoin: currentValue.isCoin,
+			packageId: id,
+			cryptoArchId: currentValue.cryptoArch.id,
+			price: currentValue.price,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateCryptoArch({ id: currentValue.id, data: values }));
+			dispatch(updatePackageCryptoArch({ id: currentValue.id, data: values }));
 		},
 	});
 
@@ -69,7 +67,7 @@ export default function CryptoArchEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit crypto arch</h3>
+					<h3>Edit package crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -81,44 +79,30 @@ export default function CryptoArchEdit({ currentValue }) {
 				</div>
 				<ModalBody>
 					<form>
-						<TextInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
-							fieldName="idSmartContract"
-							label="Smart contract ID"
-							placeholder="Smart contract ID(based on crypto)"
+							fieldName="cryptoArchId"
+							labelName="name"
+							valueName="id"
+							label="Crypto arch"
+							placeholder="Select a crypto arch"
+							options={cryptoArchData[0]?.map((item, i) => {
+								return {
+									id: item?.id,
+									name: `${item?.arch?.name}(${item?.arch?.symbol}) - ${item?.crypto?.name}(${item?.crypto?.symbol})`,
+								};
+							})}
 							formik={formik}
 						/>
 
 						<TextInput
 							labelShrink
 							className="mb-4"
-							fieldName="decimal"
+							fieldName="price"
 							type="number"
-							label="Decimal"
-							placeholder="Crypto descimal"
-							formik={formik}
-						/>
-
-						<ToggleInput
-							className="mt-3 mb-4"
-							fieldName="isStableCoin"
-							label="Is stable coin"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
-							formik={formik}
-						/>
-
-						<ToggleInput
-							className="mt-3"
-							fieldName="isCoin"
-							label="Is coin"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
+							label="Price"
+							placeholder="Amount of crypto"
 							formik={formik}
 						/>
 					</form>
