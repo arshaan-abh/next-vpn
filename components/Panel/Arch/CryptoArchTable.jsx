@@ -16,10 +16,15 @@ export default function CryptoArchTable() {
 	const dispatch = useDispatch();
 
 	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.arch.loadingAction);
 	const error = useSelector((state) => state.arch.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchCryptoArches({ id }));
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -46,25 +51,25 @@ export default function CryptoArchTable() {
 
 	const columns = [
 		{
-			field: "cryptoId",
-			headerName: "Crypto ID",
+			field: "crypto",
+			headerName: "Crypto",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.cryptoId}</div>
+						<div className="text">{params.row.crypto.name}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "idSmartContract",
+			field: "smartContractId",
 			headerName: "Smart contract ID",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.idSmartContract}</div>
+						<div className="text">{params.row.smartContractId}</div>
 					</div>
 				);
 			},

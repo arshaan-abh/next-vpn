@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserRole, fetchUserRoles } from "../../../store/features/userSlice";
+import { addUserRole } from "../../../store/features/userSlice";
 import { fetchRoles } from "../../../store/features/roleSlice";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
 
@@ -31,7 +31,6 @@ export default function UserRoleAdd() {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchUserRoles(id[0]));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

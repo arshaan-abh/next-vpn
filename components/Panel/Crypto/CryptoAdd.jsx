@@ -6,7 +6,7 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateVpn } from "../../../store/features/vpnSlice";
+import { addCrypto } from "../../../store/features/cryptoSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup
@@ -16,28 +16,37 @@ const validationSchema = yup.object().shape({
 			"Name can only contain English letters and spaces"
 		)
 		.required("Name is required"),
+	symbol: yup
+		.string()
+		.matches(
+			/^[A-Za-z\s]+$/,
+			"Symbol can only contain English letters and spaces"
+		)
+		.required("Symbol is required"),
 });
 
-export default function VpnEdit({ currentValue }) {
+export default function CryptoAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.vpn.loadingAction);
-	const snackMessage = useSelector((state) => state.vpn.snackMessage);
+	const loadingAction = useSelector((state) => state.arch.loadingAction);
+	const snackMessage = useSelector((state) => state.arch.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const formik = useFormik({
 		initialValues: {
-			name: currentValue.name,
+			name: "",
+			symbol: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateVpn({ id: currentValue.id, data: values }));
+			dispatch(addCrypto(values));
 		},
 	});
 
@@ -46,13 +55,14 @@ export default function VpnEdit({ currentValue }) {
 	return (
 		<>
 			<Button
+				color="primary"
 				size="sm"
-				outline
-				color="warning"
-				type="button"
 				onClick={() => setModalOpen(!modalOpen)}
 			>
-				Edit
+				<span className="btn-inner--icon">
+					<i className="ni ni-fat-add"></i>
+				</span>
+				<span className="btn-inner--text">Add crypto</span>
 			</Button>
 
 			<Modal
@@ -62,7 +72,7 @@ export default function VpnEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit vpn</h3>
+					<h3>Add crypto</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -79,7 +89,16 @@ export default function VpnEdit({ currentValue }) {
 							className="mb-4"
 							fieldName="name"
 							label="Name"
-							placeholder="Vpn name"
+							placeholder="Arch name"
+							formik={formik}
+						/>
+
+						<TextInput
+							labelShrink
+							className="mb-4"
+							fieldName="symbol"
+							label="Symbol"
+							placeholder="Arch symbol(abr)"
 							formik={formik}
 						/>
 					</form>
@@ -92,8 +111,8 @@ export default function VpnEdit({ currentValue }) {
 					>
 						Close
 					</Button>
-					<Button color="warning" type="submit" onClick={formik.handleSubmit}>
-						Edit
+					<Button color="success" type="submit" onClick={formik.handleSubmit}>
+						Add
 					</Button>
 				</ModalFooter>
 			</Modal>

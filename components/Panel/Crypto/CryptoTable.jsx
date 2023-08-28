@@ -2,24 +2,24 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVpns, vpnActions } from "../../../store/features/vpnSlice";
-import VpnEdit from "./VpnEdit";
-import VpnDelete from "./VpnDelete";
+import ArchEdit from "./CryptoEdit";
+import ArchDelete from "./CryptoDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import { cryptoActions, fetchCryptos } from "../../../store/features/cryptoSlice";
 
-export default function VpnTable() {
+export default function CryptoTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.vpn.snackMessage);
-	const loadingAction = useSelector((state) => state.vpn.loadingAction);
-	const error = useSelector((state) => state.vpn.error);
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const error = useSelector((state) => state.crypto.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchVpns());
+			dispatch(fetchCryptos());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -32,21 +32,15 @@ export default function VpnTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(vpnActions.clearSnackMessage());
+		dispatch(cryptoActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.vpn.loadingData);
-	const data = useSelector((state) => state.vpn.data);
-	const dataFix = data.map((row) => {
-		const { vpnName, ...rest } = row;
-		return {
-			...rest,
-			name: vpnName,
-		};
-	});
+	const loadingData = useSelector((state) => state.crypto.loadingData);
+	const data = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-		dispatch(fetchVpns());
+		dispatch(fetchCryptos());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
@@ -54,11 +48,24 @@ export default function VpnTable() {
 			field: "name",
 			headerName: "Name",
 			flex: 1,
-			minWidth: 180,
+			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
 						<div className="text">{params.row.name}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "symbol",
+			headerName: "Symbol",
+			flex: 1,
+			minWidth: 120,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.symbol}</div>
 					</div>
 				);
 			},
@@ -71,8 +78,8 @@ export default function VpnTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<VpnEdit currentValue={params.row} />
-						<VpnDelete id={params.row.id} />
+						<ArchEdit currentValue={params.row} />
+						<ArchDelete id={params.row.id} />
 					</div>
 				);
 			},
@@ -92,7 +99,7 @@ export default function VpnTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}

@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, fetchUsers } from "../../../store/features/userSlice";
+import { deleteUser } from "../../../store/features/userSlice";
 
 export default function UserDelete({ id }) {
 	const router = useRouter();
@@ -15,7 +15,6 @@ export default function UserDelete({ id }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchUsers());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

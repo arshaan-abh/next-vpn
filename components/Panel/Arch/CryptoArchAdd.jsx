@@ -6,11 +6,10 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addCryptoArch,
-	fetchCryptoArches,
-} from "../../../store/features/archSlice";
+import { addCryptoArch } from "../../../store/features/archSlice";
 import ToggleInput from "../../Form/ToggleInput";
+import AutoCompleteInput from "../../Form/AutoCompleteInput";
+import { fetchCryptos } from "../../../store/features/cryptoSlice";
 
 const validationSchema = yup.object().shape({
 	cryptoId: yup.string().required("Crypto ID is required"),
@@ -29,13 +28,18 @@ export default function CryptoArchAdd() {
 
 	const loadingAction = useSelector((state) => state.arch.loadingAction);
 	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const cryptoData = useSelector((state) => state.crypto.data);
+
+	React.useEffect(() => {
+		dispatch(fetchCryptos());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const { id } = router.query;
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchCryptoArches({ id }));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -89,12 +93,15 @@ export default function CryptoArchAdd() {
 				</div>
 				<ModalBody>
 					<form>
-						<TextInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
 							fieldName="cryptoId"
-							label="Crypto ID"
-							placeholder="Crypto ID(based on crypto)"
+							labelName="name"
+							valueName="id"
+							label="Crypto"
+							placeholder="Select a crypto"
+							options={cryptoData}
 							formik={formik}
 						/>
 

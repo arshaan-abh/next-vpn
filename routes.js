@@ -35,6 +35,13 @@ var routes = [
 		layout: "/panel",
 	},
 	{
+		path: "/admin-cryptos",
+		panel: "admin",
+		name: "Cryptos",
+		icon: "ni ni-money-coins text-yellow",
+		layout: "/panel",
+	},
+	{
 		path: "/admin-packages",
 		panel: "admin",
 		name: "Packages",
@@ -80,14 +87,14 @@ var routes = [
 		path: "/reports",
 		panel: "panel",
 		name: "Reports",
-		icon: "ni ni-align-center text-purple",
+		icon: "ni ni-chart-bar-32 text-purple",
 		layout: "/panel",
 	},
 	{
 		path: "/admin-reports",
 		panel: "admin",
 		name: "Reports",
-		icon: "ni ni-align-center text-pink",
+		icon: "ni ni-chart-bar-32 text-pink",
 		layout: "/panel",
 	},
 	// {

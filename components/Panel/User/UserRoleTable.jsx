@@ -14,10 +14,15 @@ export default function UserRoleTable() {
 	const { id } = router.query;
 
 	const snackMessage = useSelector((state) => state.user.snackMessage);
+	const loadingAction = useSelector((state) => state.user.loadingAction);
 	const error = useSelector((state) => state.user.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchUserRoles(id[0]));
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 

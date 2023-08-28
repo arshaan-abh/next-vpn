@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteArch, fetchArches } from "../../../store/features/archSlice";
+import { deleteArch } from "../../../store/features/archSlice";
 
 export default function ArchDelete({ id }) {
 	const router = useRouter();
@@ -15,7 +15,6 @@ export default function ArchDelete({ id }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchArches());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

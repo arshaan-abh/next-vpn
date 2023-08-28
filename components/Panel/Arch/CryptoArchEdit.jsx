@@ -38,7 +38,7 @@ export default function CryptoArchEdit({ currentValue }) {
 
 	const formik = useFormik({
 		initialValues: {
-			idSmartContract: currentValue.idSmartContract,
+			idSmartContract: currentValue.smartContractId,
 			decimal: currentValue.decimal,
 			isStableCoin: currentValue.isStableCoin,
 			isCoin: currentValue.isCoin,

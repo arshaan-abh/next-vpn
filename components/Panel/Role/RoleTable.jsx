@@ -13,10 +13,15 @@ export default function RoleTable() {
 	const dispatch = useDispatch();
 
 	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.role.loadingAction);
 	const error = useSelector((state) => state.role.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchRoles());
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 

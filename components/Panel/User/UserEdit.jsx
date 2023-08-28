@@ -7,7 +7,7 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, updateUser } from "../../../store/features/userSlice";
+import { updateUser } from "../../../store/features/userSlice";
 
 const validationSchema = yup.object().shape({
 	referralCode: yup
@@ -30,7 +30,6 @@ export default function UserEdit({ currentValue }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchUsers());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

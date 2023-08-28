@@ -6,7 +6,7 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addArch, fetchArches } from "../../../store/features/archSlice";
+import { addArch } from "../../../store/features/archSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup
@@ -35,7 +35,6 @@ export default function ArchAdd() {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchArches());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

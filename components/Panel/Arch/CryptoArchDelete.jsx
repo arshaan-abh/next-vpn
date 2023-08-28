@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCryptoArch, fetchCryptoArches } from "../../../store/features/archSlice";
+import { deleteCryptoArch } from "../../../store/features/archSlice";
 
 export default function CryptoArchDelete({ id }) {
 	const router = useRouter();
@@ -15,7 +15,6 @@ export default function CryptoArchDelete({ id }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchCryptoArches({ id }));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

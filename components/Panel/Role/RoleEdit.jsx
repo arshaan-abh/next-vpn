@@ -7,7 +7,7 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRole, fetchRoles } from "../../../store/features/roleSlice";
+import { updateRole } from "../../../store/features/roleSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup
@@ -31,7 +31,6 @@ export default function RoleEdit({ currentValue }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchRoles());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);

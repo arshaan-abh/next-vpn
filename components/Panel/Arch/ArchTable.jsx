@@ -2,7 +2,7 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArches } from "../../../store/features/archSlice";
+import { archActions, fetchArches } from "../../../store/features/archSlice";
 import ArchEdit from "./ArchEdit";
 import ArchDelete from "./ArchDelete";
 import { Button } from "reactstrap";
@@ -13,10 +13,15 @@ export default function ArchTable() {
 	const dispatch = useDispatch();
 
 	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.arch.loadingAction);
 	const error = useSelector((state) => state.arch.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchArches());
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -28,7 +33,7 @@ export default function ArchTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(roleActions.clearSnackMessage());
+		dispatch(archActions.clearSnackMessage());
 	};
 
 	const loadingData = useSelector((state) => state.arch.loadingData);
@@ -108,7 +113,7 @@ export default function ArchTable() {
 				columns={columns}
 				rows={data}
 				pageSize={6}
-				rowHeight={70}
+              				rowHeight={70}
 				loading={loadingData}
 				pagination
 			/>

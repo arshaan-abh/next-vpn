@@ -49,14 +49,6 @@ function AdminNavbar() {
 						</div>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<Link href="/panel">
-									<NavLink href="#pablo" className="nav-link-icon">
-										<i className="ni ni-planet" />
-										<span className="nav-link-inner--text">Dashboard</span>
-									</NavLink>
-								</Link>
-							</NavItem>
-							<NavItem>
 								<NavLink href="/auth/register" className="nav-link-icon">
 									<i className="ni ni-circle-08" />
 									<span className="nav-link-inner--text">Register</span>

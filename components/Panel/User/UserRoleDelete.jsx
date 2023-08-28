@@ -3,10 +3,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	deleteUserRole,
-	fetchUserRoles,
-} from "../../../store/features/userSlice";
+import { deleteUserRole } from "../../../store/features/userSlice";
 
 export default function UserRoleDelete({ roleId }) {
 	const router = useRouter();
@@ -20,7 +17,6 @@ export default function UserRoleDelete({ roleId }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchUserRoles(id[0]));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
