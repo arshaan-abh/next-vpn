@@ -10,13 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../../store/features/userSlice";
 
 const validationSchema = yup.object().shape({
-	referralCode: yup
-		.string()
-		.matches(
-			/^[A-Za-z0-9\s]+$/,
-			"Referral code can only contain English letters, numbers, and spaces"
-		)
-		.required("Referral code is required"),
+	referralCode: yup.string().required("Referral code is required"),
 	status: yup.string().required("Status is required"),
 });
 

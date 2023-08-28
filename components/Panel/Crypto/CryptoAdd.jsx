@@ -9,20 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCrypto } from "../../../store/features/cryptoSlice";
 
 const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.matches(
-			/^[A-Za-z0-9\s]+$/,
-			"Name can only contain English letters, numbers, and spaces"
-		)
-		.required("Name is required"),
-	symbol: yup
-		.string()
-		.matches(
-			/^[A-Za-z\s]+$/,
-			"Symbol can only contain English letters and spaces"
-		)
-		.required("Symbol is required"),
+	name: yup.string().required("Name is required"),
+	symbol: yup.string().required("Symbol is required"),
 });
 
 export default function CryptoAdd() {

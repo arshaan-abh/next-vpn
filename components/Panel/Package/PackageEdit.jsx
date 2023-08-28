@@ -10,13 +10,7 @@ import { extractNumbers } from "../../../utils/handleNumbers";
 import { updatePackage } from "../../../store/features/packageSlice";
 
 const validationSchema = yup.object().shape({
-	title: yup
-		.string()
-		.matches(
-			/^[A-Za-z0-9\s]+$/,
-			"Title can only contain English letters, numbers, and spaces"
-		)
-		.required("Name is required"),
+	title: yup.string().required("Name is required"),
 	duration: yup
 		.number()
 		.typeError("Duration should be a number")
