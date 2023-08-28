@@ -12,8 +12,8 @@ const validationSchema = yup.object().shape({
 	name: yup
 		.string()
 		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
+			/^[A-Za-z0-9\s]+$/,
+			"Name can only contain English letters, numbers, and spaces"
 		)
 		.required("Name is required"),
 	symbol: yup
@@ -29,8 +29,8 @@ export default function CryptoAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {

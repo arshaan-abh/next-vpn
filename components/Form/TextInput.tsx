@@ -7,6 +7,7 @@ interface Props {
 	fieldName: string;
 	type?: "text" | "number";
 	placeholder?: string;
+	adornmentText?: string;
 	label: string;
 	labelShrink?: boolean;
 	disabled?: boolean;
@@ -18,6 +19,7 @@ export default function TextInput({
 	fieldName,
 	type = "text",
 	placeholder,
+	adornmentText,
 	label,
 	labelShrink = false,
 	disabled = false,

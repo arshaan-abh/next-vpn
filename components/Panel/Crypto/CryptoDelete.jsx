@@ -9,8 +9,8 @@ export default function CryptoDelete({ id }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {

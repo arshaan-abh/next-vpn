@@ -3,7 +3,7 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { Badge, Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../../store/features/userSlice";
+import { fetchUsers, userActions } from "../../../store/features/userSlice";
 import UserEdit from "./UserEdit";
 import UserDelete from "./UserDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
@@ -38,13 +38,6 @@ export default function UserTable() {
 
 	const loadingData = useSelector((state) => state.user.loadingData);
 	const data = useSelector((state) => state.user.data);
-	const dataFix = data.map((row) => {
-		const { postgresId, ...rest } = row;
-		return {
-			...rest,
-			id: postgresId,
-		};
-	});
 
 	React.useEffect(() => {
 		dispatch(fetchUsers());
@@ -171,7 +164,7 @@ export default function UserTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={68}
 				loading={loadingData}

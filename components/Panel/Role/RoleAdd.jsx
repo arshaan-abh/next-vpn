@@ -13,8 +13,8 @@ const validationSchema = yup.object().shape({
 	name: yup
 		.string()
 		.matches(
-			/^[A-Za-z\s]+$/,
-			"Name can only contain English letters and spaces"
+			/^[A-Za-z0-9\s]+$/,
+			"Name can only contain English letters, numbers, and spaces"
 		)
 		.required("Name is required"),
 	status: yup.boolean(),

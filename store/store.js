@@ -7,6 +7,7 @@ import userSlice from "./features/userSlice";
 import archSlice from "./features/archSlice";
 import vpnSlice from "./features/vpnSlice";
 import cryptoSlice from "./features/cryptoSlice";
+import packageSlice from "./features/packageSlice";
 
 const store = configureStore({
 	reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
 		password: passwordSlice,
 		role: roleSlice,
 		user: userSlice,
+		package: packageSlice,
 		arch: archSlice,
 		crypto: cryptoSlice,
 		vpn: vpnSlice,
