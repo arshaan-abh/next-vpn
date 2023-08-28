@@ -76,7 +76,6 @@ export default function VpnEdit({ currentValue }) {
 					<form>
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="name"
 							label="Name"
 							placeholder="Vpn name"

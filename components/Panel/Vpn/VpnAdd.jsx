@@ -77,7 +77,6 @@ export default function VpnAdd() {
 					<form>
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="name"
 							label="Name"
 							placeholder="Vpn name"
