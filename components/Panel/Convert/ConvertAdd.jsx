@@ -3,24 +3,33 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
-import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addRole } from "../../../store/features/roleSlice";
+import { fetchExchanges } from "../../../store/features/exchangeSlice";
+import AutoCompleteInput from "../../Form/AutoCompleteInput";
+import { addConvert } from "../../../store/features/convertSlice";
+import TextInput from "../../Form/TextInput";
 
 const validationSchema = yup.object().shape({
-	name: yup.string().required("Name is required"),
-	status: yup.boolean(),
-	isDefault: yup.boolean(),
+	exchangeId: yup.string().required("Exchange is required"),
+	amount: yup
+		.number()
+		.typeError("Amount should be a number")
+		.required("Amount is required"),
 });
 
-export default function RoleAdd() {
+export default function ConvertAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.role.loadingAction);
-	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.convert.loadingAction);
+	const snackMessage = useSelector((state) => state.convert.snackMessage);
+	const exchangeData = useSelector((state) => state.exchange.data);
+
+	React.useEffect(() => {
+		dispatch(fetchExchanges());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -31,13 +40,13 @@ export default function RoleAdd() {
 
 	const formik = useFormik({
 		initialValues: {
-			name: "",
-			status: true,
-			isDefault: false,
+			exchangeId: "",
+			convertRequest: "",
+			amount: null,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addRole(values));
+			dispatch(addConvert(values));
 		},
 	});
 
@@ -53,7 +62,7 @@ export default function RoleAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add role</span>
+				<span className="btn-inner--text">Add exchange</span>
 			</Button>
 
 			<Modal
@@ -63,7 +72,7 @@ export default function RoleAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add role</h3>
+					<h3>Add exchange</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -75,33 +84,29 @@ export default function RoleAdd() {
 				</div>
 				<ModalBody>
 					<form>
-						<TextInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Role name"
+							fieldName="exchangeId"
+							labelName="name"
+							valueName="id"
+							label="Exchange"
+							placeholder="Select desired exchange"
+							options={exchangeData?.map((item, i) => {
+								return {
+									id: item?.id,
+									name: `${item?.form?.name}(${item?.from?.symbol}) - ${item?.to?.name}(${item?.to?.symbol})`,
+								};
+							})}
 							formik={formik}
 						/>
 
-						<ToggleInput
-							className="mt-3 mb-4"
-							fieldName="status"
-							label="Active"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
-							formik={formik}
-						/>
-
-						<ToggleInput
-							fieldName="isDefault"
-							label="Default"
-							options={[
-								{ label: "Yes", value: true },
-								{ label: "No", value: false },
-							]}
+						<TextInput
+							labelShrink
+							fieldName="amount"
+							type="number"
+							label="Amount"
+							placeholder="Amount of crypto"
 							formik={formik}
 						/>
 					</form>

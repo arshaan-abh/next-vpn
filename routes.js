@@ -14,10 +14,17 @@ var routes = [
 		layout: "/panel",
 	},
 	{
-		path: "/admin-role",
+		path: "/admin-roles",
 		panel: "admin",
-		name: "Role",
-		icon: "ni ni-circle-08 text-green",
+		name: "Roles",
+		icon: "ni ni-key-25 text-green",
+		layout: "/panel",
+	},
+	{
+		path: "/admin-groups",
+		panel: "admin",
+		name: "Groups",
+		icon: "ni ni-bag-17 text-green",
 		layout: "/panel",
 	},
 	{
@@ -38,7 +45,7 @@ var routes = [
 		path: "/admin-cryptos",
 		panel: "admin",
 		name: "Cryptos",
-		icon: "ni ni-money-coins text-yellow",
+		icon: "ni ni-money-coins text-orange",
 		layout: "/panel",
 	},
 	{
@@ -70,8 +77,8 @@ var routes = [
 		layout: "/panel",
 	},
 	{
-		path: "/exchange",
-		panel: "panel",
+		path: "/admin-exchanges",
+		panel: "admin",
 		name: "Exchange",
 		icon: "ni ni-money-coins text-cyan",
 		layout: "/panel",

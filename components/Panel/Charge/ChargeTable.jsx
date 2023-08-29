@@ -8,6 +8,7 @@ import {
 	fetchCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import { formatDate } from "../../../utils/handleDates";
 
 export default function ChargeTable() {
 	const router = useRouter();
@@ -60,55 +61,50 @@ export default function ChargeTable() {
 			},
 		},
 		{
-			field: "status",
-			headerName: "Status",
+			field: "createdAt",
+			headerName: "Created At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.status ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Active
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-warning" />
-									Inactive
-								</Badge>
-							)}
-						</div>
+						<div className="text">{formatDate(params.row.createdAt)}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "isDefault",
-			headerName: "Default",
+			field: "updatedAt",
+			headerName: "Updated At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.isDefault ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Yes
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-danger" />
-									No
-								</Badge>
-							)}
-						</div>
+						<div className="text">{formatDate(params.row.updatedAt)}</div>
 					</div>
 				);
 			},
 		},
+		// {
+		// 	field: "deletedAt",
+		// 	headerName: "Deleted At",
+		// 	flex: 1,
+		// 	renderCell: (params) => {
+		// 		return (
+		// 			<div className="grid-cell">
+		// 				<div className="text">
+		// 					{params.row.deletedAt ? (
+		// 						formatDate(params.row.deletedAt)
+		// 					) : (
+		// 						<Badge color="" className="badge-dot mr-4">
+		// 							<i className="bg-success" />
+		// 							Not deleted
+		// 						</Badge>
+		// 					)}
+		// 				</div>
+		// 			</div>
+		// 		);
+		// 	},
+		// },
 	];
 
 	return (
