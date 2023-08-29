@@ -9,13 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateVpn } from "../../../store/features/vpnSlice";
 
 const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.matches(
-			/^[A-Za-z0-9\s]+$/,
-			"Name can only contain English letters, numbers, and spaces"
-		)
-		.required("Name is required"),
+	name: yup.string().required("Name is required"),
 });
 
 export default function VpnEdit({ currentValue }) {

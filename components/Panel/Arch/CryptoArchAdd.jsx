@@ -12,7 +12,7 @@ import AutoCompleteInput from "../../Form/AutoCompleteInput";
 import { fetchCryptos } from "../../../store/features/cryptoSlice";
 
 const validationSchema = yup.object().shape({
-	cryptoId: yup.string().required("Crypto ID is required"),
+	cryptoId: yup.string().required("Crypto is required"),
 	idSmartContract: yup.string().required("Smart contract ID is required"),
 	decimal: yup
 		.number()
@@ -71,7 +71,7 @@ export default function CryptoArchAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add crypto</span>
+				<span className="btn-inner--text">Add crypto arch</span>
 			</Button>
 
 			<Modal
@@ -81,7 +81,7 @@ export default function CryptoArchAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add crypto</h3>
+					<h3>Add crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"

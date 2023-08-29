@@ -1,14 +1,17 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { fetchPackages, packageActions } from "../../../store/features/packageSlice";
-import PackageEdit from "./PackageEdit";
-import PackageDelete from "./PackageDelete";
+import CryptoArchEdit from "./PackageCryptoArchEdit";
+import CryptoArchDelete from "./PackageCryptoArchDelete";
+import {
+	fetchPackageCryptoArch,
+	packageActions,
+} from "../../../store/features/packageSlice";
+import { formatDate } from "../../../utils/handleDates";
 
-export default function PackageTable() {
+export default function PackageCryptoArchTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -20,7 +23,7 @@ export default function PackageTable() {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchPackages());
+			dispatch(fetchPackageCryptoArch(id));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -37,62 +40,66 @@ export default function PackageTable() {
 	};
 
 	const loadingData = useSelector((state) => state.package.loadingData);
-	const data = useSelector((state) => state.package.data);
+	const data = useSelector((state) => state.package.cryptoData);
+
+	const { id } = router.query;
 
 	React.useEffect(() => {
-		dispatch(fetchPackages());
+		dispatch(fetchPackageCryptoArch(id));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "title",
-			headerName: "Title",
+			field: "cryptoarch",
+			headerName: "Crypto arch",
 			flex: 1,
-			minWidth: 120,
+			minWidth: 320,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.title}</div>
+						<div className="text">
+							{params.row.cryptoArch.arch.name}(
+							{params.row.cryptoArch.arch.symbol}) -{" "}
+							{params.row.cryptoArch.crypto.name}(
+							{params.row.cryptoArch.crypto.symbol})
+						</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "duration",
-			headerName: "Duration",
+			field: "price",
+			headerName: "Price",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.duration} days</div>
+						<div className="text">{params.row.price}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "userCount",
-			headerName: "User count",
+			field: "createdAt",
+			headerName: "Created At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.userCount}</div>
+						<div className="text">{formatDate(params.row.createdAt)}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "trafficAmount",
-			headerName: "Traffic",
+			field: "updatedAt",
+			headerName: "Updated At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.trafficAmount}</div>
+						<div className="text">{formatDate(params.row.updatedAt)}</div>
 					</div>
 				);
 			},
@@ -101,23 +108,12 @@ export default function PackageTable() {
 			field: "functions",
 			headerName: "functions",
 			flex: 1,
-			minWidth: 280,
+			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<PackageEdit currentValue={params.row} />
-						<PackageDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-packagecryptoarches/${params.row.id}`)
-							}
-						>
-							Crypto arch
-						</Button>
+						<CryptoArchEdit currentValue={params.row} />
+						<CryptoArchDelete id={params.row.id} />
 					</div>
 				);
 			},

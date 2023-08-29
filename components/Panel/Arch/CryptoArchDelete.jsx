@@ -44,7 +44,7 @@ export default function CryptoArchDelete({ id }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Delete crypto</h3>
+					<h3>Delete crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -54,7 +54,7 @@ export default function CryptoArchDelete({ id }) {
 						<span aria-hidden={true}>×</span>
 					</button>
 				</div>
-				<ModalBody>Are you sure you want to delete this crypto?</ModalBody>
+				<ModalBody>Are you sure you want to delete this crypto arch?</ModalBody>
 				<ModalFooter>
 					<Button
 						color="secondary"

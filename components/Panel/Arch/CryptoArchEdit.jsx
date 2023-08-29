@@ -6,7 +6,7 @@ import * as yup from "yup";
 import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCryptoArches, updateCryptoArch } from "../../../store/features/archSlice";
+import { updateCryptoArch } from "../../../store/features/archSlice";
 import ToggleInput from "../../Form/ToggleInput";
 
 const validationSchema = yup.object().shape({
@@ -31,7 +31,6 @@ export default function CryptoArchEdit({ currentValue }) {
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
 			setModalOpen(false);
-			dispatch(fetchCryptoArches({ id }));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -70,7 +69,7 @@ export default function CryptoArchEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit crypto</h3>
+					<h3>Edit crypto arch</h3>
 					<button
 						aria-label="Close"
 						className="close"
