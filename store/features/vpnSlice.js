@@ -61,6 +61,17 @@ export const deleteVpn = createAsyncThunk("vpn/delete", async (id) => {
     return {vpn};
 });
 
+export const addPackage = createAsyncThunk("vpn/addPackage", async (data) => {
+    const roletoken = getLocalStorageItem("roletoken");
+    const headers = {Authorization: `Bearer ${roletoken}`};
+
+    const addPackage = await axios
+        .post(`${url}/vpn/add-vpn-package`, data, {headers})
+        .then((response) => response.data);
+
+    return {addPackage: addPackage, data};
+});
+
 export const slice = createSlice({
     name: "vpn",
     initialState: {
@@ -134,6 +145,22 @@ export const slice = createSlice({
             state.error = false;
         });
         builder.addCase(deleteVpn.rejected, (state, action) => {
+            state.loadingAction = false;
+            state.snackMessage = action.error.message;
+            state.error = true;
+        });
+
+        //addPackage
+        builder.addCase(addPackage.pending, (state, action) => {
+            state.loadingAction = true;
+            state.snackMessage = "";
+        });
+        builder.addCase(addPackage.fulfilled, (state, action) => {
+            state.loadingAction = false;
+            state.snackMessage = "Vpn was added successfully";
+            state.error = false;
+        });
+        builder.addCase(addPackage.rejected, (state, action) => {
             state.loadingAction = false;
             state.snackMessage = action.error.message;
             state.error = true;

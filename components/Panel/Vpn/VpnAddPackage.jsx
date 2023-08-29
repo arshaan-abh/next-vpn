@@ -5,9 +5,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateVpn } from "../../../store/features/vpnSlice";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
 import { fetchPackages } from "../../../store/features/packageSlice";
+import { addPackage } from "../../../store/features/vpnSlice";
 
 const validationSchema = yup.object().shape({
 	packageId: yup.string().required("Package is required"),
@@ -39,7 +39,7 @@ export default function VpnAddPackage({ id }) {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateVpn({ id: currentValue.id, data: values }));
+			dispatch(addPackage({ packageId: values.packageId, vpnId: values.vpnId }));
 		},
 	});
 
@@ -80,7 +80,7 @@ export default function VpnAddPackage({ id }) {
 				<ModalBody>
 					<form>
 						<AutoCompleteInput
-							fieldName="packageName"
+							fieldName="packageId"
 							labelName="title"
 							valueName="id"
 							label="Package name"
