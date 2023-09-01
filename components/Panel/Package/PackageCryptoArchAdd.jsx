@@ -94,12 +94,16 @@ export default function PackageCryptoArchAdd() {
 							valueName="id"
 							label="Crypto arch"
 							placeholder="Select a crypto arch"
-							options={cryptoArchData[0]?.map((item, i) => {
-								return {
-									id: item?.id,
-									name: `${item?.arch?.name}(${item?.arch?.symbol}) - ${item?.crypto?.name}(${item?.crypto?.symbol})`,
-								};
-							})}
+							options={
+								cryptoArchData[0]
+									? cryptoArchData[0]?.map((item, i) => {
+											return {
+												id: item?.id,
+												name: `${item?.arch?.name}(${item?.arch?.symbol}) - ${item?.crypto?.name}(${item?.crypto?.symbol})`,
+											};
+									  })
+									: []
+							}
 							formik={formik}
 						/>
 

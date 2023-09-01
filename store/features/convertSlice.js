@@ -5,33 +5,33 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const url = `${configData.AddressAPI}`;
 
-export const fetchCharges = createAsyncThunk(
-	"charge/fetchCharges",
+export const fetchConverts = createAsyncThunk(
+	"convert/fetchConverts",
 	async () => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const charges = await axios
-			.get(`${url}/charge/user-charges`, { headers })
+		const converts = await axios
+			.get(`${url}/convert/findAll-user-converts`, { headers })
 			.then((response) => response.data);
 
-		return { charges: charges };
+		return { converts };
 	}
 );
 
-export const addCharge = createAsyncThunk("charge/addCharge", async () => {
+export const addConvert = createAsyncThunk("convert/addConvert", async () => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const charge = await axios
-		.get(`${url}/charge/user-wallet`, { headers })
+	const convert = await axios
+		.get(`${url}/convert/create-convert`, { headers })
 		.then((response) => response.data);
 
-	return { charge };
+	return { convert };
 });
 
 export const slice = createSlice({
-	name: "charge",
+	name: "convert",
 	initialState: {
 		loadingData: false,
 		loadingAction: false,
@@ -46,31 +46,31 @@ export const slice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		//fetchCharges
-		builder.addCase(fetchCharges.pending, (state, action) => {
+		//fetchConverts
+		builder.addCase(fetchConverts.pending, (state, action) => {
 			state.loadingData = true;
 		});
-		builder.addCase(fetchCharges.fulfilled, (state, action) => {
+		builder.addCase(fetchConverts.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.charges.result.data;
+			state.data = action.payload.converts.result.data;
 		});
-		builder.addCase(fetchCharges.rejected, (state, action) => {
+		builder.addCase(fetchConverts.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;
 		});
 
-		//addCharge
-		builder.addCase(addCharge.pending, (state, action) => {
+		//addConvert
+		builder.addCase(addConvert.pending, (state, action) => {
 			state.loadingAction = true;
 			state.snackMessage = "";
 		});
-		builder.addCase(addCharge.fulfilled, (state, action) => {
+		builder.addCase(addConvert.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Charge done successfully";
+			state.snackMessage = "Convert done successfully";
 			state.error = false;
 		});
-		builder.addCase(addCharge.rejected, (state, action) => {
+		builder.addCase(addConvert.rejected, (state, action) => {
 			state.loadingAction = false;
 			state.snackMessage = action.error.message;
 			state.error = true;
@@ -79,4 +79,4 @@ export const slice = createSlice({
 });
 
 export default slice.reducer;
-export const ChargeActions = slice.actions;
+export const convertActions = slice.actions;

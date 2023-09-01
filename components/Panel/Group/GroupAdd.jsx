@@ -7,20 +7,20 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addRole } from "../../../store/features/roleSlice";
+import { addGroup } from "../../../store/features/groupSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup.string().required("Name is required"),
 	status: yup.boolean(),
-	isDefault: yup.boolean(),
+	IsDefault: yup.boolean(),
 });
 
-export default function RoleAdd() {
+export default function GroupAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.role.loadingAction);
-	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.group.loadingAction);
+	const snackMessage = useSelector((state) => state.group.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -33,11 +33,11 @@ export default function RoleAdd() {
 		initialValues: {
 			name: "",
 			status: true,
-			isDefault: false,
+			IsDefault: false,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addRole(values));
+			dispatch(addGroup(values));
 		},
 	});
 
@@ -53,7 +53,7 @@ export default function RoleAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add role</span>
+				<span className="btn-inner--text">Add group</span>
 			</Button>
 
 			<Modal
@@ -63,7 +63,7 @@ export default function RoleAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add role</h3>
+					<h3>Add group</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -80,7 +80,7 @@ export default function RoleAdd() {
 							className="mb-4"
 							fieldName="name"
 							label="Name"
-							placeholder="Role name"
+							placeholder="Group name"
 							formik={formik}
 						/>
 
@@ -96,7 +96,7 @@ export default function RoleAdd() {
 						/>
 
 						<ToggleInput
-							fieldName="isDefault"
+							fieldName="IsDefault"
 							label="Default"
 							options={[
 								{ label: "Yes", value: true },

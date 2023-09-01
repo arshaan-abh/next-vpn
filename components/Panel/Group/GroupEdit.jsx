@@ -7,15 +7,14 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addRole } from "../../../store/features/roleSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup.string().required("Name is required"),
 	status: yup.boolean(),
-	isDefault: yup.boolean(),
+	IsDefault: yup.boolean(),
 });
 
-export default function RoleAdd() {
+export default function GroupEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -31,13 +30,13 @@ export default function RoleAdd() {
 
 	const formik = useFormik({
 		initialValues: {
-			name: "",
-			status: true,
-			isDefault: false,
+			name: currentValue.name,
+			status: currentValue.status,
+			IsDefault: currentValue.isDefault,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addRole(values));
+			dispatch(updateRole({ id: currentValue.id, data: values }));
 		},
 	});
 
@@ -46,14 +45,13 @@ export default function RoleAdd() {
 	return (
 		<>
 			<Button
-				color="primary"
 				size="sm"
+				outline
+				color="warning"
+				type="button"
 				onClick={() => setModalOpen(!modalOpen)}
 			>
-				<span className="btn-inner--icon">
-					<i className="ni ni-fat-add"></i>
-				</span>
-				<span className="btn-inner--text">Add role</span>
+				Edit
 			</Button>
 
 			<Modal
@@ -63,7 +61,7 @@ export default function RoleAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add role</h3>
+					<h3>Edit group</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -80,7 +78,7 @@ export default function RoleAdd() {
 							className="mb-4"
 							fieldName="name"
 							label="Name"
-							placeholder="Role name"
+							placeholder="Group name"
 							formik={formik}
 						/>
 
@@ -96,7 +94,8 @@ export default function RoleAdd() {
 						/>
 
 						<ToggleInput
-							fieldName="isDefault"
+							className="mt-3"
+							fieldName="IsDefault"
 							label="Default"
 							options={[
 								{ label: "Yes", value: true },
@@ -114,8 +113,8 @@ export default function RoleAdd() {
 					>
 						Close
 					</Button>
-					<Button color="success" type="submit" onClick={formik.handleSubmit}>
-						Add
+					<Button color="warning" type="submit" onClick={formik.handleSubmit}>
+						Edit
 					</Button>
 				</ModalFooter>
 			</Modal>
