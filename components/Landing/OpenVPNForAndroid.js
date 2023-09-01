@@ -10,16 +10,26 @@ import androidThree from "/public/assets/android-3.png";
 import androidFour from "/public/assets/android-4.png";
 import androidFive from "/public/assets/android-5.png";
 import androidSix from "/public/assets/android-6.png";
+import {Sticky, StickyContainer} from "react-sticky";
 
 const OpenVPNForAndroid = () => {
     const scrollAnimation = useMemo(() => getScrollAnimation(), []);
 
     return (
         <div className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto" id="android">
-            <div
+            <StickyContainer
                 className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
             >
-                <div></div>
+                <Sticky>{({style}) =>
+                    <div style={style} className="my-16">
+                        <Image
+                            className="m-auto my-16"
+                            width="256" height="256"
+                            src="/assets/icon/android.svg"
+                            alt="Android"
+                        />
+                    </div>
+                }</Sticky>
                 <div>
                     <ScrollAnimationWrapper>
                         <motion.div variants={scrollAnimation}>
@@ -92,7 +102,7 @@ const OpenVPNForAndroid = () => {
                         </motion.div>
                     </ScrollAnimationWrapper>
                 </div>
-            </div>
+            </StickyContainer>
         </div>
     );
 };
