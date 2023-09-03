@@ -11,11 +11,11 @@ export const fetchGroups = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const groups = await axios
+		const request = await axios
 			.post(`${url}/group/findAll-group`, data, { headers })
 			.then((response) => response.data);
 
-		return { groups, data };
+		return { request, data };
 	}
 );
 
@@ -23,11 +23,11 @@ export const addGroup = createAsyncThunk("group/addGroup", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const group = await axios
+	const request = await axios
 		.post(`${url}/group/create-group`, data, { headers })
 		.then((response) => response.data);
 
-	return { group, data };
+	return { request, data };
 });
 
 export const updateGroup = createAsyncThunk(
@@ -36,11 +36,11 @@ export const updateGroup = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const group = await axios
+		const request = await axios
 			.patch(`${url}/group/update-group/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { group, data };
+		return { request, data };
 	}
 );
 
@@ -48,11 +48,11 @@ export const deleteGroup = createAsyncThunk("group/deleteGroup", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const group = await axios
+	const request = await axios
 		.delete(`${url}/group/delete-group/${id}`, { headers })
 		.then((response) => response.data);
 
-	return { group };
+	return { request };
 });
 
 export const slice = createSlice({
@@ -77,7 +77,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchGroups.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.groups.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchGroups.rejected, (state, action) => {
 			state.loadingData = false;

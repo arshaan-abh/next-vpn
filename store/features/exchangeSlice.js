@@ -17,11 +17,47 @@ export const fetchExchanges = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const exchanges = await axios
+		const request = await axios
 			.post(`${url}/exchange/findAll`, data, { headers })
 			.then((response) => response.data);
 
-		return { exchanges, data };
+		return { request, data };
+	}
+);
+
+export const fetchExchangeVersions = createAsyncThunk(
+	"exchange/fetchExchangeVersions",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.get(`${url}/exchange-versioning/get-exchange-versions/${id}`, {
+				headers,
+			})
+			.then((response) => response.data);
+
+		return { request, data };
+	}
+);
+
+export const fetchAllExchangeVersions = createAsyncThunk(
+	"exchange/fetchAllExchangeVersions",
+	async (
+		data = {
+			sort: "id",
+			order: -1,
+			filter: {},
+		}
+	) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.post(`${url}/exchange-versioning/find-all-version`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
 	}
 );
 
@@ -31,11 +67,25 @@ export const addExchange = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const exchange = await axios
+		const request = await axios
 			.post(`${url}/exchange/create`, data, { headers })
 			.then((response) => response.data);
 
-		return { exchange, data };
+		return { request, data };
+	}
+);
+
+export const addExchangeVersion = createAsyncThunk(
+	"exchange/addExchangeVersion",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.post(`${url}/exchange-versioning/create-version`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
 	}
 );
 
@@ -45,11 +95,27 @@ export const updateExchange = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const exchange = await axios
+		const request = await axios
 			.patch(`${url}/exchange/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { exchange, data };
+		return { request, data };
+	}
+);
+
+export const updateExchangeVersion = createAsyncThunk(
+	"exchange/updateExchangeVersion",
+	async ({ id, data }) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.patch(`${url}/exchange-versioning/update-version/${id}`, data, {
+				headers,
+			})
+			.then((response) => response.data);
+
+		return { request, data };
 	}
 );
 
@@ -59,11 +125,25 @@ export const deleteExchange = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const exchange = await axios
+		const request = await axios
 			.delete(`${url}/exchange/delete/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { exchange };
+		return { request };
+	}
+);
+
+export const deleteExchangeVersion = createAsyncThunk(
+	"exchange/deleteExchangeVersion",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.delete(`${url}/exchange-versioning/delete-version/${id}`, { headers })
+			.then((response) => response.data);
+
+		return { request };
 	}
 );
 
@@ -75,6 +155,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		versionData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -89,9 +170,37 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchExchanges.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.exchanges.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchExchanges.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchExchangeVersions
+		builder.addCase(fetchExchangeVersions.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchExchangeVersions.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.versionData = action.payload.request.result.data;
+		});
+		builder.addCase(fetchExchangeVersions.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchAllExchangeVersions
+		builder.addCase(fetchAllExchangeVersions.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchAllExchangeVersions.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.versionData = action.payload.request.result.data;
+		});
+		builder.addCase(fetchAllExchangeVersions.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

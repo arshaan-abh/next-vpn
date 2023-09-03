@@ -17,11 +17,11 @@ export const fetchRoles = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const roles = await axios
+		const request = await axios
 			.post(`${url}/role/findAll`, data, { headers })
 			.then((response) => response.data);
 
-		return { roles, data };
+		return { request, data };
 	}
 );
 
@@ -29,11 +29,11 @@ export const addRole = createAsyncThunk("role/addRole", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const role = await axios
+	const request = await axios
 		.post(`${url}/role/create`, data, { headers })
 		.then((response) => response.data);
 
-	return { role, data };
+	return { request, data };
 });
 
 export const updateRole = createAsyncThunk(
@@ -42,11 +42,11 @@ export const updateRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const role = await axios
+		const request = await axios
 			.patch(`${url}/role/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { role, data };
+		return { request, data };
 	}
 );
 
@@ -54,11 +54,11 @@ export const deleteRole = createAsyncThunk("role/deleteRole", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const role = await axios
+	const request = await axios
 		.delete(`${url}/role/remove/${id}`, { headers })
 		.then((response) => response.data);
 
-	return { role };
+	return { request };
 });
 
 export const slice = createSlice({
@@ -83,7 +83,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchRoles.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.roles.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchRoles.rejected, (state, action) => {
 			state.loadingData = false;

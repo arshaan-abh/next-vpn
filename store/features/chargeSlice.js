@@ -11,11 +11,11 @@ export const fetchCharges = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const charges = await axios
+		const request = await axios
 			.get(`${url}/charge/user-charges`, { headers })
 			.then((response) => response.data);
 
-		return { charges: charges };
+		return { request };
 	}
 );
 
@@ -23,11 +23,11 @@ export const addCharge = createAsyncThunk("charge/addCharge", async () => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const charge = await axios
+	const request = await axios
 		.get(`${url}/charge/user-wallet`, { headers })
 		.then((response) => response.data);
 
-	return { charge };
+	return { request };
 });
 
 export const slice = createSlice({
@@ -52,7 +52,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchCharges.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.charges.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchCharges.rejected, (state, action) => {
 			state.loadingData = false;
@@ -79,4 +79,4 @@ export const slice = createSlice({
 });
 
 export default slice.reducer;
-export const ChargeActions = slice.actions;
+export const chargehargeActions = slice.actions;

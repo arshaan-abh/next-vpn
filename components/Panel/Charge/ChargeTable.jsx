@@ -1,10 +1,9 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	ChargeActions,
+	chargeActions,
 	fetchCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
@@ -29,7 +28,7 @@ export default function ChargeTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(ChargeActions.clearSnackMessage());
+		dispatch(chargeActions.clearSnackMessage());
 	};
 
 	const loadingData = useSelector((state) => state.charge.loadingData);

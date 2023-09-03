@@ -11,11 +11,11 @@ export const fetchConverts = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const converts = await axios
+		const request = await axios
 			.get(`${url}/convert/findAll-user-converts`, { headers })
 			.then((response) => response.data);
 
-		return { converts };
+		return { request };
 	}
 );
 
@@ -23,11 +23,11 @@ export const addConvert = createAsyncThunk("convert/addConvert", async () => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const convert = await axios
+	const request = await axios
 		.get(`${url}/convert/create-convert`, { headers })
 		.then((response) => response.data);
 
-	return { convert };
+	return { request };
 });
 
 export const slice = createSlice({
@@ -52,7 +52,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchConverts.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.converts.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchConverts.rejected, (state, action) => {
 			state.loadingData = false;

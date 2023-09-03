@@ -17,11 +17,11 @@ export const fetchUsers = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const users = await axios
+		const request = await axios
 			.post(`${url}/user/findall-user`, data, { headers })
 			.then((response) => response.data);
 
-		return { users, data };
+		return { request, data };
 	}
 );
 
@@ -31,11 +31,11 @@ export const fetchUserRoles = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const roles = await axios
+		const request = await axios
 			.get(`${url}/user/get-user-roles/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { roles };
+		return { request };
 	}
 );
 
@@ -45,11 +45,11 @@ export const addUserRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const role = await axios
+		const request = await axios
 			.post(`${url}/user/setrole`, data, { headers })
 			.then((response) => response.data);
 
-		return { role };
+		return { request };
 	}
 );
 
@@ -59,11 +59,11 @@ export const updateUser = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const user = await axios
+		const request = await axios
 			.patch(`${url}/user/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { user, data };
+		return { request, data };
 	}
 );
 
@@ -71,11 +71,11 @@ export const deleteUser = createAsyncThunk("user/deleteUser", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const user = await axios
+	const request = await axios
 		.delete(`${url}/user/remove/${id}`, { headers })
 		.then((response) => response.data);
 
-	return { user };
+	return { request };
 });
 
 export const deleteUserRole = createAsyncThunk(
@@ -84,11 +84,11 @@ export const deleteUserRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const role = await axios
+		const request = await axios
 			.delete(`${url}/user/unsetrole`, { headers, data })
 			.then((response) => response.data);
 
-		return { role };
+		return { request };
 	}
 );
 
@@ -115,7 +115,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchUsers.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.users.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchUsers.rejected, (state, action) => {
 			state.loadingData = false;
@@ -129,7 +129,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchUserRoles.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.roleData = action.payload.roles.result;
+			state.roleData = action.payload.request.result;
 		});
 		builder.addCase(fetchUserRoles.rejected, (state, action) => {
 			state.loadingData = false;

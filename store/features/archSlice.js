@@ -17,11 +17,11 @@ export const fetchArches = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const arches = await axios
+		const request = await axios
 			.post(`${url}/arch/find-all`, data, { headers })
 			.then((response) => response.data);
 
-		return { arches, data };
+		return { request, data };
 	}
 );
 
@@ -40,11 +40,11 @@ export const fetchCryptoArches = createAsyncThunk(
 		let dataFix = data;
 		dataFix.archId = id;
 
-		const cryptoarches = await axios
+		const request = await axios
 			.post(`${url}/arch/get-crypto-arch`, dataFix, { headers })
 			.then((response) => response.data);
 
-		return { cryptoarches, data };
+		return { request, dataFix };
 	}
 );
 
@@ -60,11 +60,11 @@ export const fetchAllCryptoArches = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const cryptoarches = await axios
+		const request = await axios
 			.post(`${url}/arch/find-all-cryptoarch`, data, { headers })
 			.then((response) => response.data);
 
-		return { cryptoarches, data };
+		return { request, data };
 	}
 );
 
@@ -72,22 +72,22 @@ export const addArch = createAsyncThunk("arch/addArch", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const arch = await axios
+	const request = await axios
 		.post(`${url}/arch/create`, data, { headers })
 		.then((response) => response.data);
 
-	return { arch, data };
+	return { request, data };
 });
 
 export const addCryptoArch = createAsyncThunk("arch/addCryptoArch", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const cryptoarch = await axios
+	const request = await axios
 		.post(`${url}/arch/create-crypto-arch`, data, { headers })
 		.then((response) => response.data);
 
-	return { cryptoarch, data };
+	return { request, data };
 });
 
 export const updateArch = createAsyncThunk(
@@ -96,11 +96,11 @@ export const updateArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const arch = await axios
+		const request = await axios
 			.patch(`${url}/arch/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { arch, data };
+		return { request, data };
 	}
 );
 
@@ -110,11 +110,11 @@ export const updateCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const cryptoarch = await axios
+		const request = await axios
 			.patch(`${url}/arch/update-cryptoarch/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { cryptoarch, data };
+		return { request, data };
 	}
 );
 
@@ -122,11 +122,11 @@ export const deleteArch = createAsyncThunk("arch/deleteArch", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const arch = await axios
+	const request = await axios
 		.delete(`${url}/arch/delete/${id}`, { headers })
 		.then((response) => response.data);
 
-	return { arch };
+	return { request };
 });
 
 export const deleteCryptoArch = createAsyncThunk(
@@ -135,11 +135,11 @@ export const deleteCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const cryptoarch = await axios
+		const request = await axios
 			.delete(`${url}/arch/delete-cryptoarch/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { cryptoarch };
+		return { request };
 	}
 );
 
@@ -166,7 +166,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.arches.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchArches.rejected, (state, action) => {
 			state.loadingData = false;
@@ -180,7 +180,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.cryptoarches.result;
+			state.cryptoData = action.payload.request.result;
 		});
 		builder.addCase(fetchCryptoArches.rejected, (state, action) => {
 			state.loadingData = false;
@@ -194,7 +194,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchAllCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.cryptoarches.result;
+			state.cryptoData = action.payload.request.result;
 		});
 		builder.addCase(fetchAllCryptoArches.rejected, (state, action) => {
 			state.loadingData = false;

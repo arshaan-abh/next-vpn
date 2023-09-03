@@ -17,11 +17,11 @@ export const fetchPackages = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const packages = await axios
+		const request = await axios
 			.post(`${url}/package/findAll`, data, { headers })
 			.then((response) => response.data);
 
-		return { packages, data };
+		return { request, data };
 	}
 );
 
@@ -31,11 +31,11 @@ export const fetchPackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const packagecryptoarch = await axios
+		const request = await axios
 			.get(`${url}/package/find-cryptoArch-package/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { packagecryptoarch };
+		return { request };
 	}
 );
 
@@ -45,11 +45,11 @@ export const addPackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const pack = await axios
+		const request = await axios
 			.post(`${url}/package/create`, data, { headers })
 			.then((response) => response.data);
 
-		return { pack, data };
+		return { request, data };
 	}
 );
 
@@ -59,11 +59,11 @@ export const addPackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const packagecryptoarch = await axios
+		const request = await axios
 			.post(`${url}/package/create-package-cryptoArch`, data, { headers })
 			.then((response) => response.data);
 
-		return { packagecryptoarch, data };
+		return { request, data };
 	}
 );
 
@@ -73,11 +73,11 @@ export const updatePackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const pack = await axios
+		const request = await axios
 			.patch(`${url}/package/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { pack, data };
+		return { request, data };
 	}
 );
 
@@ -87,11 +87,13 @@ export const updatePackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const packagecryptoarch = await axios
-			.patch(`${url}/package/update-package-cryptoArch/${id}`, data, { headers })
+		const request = await axios
+			.patch(`${url}/package/update-package-cryptoArch/${id}`, data, {
+				headers,
+			})
 			.then((response) => response.data);
 
-		return { packagecryptoarch, data };
+		return { request, data };
 	}
 );
 
@@ -101,11 +103,11 @@ export const deletePackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const pack = await axios
+		const request = await axios
 			.delete(`${url}/package/delete/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { pack };
+		return { request };
 	}
 );
 
@@ -115,11 +117,11 @@ export const deletePackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const packagecryptoarch = await axios
+		const request = await axios
 			.delete(`${url}/package/delete-package-cryptoArch`, { headers })
 			.then((response) => response.data);
 
-		return { packagecryptoarch, data };
+		return { request, data };
 	}
 );
 
@@ -146,7 +148,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchPackages.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.packages.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchPackages.rejected, (state, action) => {
 			state.loadingData = false;
@@ -160,7 +162,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchPackageCryptoArch.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.packagecryptoarch.result;
+			state.cryptoData = action.payload.request.result;
 		});
 		builder.addCase(fetchPackageCryptoArch.rejected, (state, action) => {
 			state.loadingData = false;

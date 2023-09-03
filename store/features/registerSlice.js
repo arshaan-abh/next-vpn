@@ -12,11 +12,11 @@ const url = `${configData.AddressAPI}`;
 export const emailRegister = createAsyncThunk(
 	"register/emailRegister",
 	async (data) => {
-		const register = await axios
+		const request = await axios
 			.post(`${url}/auth/email/register`, data)
 			.then((response) => response.data);
 
-		return { register, data };
+		return { request, data };
 	}
 );
 
@@ -25,24 +25,24 @@ export const emailResend = createAsyncThunk(
 	async () => {
 		const email = getLocalStorageItem("verifyemail");
 
-		const register = await axios
+		const request = await axios
 			.post(`${url}/auth/email/resend`, {
 				email: email,
 			})
 			.then((response) => response.data);
 
-		return { register };
+		return { request };
 	}
 );
 
 export const emailVerify = createAsyncThunk(
 	"register/emailVerify",
 	async (data) => {
-		const register = await axios
+		const request = await axios
 			.post(`${url}/auth/email/verify`, data)
 			.then((response) => response.data);
 
-		return { register, data };
+		return { request, data };
 	}
 );
 

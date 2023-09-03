@@ -17,11 +17,11 @@ export const fetchCryptos = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const cryptos = await axios
+		const request = await axios
 			.post(`${url}/crypto/findAll`, data, { headers })
 			.then((response) => response.data);
 
-		return { cryptos, data };
+		return { request, data };
 	}
 );
 
@@ -29,11 +29,11 @@ export const addCrypto = createAsyncThunk("crypto/addCrypto", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const crypto = await axios
+	const request = await axios
 		.post(`${url}/crypto/create`, data, { headers })
 		.then((response) => response.data);
 
-	return { crypto, data };
+	return { request, data };
 });
 
 export const updateCrypto = createAsyncThunk(
@@ -42,11 +42,11 @@ export const updateCrypto = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const crypto = await axios
+		const request = await axios
 			.patch(`${url}/crypto/update/${id}`, data, { headers })
 			.then((response) => response.data);
 
-		return { crypto, data };
+		return { request, data };
 	}
 );
 
@@ -54,11 +54,11 @@ export const deleteCrypto = createAsyncThunk("crypto/deleteCrypto", async (id) =
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const crypto = await axios
+	const request = await axios
 		.delete(`${url}/crypto/delete/${id}`, { headers })
 		.then((response) => response.data);
 
-	return { crypto };
+	return { request };
 });
 
 export const slice = createSlice({
@@ -83,7 +83,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchCryptos.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.cryptos.result.data;
+			state.data = action.payload.request.result.data;
 		});
 		builder.addCase(fetchCryptos.rejected, (state, action) => {
 			state.loadingData = false;

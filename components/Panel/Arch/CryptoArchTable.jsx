@@ -15,6 +15,8 @@ export default function CryptoArchTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
+	const { id } = router.query;
+
 	const snackMessage = useSelector((state) => state.arch.snackMessage);
 	const loadingAction = useSelector((state) => state.arch.loadingAction);
 	const error = useSelector((state) => state.arch.error);
@@ -41,8 +43,6 @@ export default function CryptoArchTable() {
 
 	const loadingData = useSelector((state) => state.arch.loadingData);
 	const data = useSelector((state) => state.arch.cryptoData);
-
-	const { id } = router.query;
 
 	React.useEffect(() => {
 		dispatch(fetchCryptoArches({ id }));

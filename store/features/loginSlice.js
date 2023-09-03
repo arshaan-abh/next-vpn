@@ -11,11 +11,11 @@ import { setLocalStorageItem } from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const login = createAsyncThunk("login/login", async (data) => {
-	const login = await axios
+	const request = await axios
 		.post(`${url}/auth/login`, data)
 		.then((response) => response.data);
 
-	return { login, data };
+	return { request, data };
 });
 
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
@@ -24,11 +24,11 @@ export const addRole = createAsyncThunk("login/addRole", async (data) => {
 	
 	const roles = getLocalStorageItem("roles");
 	const roleName = roles.find((item) => item._id === data.id).name;
-	const role = await axios
+	const request = await axios
 		.post(`${url}/auth/add-role${data.id}`, null, { headers })
 		.then((response) => response.data);
 
-	return { role, data, roleName };
+	return { request, data, roleName };
 });
 
 export const slice = createSlice({
@@ -57,8 +57,8 @@ export const slice = createSlice({
 		});
 		builder.addCase(login.fulfilled, (state, action) => {
 			clearLocalStorage();
-			setLocalStorageItem("token", action.payload.login.result.token, 30);
-			setLocalStorageItem("roles", action.payload.login.result.roles, 30);
+			setLocalStorageItem("token", action.payload.request.result.token, 30);
+			setLocalStorageItem("roles", action.payload.request.result.roles, 30);
 			state.loading = false;
 			state.stage = "login";
 		});
@@ -79,7 +79,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(addRole.fulfilled, (state, action) => {
 			removeLocalStorageItem("token");
-			setLocalStorageItem("roletoken", action.payload.role.result.token, 30);
+			setLocalStorageItem("roletoken", action.payload.request.result.token, 30);
 			setLocalStorageItem("role", action.payload.roleName, 30);
 			state.loading = false;
 			state.stage = "roleadd";
