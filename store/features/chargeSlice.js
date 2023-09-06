@@ -5,14 +5,28 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const url = `${configData.AddressAPI}`;
 
-export const fetchCharges = createAsyncThunk(
-	"charge/fetchCharges",
+export const fetchUserCharges = createAsyncThunk(
+	"charge/fetchUserCharges",
 	async () => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
 		const request = await axios
 			.get(`${url}/charge/user-charges`, { headers })
+			.then((response) => response.data);
+
+		return { request };
+	}
+);
+
+export const fetchAdminCharges = createAsyncThunk(
+	"charge/fetchAdminCharges",
+	async () => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.get(`${url}/charge/get-charge-report`, { headers })
 			.then((response) => response.data);
 
 		return { request };
@@ -46,15 +60,29 @@ export const slice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		//fetchCharges
-		builder.addCase(fetchCharges.pending, (state, action) => {
+		//fetchUserCharges
+		builder.addCase(fetchUserCharges.pending, (state, action) => {
 			state.loadingData = true;
 		});
-		builder.addCase(fetchCharges.fulfilled, (state, action) => {
+		builder.addCase(fetchUserCharges.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.data = action.payload.request.result.data.chargeHistory;
+		});
+		builder.addCase(fetchUserCharges.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchAdminCharges
+		builder.addCase(fetchAdminCharges.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchAdminCharges.fulfilled, (state, action) => {
 			state.loadingData = false;
 			state.data = action.payload.request.result.data;
 		});
-		builder.addCase(fetchCharges.rejected, (state, action) => {
+		builder.addCase(fetchAdminCharges.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;
@@ -79,4 +107,4 @@ export const slice = createSlice({
 });
 
 export default slice.reducer;
-export const chargehargeActions = slice.actions;
+export const chargeActions = slice.actions;

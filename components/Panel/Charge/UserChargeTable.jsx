@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	chargeActions,
-	fetchCharges,
+	fetchUserCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
 import { formatDate } from "../../../utils/handleDates";
 
-export default function ChargeTable() {
+export default function UserChargeTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -34,15 +34,15 @@ export default function ChargeTable() {
 	const loadingData = useSelector((state) => state.charge.loadingData);
 	const data = useSelector((state) => state.charge.data);
 	const dataFix = data.map((row) => {
-		const { transactionId, ...rest } = row;
+		const { username, ...rest } = row;
 		return {
 			...rest,
-			id: transactionId,
+			id: username,
 		};
 	});
 
 	React.useEffect(() => {
-		dispatch(fetchCharges());
+		dispatch(fetchUserCharges());
 	}, []);
 
 	const columns = [

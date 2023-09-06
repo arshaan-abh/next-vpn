@@ -1,8 +1,8 @@
 import { Card, CardHeader, Container, Row } from "reactstrap";
 import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js";
-import ChargeTable from "../../components/Panel/Charge/ChargeTable";
 import ChargeAdd from "../../components/Panel/Charge/ChargeAdd";
+import UserChargeTable from "../../components/Panel/Charge/UserChargeTable";
 
 function Charge() {
 	return (
@@ -16,7 +16,7 @@ function Charge() {
 								<h3 className="mb-0">Charge</h3>
 								<ChargeAdd />
 							</CardHeader>
-							<ChargeTable />
+							<UserChargeTable />
 						</Card>
 					</div>
 				</Row>

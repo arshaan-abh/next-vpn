@@ -38,13 +38,6 @@ export default function VpnTable() {
 
 	const loadingData = useSelector((state) => state.vpn.loadingData);
 	const data = useSelector((state) => state.vpn.data);
-	const dataFix = data.map((row) => {
-		const { vpnName, ...rest } = row;
-		return {
-			...rest,
-			name: vpnName,
-		};
-	});
 
 	React.useEffect(() => {
 		dispatch(fetchVpns());
@@ -52,14 +45,49 @@ export default function VpnTable() {
 
 	const columns = [
 		{
-			field: "name",
+			field: "vpnName",
 			headerName: "Name",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.vpnName}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "username",
+			headerName: "Username",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.username}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "password",
+			headerName: "Password",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.password}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "privateKey",
+			headerName: "Private key",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.privateKey}</div>
 					</div>
 				);
 			},
@@ -68,7 +96,7 @@ export default function VpnTable() {
 			field: "functions",
 			headerName: "functions",
 			flex: 1,
-			minWidth: 180,
+			minWidth: 300,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
@@ -94,7 +122,7 @@ export default function VpnTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}
