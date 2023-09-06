@@ -25,14 +25,28 @@ export const fetchPackages = createAsyncThunk(
 	}
 );
 
-export const fetchPackageCryptoArch = createAsyncThunk(
-	"arch/fetchPackageCryptoArch",
+export const fetchPackageCryptoArches = createAsyncThunk(
+	"arch/fetchPackageCryptoArches",
 	async (id) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
 		const request = await axios
 			.get(`${url}/package/find-cryptoArch-package/${id}`, { headers })
+			.then((response) => response.data);
+
+		return { request };
+	}
+);
+
+export const fetchAllPackageCryptoArches = createAsyncThunk(
+	"arch/fetchAllPackageCryptoArches",
+	async () => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.get(`${url}/package/find-all-PackageCryptoArch`, { headers })
 			.then((response) => response.data);
 
 		return { request };
@@ -104,7 +118,7 @@ export const deletePackage = createAsyncThunk(
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
 		const request = await axios
-			.delete(`${url}/package/delete/${id}`, { headers })
+			.delete(`${url}/package/remove/${id}`, { headers })
 			.then((response) => response.data);
 
 		return { request };
@@ -113,15 +127,15 @@ export const deletePackage = createAsyncThunk(
 
 export const deletePackageCryptoArch = createAsyncThunk(
 	"package/deletePackageCryptoArch",
-	async (data) => {
+	async (id) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
 		const request = await axios
-			.delete(`${url}/package/delete-package-cryptoArch`, { headers })
+			.delete(`${url}/package/delete-package-cryptoArch/${id}`, { headers })
 			.then((response) => response.data);
 
-		return { request, data };
+		return { request };
 	}
 );
 
@@ -156,15 +170,29 @@ export const slice = createSlice({
 			state.error = true;
 		});
 
-		//fetchPackageCryptoArch
-		builder.addCase(fetchPackageCryptoArch.pending, (state, action) => {
+		//fetchPackageCryptoArches
+		builder.addCase(fetchPackageCryptoArches.pending, (state, action) => {
 			state.loadingData = true;
 		});
-		builder.addCase(fetchPackageCryptoArch.fulfilled, (state, action) => {
+		builder.addCase(fetchPackageCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.request.result;
+			state.cryptoData = action.payload.request.result.data;
 		});
-		builder.addCase(fetchPackageCryptoArch.rejected, (state, action) => {
+		builder.addCase(fetchPackageCryptoArches.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchAllPackageCryptoArches
+		builder.addCase(fetchAllPackageCryptoArches.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchAllPackageCryptoArches.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.cryptoData = action.payload.request.result.data;
+		});
+		builder.addCase(fetchAllPackageCryptoArches.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

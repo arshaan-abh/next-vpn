@@ -82,7 +82,6 @@ export default function ExchangeVersionEdit({ currentValue }) {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="to_from"
 							type="number"
 							label="To from"

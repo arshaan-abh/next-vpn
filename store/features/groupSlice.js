@@ -19,6 +19,20 @@ export const fetchGroups = createAsyncThunk(
 	}
 );
 
+export const fetchGroupVersions = createAsyncThunk(
+	"arch/fetchGroupVersions",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.get(`${url}/group/get-groupversions-group/${id}`, { headers })
+			.then((response) => response.data);
+
+		return { request };
+	}
+);
+
 export const addGroup = createAsyncThunk("group/addGroup", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
@@ -30,6 +44,20 @@ export const addGroup = createAsyncThunk("group/addGroup", async (data) => {
 	return { request, data };
 });
 
+export const addGroupVersion = createAsyncThunk(
+	"package/addGroupVersion",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.post(`${url}/group/create-groupVersion`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
+	}
+);
+
 export const updateGroup = createAsyncThunk(
 	"group/updateGroup",
 	async ({ id, data }) => {
@@ -38,6 +66,20 @@ export const updateGroup = createAsyncThunk(
 
 		const request = await axios
 			.patch(`${url}/group/update-group/${id}`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
+	}
+);
+
+export const updateGroupVersion = createAsyncThunk(
+	"group/updateGroupVersion",
+	async ({ id, data }) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.patch(`${url}/group/update-groupVersion/${id}`, data, { headers })
 			.then((response) => response.data);
 
 		return { request, data };
@@ -55,6 +97,20 @@ export const deleteGroup = createAsyncThunk("group/deleteGroup", async (id) => {
 	return { request };
 });
 
+export const deleteGroupVersion = createAsyncThunk(
+	"group/deleteGroupVersion",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.delete(`${url}/group/delete-groupVersion/${id}`, { headers })
+			.then((response) => response.data);
+
+		return { request };
+	}
+);
+
 export const slice = createSlice({
 	name: "group",
 	initialState: {
@@ -63,6 +119,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		versionData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -85,6 +142,20 @@ export const slice = createSlice({
 			state.error = true;
 		});
 
+		//fetchGroupVersions
+		builder.addCase(fetchGroupVersions.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchGroupVersions.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.versionData = action.payload.request.result.data;
+		});
+		builder.addCase(fetchGroupVersions.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
 		//addGroup
 		builder.addCase(addGroup.pending, (state, action) => {
 			state.loadingAction = true;
@@ -96,6 +167,22 @@ export const slice = createSlice({
 			state.error = false;
 		});
 		builder.addCase(addGroup.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//addGroupVersion
+		builder.addCase(addGroupVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(addGroupVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Group version was added successfully";
+			state.error = false;
+		});
+		builder.addCase(addGroupVersion.rejected, (state, action) => {
 			state.loadingAction = false;
 			state.snackMessage = action.error.message;
 			state.error = true;
@@ -117,6 +204,22 @@ export const slice = createSlice({
 			state.error = true;
 		});
 
+		//updateGroupVersion
+		builder.addCase(updateGroupVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(updateGroupVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Group version was updated successfully";
+			state.error = false;
+		});
+		builder.addCase(updateGroupVersion.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
 		//deleteGroup
 		builder.addCase(deleteGroup.pending, (state, action) => {
 			state.loadingAction = true;
@@ -128,6 +231,22 @@ export const slice = createSlice({
 			state.error = false;
 		});
 		builder.addCase(deleteGroup.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//deleteGroupVersion
+		builder.addCase(deleteGroupVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(deleteGroupVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Group version was deleted successfully";
+			state.error = false;
+		});
+		builder.addCase(deleteGroupVersion.rejected, (state, action) => {
 			state.loadingAction = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

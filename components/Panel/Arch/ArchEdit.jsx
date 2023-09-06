@@ -82,7 +82,6 @@ export default function ArchEdit({ currentValue }) {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="symbol"
 							label="Symbol"
 							placeholder="Arch symbol(abr)"

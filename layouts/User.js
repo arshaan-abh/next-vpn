@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 // core components
-import UserNavbar from "/components/Navbars/UserNavbar.js";
+import PanelNavbar from "../components/Navbars/PanelNavbar";
 import UserSidebar from "/components/Sidebar/UserSidebar.js";
 import logo from "/assets/img/brand/nextjs_aragon_black.png";
 
@@ -36,7 +36,7 @@ function User(props) {
 				}}
 			/>
 			<div className="main-content" ref={mainContentRef}>
-				<UserNavbar {...props} brandText="User Dashboard" />
+				<PanelNavbar {...props} brandText="User Dashboard" />
 				{props.children}
 			</div>
 		</div>

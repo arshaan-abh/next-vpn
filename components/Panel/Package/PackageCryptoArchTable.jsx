@@ -6,7 +6,7 @@ import SnackAlert from "../../Dynamic/SnackAlert";
 import CryptoArchEdit from "./PackageCryptoArchEdit";
 import CryptoArchDelete from "./PackageCryptoArchDelete";
 import {
-	fetchPackageCryptoArch,
+	fetchPackageCryptoArches,
 	packageActions,
 } from "../../../store/features/packageSlice";
 import { formatDate } from "../../../utils/handleDates";
@@ -23,7 +23,7 @@ export default function PackageCryptoArchTable() {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchPackageCryptoArch(id));
+			dispatch(fetchPackageCryptoArches(id));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -45,7 +45,7 @@ export default function PackageCryptoArchTable() {
 	const { id } = router.query;
 
 	React.useEffect(() => {
-		dispatch(fetchPackageCryptoArch(id));
+		dispatch(fetchPackageCryptoArches(id));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 // core components
-import AdminNavbar from "/components/Navbars/AdminNavbar.js";
 import AdminSidebar from "/components/Sidebar/AdminSidebar.js";
 import logo from "/assets/img/brand/nextjs_aragon_black.png";
+import PanelNavbar from "../components/Navbars/PanelNavbar";
 
 import routes from "/routes.js";
 import { getLocalStorageItem } from "../utils/handleLocalStorage";
@@ -35,7 +35,7 @@ function Admin(props) {
 				}}
 			/>
 			<div className="main-content" ref={mainContentRef}>
-				<AdminNavbar {...props} brandText="Admin Dashboard" />
+				<PanelNavbar {...props} brandText="Admin Dashboard" />
 				{props.children}
 			</div>
 		</div>

@@ -6,7 +6,6 @@ import * as yup from "yup";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import TextInput from "/components/Form/TextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCryptos } from "../../../store/features/cryptoSlice";
 import { addExchangeVersion } from "../../../store/features/exchangeSlice";
 
 const validationSchema = yup.object().shape({
@@ -24,13 +23,10 @@ export default function ExchangeVersionAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
+	const { id } = router.query;
+
 	const loadingAction = useSelector((state) => state.exchange.loadingAction);
 	const snackMessage = useSelector((state) => state.exchange.snackMessage);
-
-	React.useEffect(() => {
-		dispatch(fetchCryptos());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -97,7 +93,6 @@ export default function ExchangeVersionAdd() {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="to_from"
 							type="number"
 							label="To from"

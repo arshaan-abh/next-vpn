@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
 import { exchangeActions, fetchExchanges } from "../../../store/features/exchangeSlice";
+import { Button } from "reactstrap";
 import ExchangeEdit from "./ExchangeEdit";
 import ExchangeDelete from "./ExchangeDelete";
 
@@ -110,6 +111,17 @@ export default function ExchangeTable() {
 					<div className="grid-cell">
 						<ExchangeEdit currentValue={params.row} />
 						<ExchangeDelete id={params.row.id} />
+						<Button
+							size="sm"
+							outline
+							color="info"
+							type="button"
+							onClick={() =>
+								router.push(`/panel/admin-exchangeversions/${params.row.id}`)
+							}
+						>
+							Versions
+						</Button>
 					</div>
 				);
 			},

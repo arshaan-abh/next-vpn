@@ -21,7 +21,7 @@ export const login = createAsyncThunk("login/login", async (data) => {
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
 	const token = getLocalStorageItem("token");
 	const headers = { Authorization: `Bearer ${token}` };
-	
+
 	const roles = getLocalStorageItem("roles");
 	const roleName = roles.find((item) => item._id === data.id).name;
 	const request = await axios
@@ -59,6 +59,12 @@ export const slice = createSlice({
 			clearLocalStorage();
 			setLocalStorageItem("token", action.payload.request.result.token, 30);
 			setLocalStorageItem("roles", action.payload.request.result.roles, 30);
+			setLocalStorageItem(
+				"username",
+				action.payload.request.result.username,
+				30
+			);
+			console.log(action.payload.request.result.username);
 			state.loading = false;
 			state.stage = "login";
 		});

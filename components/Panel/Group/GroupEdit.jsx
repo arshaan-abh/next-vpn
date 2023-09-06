@@ -7,6 +7,7 @@ import TextInput from "/components/Form/TextInput";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
+import { updateGroup } from "../../../store/features/groupSlice";
 
 const validationSchema = yup.object().shape({
 	name: yup.string().required("Name is required"),
@@ -18,8 +19,8 @@ export default function GroupEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.role.loadingAction);
-	const snackMessage = useSelector((state) => state.role.snackMessage);
+	const loadingAction = useSelector((state) => state.group.loadingAction);
+	const snackMessage = useSelector((state) => state.group.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -36,7 +37,7 @@ export default function GroupEdit({ currentValue }) {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateRole({ id: currentValue.id, data: values }));
+			dispatch(updateGroup({ id: currentValue.id, data: values }));
 		},
 	});
 

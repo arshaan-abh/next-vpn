@@ -37,7 +37,7 @@ export const fetchExchangeVersions = createAsyncThunk(
 			})
 			.then((response) => response.data);
 
-		return { request, data };
+		return { request };
 	}
 );
 
@@ -184,7 +184,7 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchExchangeVersions.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.versionData = action.payload.request.result.data;
+			state.versionData = action.payload.request.result;
 		});
 		builder.addCase(fetchExchangeVersions.rejected, (state, action) => {
 			state.loadingData = false;
@@ -222,6 +222,22 @@ export const slice = createSlice({
 			state.error = true;
 		});
 
+		//addExchangeVersion
+		builder.addCase(addExchangeVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(addExchangeVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Exchange version was added successfully";
+			state.error = false;
+		});
+		builder.addCase(addExchangeVersion.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
 		//updateExchange
 		builder.addCase(updateExchange.pending, (state, action) => {
 			state.loadingAction = true;
@@ -238,6 +254,22 @@ export const slice = createSlice({
 			state.error = true;
 		});
 
+		//updateExchangeVersion
+		builder.addCase(updateExchangeVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(updateExchangeVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Exchange version was updated successfully";
+			state.error = false;
+		});
+		builder.addCase(updateExchangeVersion.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
 		//deleteExchange
 		builder.addCase(deleteExchange.pending, (state, action) => {
 			state.loadingAction = true;
@@ -249,6 +281,22 @@ export const slice = createSlice({
 			state.error = false;
 		});
 		builder.addCase(deleteExchange.rejected, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//deleteExchangeVersion
+		builder.addCase(deleteExchangeVersion.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(deleteExchangeVersion.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			state.snackMessage = "Exchange version was deleted successfully";
+			state.error = false;
+		});
+		builder.addCase(deleteExchangeVersion.rejected, (state, action) => {
 			state.loadingAction = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

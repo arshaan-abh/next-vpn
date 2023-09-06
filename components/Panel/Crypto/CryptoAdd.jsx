@@ -77,16 +77,15 @@ export default function CryptoAdd() {
 							className="mb-4"
 							fieldName="name"
 							label="Name"
-							placeholder="Arch name"
+							placeholder="Crypto name"
 							formik={formik}
 						/>
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="symbol"
 							label="Symbol"
-							placeholder="Arch symbol(abr)"
+							placeholder="Crypto symbol(abr)"
 							formik={formik}
 						/>
 					</form>

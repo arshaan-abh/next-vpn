@@ -1,17 +1,18 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { Button } from "reactstrap";
-import { fetchGroups, groupActions } from "../../../store/features/groupSlice";
-import GroupEdit from "./GroupEdit";
-import GroupDelete from "./GroupDelete";
+import { fetchGroupVersions, groupActions } from "../../../store/features/groupSlice";
+import { formatDate } from "../../../utils/handleDates";
+import GroupVersionEdit from "./GroupVersionEdit";
+import GroupVersionDelete from "./GroupVersionDelete";
 
-export default function GroupTable() {
+export default function GroupVersionTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { id } = router.query;
 
 	const snackMessage = useSelector((state) => state.group.snackMessage);
 	const loadingAction = useSelector((state) => state.group.loadingAction);
@@ -21,7 +22,7 @@ export default function GroupTable() {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchGroups());
+			dispatch(fetchGroupVersions(id));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -38,73 +39,46 @@ export default function GroupTable() {
 	};
 
 	const loadingData = useSelector((state) => state.group.loadingData);
-	const data = useSelector((state) => state.group.data);
+	const data = useSelector((state) => state.group.versionData);
 
 	React.useEffect(() => {
-		dispatch(fetchGroups());
+		dispatch(fetchGroupVersions(id));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "name",
-			headerName: "Name",
+			field: "discount",
+			headerName: "Discount",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.discount}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "status",
-			headerName: "Status",
+			field: "createdAt",
+			headerName: "Created At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.status ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Active
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-warning" />
-									Inactive
-								</Badge>
-							)}
-						</div>
+						<div className="text">{formatDate(params.row.createdAt)}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "isDefault",
-			headerName: "Default",
+			field: "updatedAt",
+			headerName: "Updated At",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.isDefault ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Yes
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-danger" />
-									No
-								</Badge>
-							)}
-						</div>
+						<div className="text">{formatDate(params.row.updatedAt)}</div>
 					</div>
 				);
 			},
@@ -117,19 +91,8 @@ export default function GroupTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<GroupEdit currentValue={params.row} />
-						<GroupDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-groupversions/${params.row.id}`)
-							}
-						>
-							Versions
-						</Button>
+						<GroupVersionEdit currentValue={params.row} />
+						<GroupVersionDelete id={params.row.id} />
 					</div>
 				);
 			},

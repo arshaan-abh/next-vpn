@@ -3,33 +3,37 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
+import TextInput from "/components/Form/TextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { addPackage } from "../../../store/features/packageSlice";
+import { fetchAllPackageCryptoArches } from "../../../store/features/packageSlice";
+import { addGroupVersion } from "../../../store/features/groupSlice";
+import AutoCompleteInput from "../../Form/AutoCompleteInput";
 
 const validationSchema = yup.object().shape({
-	title: yup.string().required("Name is required"),
-	duration: yup
+	packageVersionId: yup.string().required("Package crypto arch is required"),
+	discount: yup
 		.number()
-		.typeError("Duration should be a number")
-		.required("Duration is required"),
-	userCount: yup
-		.number()
-		.typeError("User count should be a number")
-		.required("User count is required"),
-	trafficAmount: yup
-		.number()
-		.typeError("Traffic should be a number")
-		.required("Traffic is required"),
+		.typeError("Discount should be a number")
+		.required("Discount is required"),
 });
 
-export default function PackageAdd() {
+export default function GroupVersionAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.package.loadingAction);
-	const snackMessage = useSelector((state) => state.package.snackMessage);
+	const { id } = router.query;
+
+	const loadingAction = useSelector((state) => state.group.loadingAction);
+	const snackMessage = useSelector((state) => state.group.snackMessage);
+	const packageCryptoArchData = useSelector(
+		(state) => state.package.cryptoData
+	);
+
+	React.useEffect(() => {
+		dispatch(fetchAllPackageCryptoArches());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -40,20 +44,13 @@ export default function PackageAdd() {
 
 	const formik = useFormik({
 		initialValues: {
-			title: "",
-			duration: "",
-			userCount: null,
-			trafficAmount: "",
+			packageVersionId: "",
+			groupId: id,
+			discount: 12,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			let valueFix = {
-				title: values.title,
-				duration: `${values.duration}`,
-				userCount: values.userCount,
-				trafficAmount: `${values.trafficAmount}GB`,
-			};
-			dispatch(addPackage(valueFix));
+			dispatch(addGroupVersion(values));
 		},
 	});
 
@@ -69,7 +66,7 @@ export default function PackageAdd() {
 				<span className="btn-inner--icon">
 					<i className="ni ni-fat-add"></i>
 				</span>
-				<span className="btn-inner--text">Add package</span>
+				<span className="btn-inner--text">Add group version</span>
 			</Button>
 
 			<Modal
@@ -79,7 +76,7 @@ export default function PackageAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Add package</h3>
+					<h3>Add group version</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -91,44 +88,29 @@ export default function PackageAdd() {
 				</div>
 				<ModalBody>
 					<form>
-						<TextInput
+						<AutoCompleteInput
 							labelShrink
 							className="mb-4"
-							fieldName="title"
-							label="Title"
-							placeholder="Package title"
+							fieldName="packageVersionId"
+							labelName="name"
+							valueName="id"
+							label="Package crypto arch"
+							placeholder="Select a Package crypto arch"
+							options={packageCryptoArchData?.map((item, i) => {
+								return {
+									id: item?.id,
+									name: `${item?.package?.title} - ${item?.cryptoArch?.arch?.name}(${item?.cryptoArch?.arch?.symbol}) - ${item?.cryptoArch?.crypto?.name}(${item?.cryptoArch?.crypto?.symbol})`,
+								};
+							})}
 							formik={formik}
 						/>
 
 						<TextInput
 							labelShrink
-							className="mb-4"
+							fieldName="discount"
 							type="number"
-							fieldName="duration"
-							label="Duration"
-							placeholder="Duration in days"
-							adornmentText="Days"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							className="mb-4"
-							type="number"
-							fieldName="userCount"
-							label="User count"
-							placeholder="Number of Users"
-							adornmentText="Users"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							type="number"
-							fieldName="trafficAmount"
-							label="Traffic"
-							placeholder="VPN Traffic in GB"
-							adornmentText="GB"
+							label="Discount"
+							placeholder="Amount of discount"
 							formik={formik}
 						/>
 					</form>

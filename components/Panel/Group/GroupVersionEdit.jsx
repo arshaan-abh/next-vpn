@@ -3,22 +3,24 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCrypto } from "../../../store/features/cryptoSlice";
+import TextInput from "/components/Form/TextInput";
+import { updateGroupVersion } from "../../../store/features/groupSlice";
 
 const validationSchema = yup.object().shape({
-	name: yup.string().required("Name is required"),
-	symbol: yup.string().required("Symbol is required"),
+	discount: yup
+		.number()
+		.typeError("Discount should be a number")
+		.required("Discount is required"),
 });
 
-export default function CryptoEdit({ currentValue }) {
+export default function GroupVersionEdit({ currentValue }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.crypto.loadingAction);
-	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.group.loadingAction);
+	const snackMessage = useSelector((state) => state.group.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -29,12 +31,11 @@ export default function CryptoEdit({ currentValue }) {
 
 	const formik = useFormik({
 		initialValues: {
-			name: currentValue.name,
-			symbol: currentValue.symbol,
+			discount: currentValue.discount,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(updateCrypto({ id: currentValue.id, data: values }));
+			dispatch(updateGroupVersion({ id: currentValue.id, data: values }));
 		},
 	});
 
@@ -59,7 +60,7 @@ export default function CryptoEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit crypto</h3>
+					<h3>Edit group version</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -73,18 +74,10 @@ export default function CryptoEdit({ currentValue }) {
 					<form>
 						<TextInput
 							labelShrink
-							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Crypto name"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							fieldName="symbol"
-							label="Symbol"
-							placeholder="Crypto symbol(abr)"
+							fieldName="discount"
+							type="number"
+							label="Discount"
+							placeholder="Amount of discount"
 							formik={formik}
 						/>
 					</form>

@@ -102,7 +102,6 @@ export default function PackageCryptoArchEdit({ currentValue }) {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="price"
 							type="number"
 							label="Price"

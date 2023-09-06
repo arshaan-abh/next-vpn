@@ -1,24 +1,16 @@
 import * as React from "react";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import TextInput from "/components/Form/TextInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCrypto } from "../../../store/features/cryptoSlice";
+import { deleteGroupVersion } from "../../../store/features/groupSlice";
 
-const validationSchema = yup.object().shape({
-	name: yup.string().required("Name is required"),
-	symbol: yup.string().required("Symbol is required"),
-});
-
-export default function CryptoEdit({ currentValue }) {
+export default function GroupVersionDelete({ id }) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const loadingAction = useSelector((state) => state.crypto.loadingAction);
-	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.group.loadingAction);
+	const snackMessage = useSelector((state) => state.group.snackMessage);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -27,29 +19,22 @@ export default function CryptoEdit({ currentValue }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
-	const formik = useFormik({
-		initialValues: {
-			name: currentValue.name,
-			symbol: currentValue.symbol,
-		},
-		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			dispatch(updateCrypto({ id: currentValue.id, data: values }));
-		},
-	});
-
 	const [modalOpen, setModalOpen] = React.useState(false);
+
+	const handleDelete = () => {
+		dispatch(deleteGroupVersion(id));
+	};
 
 	return (
 		<>
 			<Button
 				size="sm"
 				outline
-				color="warning"
+				color="danger"
 				type="button"
 				onClick={() => setModalOpen(!modalOpen)}
 			>
-				Edit
+				Delete
 			</Button>
 
 			<Modal
@@ -59,7 +44,7 @@ export default function CryptoEdit({ currentValue }) {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Edit crypto</h3>
+					<h3>Delete group version</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -70,24 +55,7 @@ export default function CryptoEdit({ currentValue }) {
 					</button>
 				</div>
 				<ModalBody>
-					<form>
-						<TextInput
-							labelShrink
-							className="mb-4"
-							fieldName="name"
-							label="Name"
-							placeholder="Crypto name"
-							formik={formik}
-						/>
-
-						<TextInput
-							labelShrink
-							fieldName="symbol"
-							label="Symbol"
-							placeholder="Crypto symbol(abr)"
-							formik={formik}
-						/>
-					</form>
+					Are you sure you want to delete this group version?
 				</ModalBody>
 				<ModalFooter>
 					<Button
@@ -97,8 +65,8 @@ export default function CryptoEdit({ currentValue }) {
 					>
 						Close
 					</Button>
-					<Button color="warning" type="submit" onClick={formik.handleSubmit}>
-						Edit
+					<Button color="danger" type="submit" onClick={handleDelete}>
+						Delete
 					</Button>
 				</ModalFooter>
 			</Modal>

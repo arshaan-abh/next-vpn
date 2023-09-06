@@ -83,7 +83,6 @@ export default function ArchAdd() {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							fieldName="symbol"
 							label="Symbol"
 							placeholder="Arch symbol(abr)"

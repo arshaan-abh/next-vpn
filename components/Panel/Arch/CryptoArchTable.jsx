@@ -134,6 +134,19 @@ export default function CryptoArchTable() {
 				);
 			},
 		},
+
+		{
+			field: "companyAddress",
+			headerName: "Company address",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.companyAddress}</div>
+					</div>
+				);
+			},
+		},
 		{
 			field: "functions",
 			headerName: "functions",

@@ -54,7 +54,7 @@ export default function ExchangeVersionTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.to.from_to}</div>
+						<div className="text">{params.row.from_to}</div>
 					</div>
 				);
 			},
@@ -67,7 +67,7 @@ export default function ExchangeVersionTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.to.to_from}</div>
+						<div className="text">{params.row.to_from}</div>
 					</div>
 				);
 			},

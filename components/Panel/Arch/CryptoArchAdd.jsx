@@ -20,6 +20,7 @@ const validationSchema = yup.object().shape({
 		.required("Decimal is required"),
 	isStableCoin: yup.boolean().required(),
 	isCoin: yup.boolean().required(),
+	companyAddress: yup.string().required("Company address is required"),
 });
 
 export default function CryptoArchAdd() {
@@ -52,6 +53,7 @@ export default function CryptoArchAdd() {
 			decimal: null,
 			isStableCoin: false,
 			isCoin: true,
+			companyAddress: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -136,13 +138,21 @@ export default function CryptoArchAdd() {
 						/>
 
 						<ToggleInput
-							className="mt-3"
+							className="mt-3 mb-4"
 							fieldName="isCoin"
 							label="Is coin"
 							options={[
 								{ label: "Yes", value: true },
 								{ label: "No", value: false },
 							]}
+							formik={formik}
+						/>
+
+						<TextInput
+							labelShrink
+							fieldName="companyAddress"
+							label="Company address"
+							placeholder="Enter related address"
 							formik={formik}
 						/>
 					</form>

@@ -124,7 +124,6 @@ export default function PackageEdit({ currentValue }) {
 
 						<TextInput
 							labelShrink
-							className="mb-4"
 							type="number"
 							fieldName="trafficAmount"
 							label="Traffic"
