@@ -2,13 +2,11 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVpns, vpnActions } from "../../../store/features/vpnSlice";
-import VpnEdit from "./VpnEdit";
-import VpnDelete from "./VpnDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import VpnAddPackage from "./VpnAddPackage";
+import { fetchUserAdminVpns, vpnActions } from "../../../store/features/vpnSlice";
+import VpnDetail from "./VpnDetail";
 
-export default function VpnTable() {
+export default function AdminUserVpnTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -20,7 +18,7 @@ export default function VpnTable() {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchVpns());
+			dispatch(fetchUserAdminVpns());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -38,56 +36,42 @@ export default function VpnTable() {
 
 	const loadingData = useSelector((state) => state.vpn.loadingData);
 	const data = useSelector((state) => state.vpn.data);
+	const dataFix = data.map((row) => {
+		const { username, ...rest } = row;
+		return {
+			...rest,
+			id: username,
+		};
+	});
 
 	React.useEffect(() => {
-		dispatch(fetchVpns());
+		dispatch(fetchUserAdminVpns());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "vpnName",
-			headerName: "Name",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.vpnName}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "username",
+			field: "id",
 			headerName: "Username",
 			flex: 1,
+			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.username}</div>
+						<div className="text">{params.row.id}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "password",
-			headerName: "Password",
+			field: "email",
+			headerName: "Email",
 			flex: 1,
+			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.password}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "privateKey",
-			headerName: "Private key",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.privateKey}</div>
+						<div className="text">{params.row.email}</div>
 					</div>
 				);
 			},
@@ -96,13 +80,11 @@ export default function VpnTable() {
 			field: "functions",
 			headerName: "functions",
 			flex: 1,
-			minWidth: 300,
+			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<VpnEdit currentValue={params.row} />
-						<VpnDelete id={params.row.id} />
-						<VpnAddPackage id={params.row.id} />
+						<VpnDetail username={params.row.id} currentValue={params.row} />
 					</div>
 				);
 			},
@@ -122,7 +104,7 @@ export default function VpnTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={data}
+				rows={dataFix}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}

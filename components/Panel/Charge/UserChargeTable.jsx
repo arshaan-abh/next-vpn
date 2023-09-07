@@ -33,13 +33,6 @@ export default function UserChargeTable() {
 
 	const loadingData = useSelector((state) => state.charge.loadingData);
 	const data = useSelector((state) => state.charge.data);
-	const dataFix = data.map((row) => {
-		const { username, ...rest } = row;
-		return {
-			...rest,
-			id: username,
-		};
-	});
 
 	React.useEffect(() => {
 		dispatch(fetchUserCharges());
@@ -119,7 +112,7 @@ export default function UserChargeTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}

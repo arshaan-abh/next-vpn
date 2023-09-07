@@ -1,24 +1,26 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import ArchEdit from "./CryptoEdit";
+import ArchDelete from "./CryptoDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { convertActions, fetchConverts } from "../../../store/features/convertSlice";
+import { cryptoActions, fetchAdminCryptos } from "../../../store/features/cryptoSlice";
+import { Button } from "reactstrap";
 
-export default function ConvertTable() {
+export default function AdminCryptoTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.convert.snackMessage);
-	const loadingAction = useSelector((state) => state.convert.loadingAction);
-	const error = useSelector((state) => state.convert.error);
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const error = useSelector((state) => state.crypto.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchConverts());
+			dispatch(fetchAdminCryptos());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -31,69 +33,65 @@ export default function ConvertTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(convertActions.clearSnackMessage());
+		dispatch(cryptoActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.convert.loadingData);
-	const data = useSelector((state) => state.convert.data);
+	const loadingData = useSelector((state) => state.crypto.loadingData);
+	const data = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-		dispatch(fetchConverts());
+		dispatch(fetchAdminCryptos());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "from",
-			headerName: "From",
+			field: "name",
+			headerName: "Name",
 			flex: 1,
 			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.from.name}({params.row.from.symbol})
-						</div>
+						<div className="text">{params.row.name}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "to",
-			headerName: "To",
+			field: "symbol",
+			headerName: "Symbol",
 			flex: 1,
 			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.to.name}({params.row.to.symbol})
-						</div>
+						<div className="text">{params.row.symbol}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "status",
-			headerName: "Status",
+			field: "functions",
+			headerName: "functions",
 			flex: 1,
-			minWidth: 120,
+			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">
-							{params.row.status ? (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-success" />
-									Active
-								</Badge>
-							) : (
-								<Badge color="" className="badge-dot mr-4">
-									<i className="bg-warning" />
-									Inactive
-								</Badge>
-							)}
-						</div>
+						<ArchEdit currentValue={params.row} />
+						<ArchDelete id={params.row.id} />
+						<Button
+							size="sm"
+							outline
+							color="info"
+							type="button"
+							onClick={() =>
+								router.push(`/panel/admin-archcryptos/${params.row.id}`)
+							}
+						>
+							Arches
+						</Button>
 					</div>
 				);
 			},

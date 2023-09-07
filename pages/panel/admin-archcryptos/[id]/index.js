@@ -8,10 +8,9 @@ import {
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
-import CryptoAdd from "../../components/Panel/Crypto/CryptoAdd";
-import AdminCryptoTable from "../../components/Panel/Crypto/AdminCryptoTable";
+import ArchCryptoTable from "../../../../components/Panel/Crypto/ArchCryptoTable";
 
-function Cryptos() {
+function Page() {
 	const router = useRouter();
 
 	return (
@@ -22,8 +21,7 @@ function Cryptos() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Cryptos</h3>
-								<CryptoAdd />
+								<h3 className="mb-0">Arches for crypto</h3>
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
@@ -32,7 +30,7 @@ function Cryptos() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<AdminCryptoTable />
+							<ArchCryptoTable />
 						</Card>
 					</div>
 				</Row>
@@ -41,6 +39,6 @@ function Cryptos() {
 	);
 }
 
-Cryptos.layout = Admin;
+Page.layout = Admin;
 
-export default Cryptos;
+export default Page;

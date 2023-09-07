@@ -6,7 +6,7 @@ import * as yup from "yup";
 import ToggleInput from "../../Form/ToggleInput";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCryptos } from "../../../store/features/cryptoSlice";
+import { fetchAdminCryptos } from "../../../store/features/cryptoSlice";
 import { addExchange } from "../../../store/features/exchangeSlice";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
 
@@ -28,7 +28,7 @@ export default function ExchangeAdd() {
 	const cryptoData = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-		dispatch(fetchCryptos());
+		dispatch(fetchAdminCryptos());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -120,7 +120,7 @@ export default function ExchangeAdd() {
 						/>
 
 						<ToggleInput
-							className="mt-3 mb-4"
+							className="mt-3"
 							fieldName="status"
 							label="Active"
 							options={[

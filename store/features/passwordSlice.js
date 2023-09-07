@@ -1,16 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import configData from "../config.json";
-
 const url = `${configData.AddressAPI}`;
 
 export const resetPassword = createAsyncThunk(
 	"password/resetPassword",
 	async (data) => {
-		const request = await axios
-			.post(`${url}/auth/email/password/reset`, data)
-			.then((response) => response.data);
-		return { request, data };
+		try {
+			const response = await axios.post(
+				`${url}/auth/email/password/reset`,
+				data
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -39,18 +43,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(resetPassword.fulfilled, (state, action) => {
 			state.loading = false;
-			state.stage = "reset";
-			state.snackMessage =
-				"Reset password instructions was sent to your email.";
-		});
-		builder.addCase(resetPassword.rejected, (state, action) => {
-			state.loading = false;
-			state.error = true;
-
-			if (action.error.code === "ERR_BAD_REQUEST") {
-				state.snackMessage = "Email is not correct or token is already sent.";
+			if (!action.payload.error) {
+				state.stage = "reset";
+				state.snackMessage = "Reset password token was sent to your email.";
+				state.error = false;
 			} else {
-				state.snackMessage = action.error.message;
+				state.snackMessage = action.payload.error;
+				state.error = true;
 			}
 		});
 	},

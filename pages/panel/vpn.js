@@ -5,13 +5,12 @@ import {
 	Container,
 	Row,
 } from "reactstrap";
-import Admin from "/layouts/Admin.js";
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
-import CryptoAdd from "../../components/Panel/Crypto/CryptoAdd";
-import AdminCryptoTable from "../../components/Panel/Crypto/AdminCryptoTable";
+import UserVpnTable from "../../components/Panel/User/UserVpnTable";
 
-function Cryptos() {
+function Vpn() {
 	const router = useRouter();
 
 	return (
@@ -22,8 +21,7 @@ function Cryptos() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Cryptos</h3>
-								<CryptoAdd />
+								<h3 className="mb-0">Vpns</h3>
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
@@ -32,7 +30,7 @@ function Cryptos() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<AdminCryptoTable />
+							<UserVpnTable />
 						</Card>
 					</div>
 				</Row>
@@ -41,6 +39,6 @@ function Cryptos() {
 	);
 }
 
-Cryptos.layout = Admin;
+Vpn.layout = User;
 
-export default Cryptos;
+export default Vpn;

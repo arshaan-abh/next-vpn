@@ -2,24 +2,22 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import ArchEdit from "./CryptoEdit";
-import ArchDelete from "./CryptoDelete";
+import { fetchUserVpns, vpnActions } from "../../../store/features/vpnSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { cryptoActions, fetchCryptos } from "../../../store/features/cryptoSlice";
 
-export default function CryptoTable() {
+export default function UserVpnTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.crypto.snackMessage);
-	const loadingAction = useSelector((state) => state.crypto.loadingAction);
-	const error = useSelector((state) => state.crypto.error);
+	const snackMessage = useSelector((state) => state.vpn.snackMessage);
+	const loadingAction = useSelector((state) => state.vpn.loadingAction);
+	const error = useSelector((state) => state.vpn.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchCryptos());
+			dispatch(fetchUserVpns());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -32,54 +30,61 @@ export default function CryptoTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(cryptoActions.clearSnackMessage());
+		dispatch(vpnActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.crypto.loadingData);
-	const data = useSelector((state) => state.crypto.data);
+	const loadingData = useSelector((state) => state.vpn.loadingData);
+	const data = useSelector((state) => state.vpn.data);
 
 	React.useEffect(() => {
-		dispatch(fetchCryptos());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		dispatch(fetchUserVpns());
 	}, []);
 
 	const columns = [
 		{
-			field: "name",
+			field: "vpnName",
 			headerName: "Name",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.vpnName}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "symbol",
-			headerName: "Symbol",
+			field: "username",
+			headerName: "Username",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.symbol}</div>
+						<div className="text">{params.row.username}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "functions",
-			headerName: "functions",
+			field: "password",
+			headerName: "Password",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<ArchEdit currentValue={params.row} />
-						<ArchDelete id={params.row.id} />
+						<div className="text">{params.row.password}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "privateKey",
+			headerName: "Private key",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.privateKey}</div>
 					</div>
 				);
 			},

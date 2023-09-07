@@ -3,9 +3,9 @@ import {Card, CardHeader, Container, Row} from "reactstrap";
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import VpnAdd from "../../components/Panel/Vpn/VpnAdd";
-import VpnTable from "../../components/Panel/Vpn/VpnTable";
+import AdminVpnTable from "../../components/Panel/Vpn/AdminVpnTable";
 
-function VpnList() {
+function Vpn() {
     return (
         <>
             <Header/>
@@ -17,7 +17,7 @@ function VpnList() {
                                 <h3 className="mb-0">Vpns</h3>
                                 <VpnAdd/>
                             </CardHeader>
-                            <VpnTable/>
+                            <AdminVpnTable/>
                         </Card>
                     </div>
                 </Row>
@@ -26,6 +26,6 @@ function VpnList() {
     );
 }
 
-VpnList.layout = Admin;
+Vpn.layout = Admin;
 
-export default VpnList;
+export default Vpn;

@@ -5,8 +5,8 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const url = `${configData.AddressAPI}`;
 
-export const fetchVpns = createAsyncThunk(
-	"vpn/find-all",
+export const fetchAdminVpns = createAsyncThunk(
+	"vpn/fetchAdminVpns",
 	async (
 		data = {
 			sort: "createdAt",
@@ -25,7 +25,47 @@ export const fetchVpns = createAsyncThunk(
 	}
 );
 
-export const addVpn = createAsyncThunk("vpn/create", async (data) => {
+export const fetchUserVpns = createAsyncThunk(
+	"vpn/fetchUserVpns",
+	async (
+		data = {
+			sort: "createdAt",
+			order: -1,
+			filter: {},
+		}
+	) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.post(`${url}/vpn/get-user-vpns`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
+	}
+);
+
+export const fetchUserAdminVpns = createAsyncThunk(
+	"vpn/fetchUserAdminVpns",
+	async (
+		data = {
+			sort: "createdAt",
+			order: -1,
+			filter: {},
+		}
+	) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		const request = await axios
+			.post(`${url}/vpn/get-users-vpns-admin`, data, { headers })
+			.then((response) => response.data);
+
+		return { request, data };
+	}
+);
+
+export const addVpn = createAsyncThunk("vpn/addVpn", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
@@ -36,21 +76,18 @@ export const addVpn = createAsyncThunk("vpn/create", async (data) => {
 	return { request, data };
 });
 
-export const updateVpn = createAsyncThunk(
-	"vpn/update",
-	async ({ id, data }) => {
-		const roletoken = getLocalStorageItem("roletoken");
-		const headers = { Authorization: `Bearer ${roletoken}` };
+export const updateVpn = createAsyncThunk("vpn/updateVpn", async ({ id, data }) => {
+	const roletoken = getLocalStorageItem("roletoken");
+	const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/vpn/update/${id}`, data, { headers })
-			.then((response) => response.data);
+	const request = await axios
+		.patch(`${url}/vpn/update/${id}`, data, { headers })
+		.then((response) => response.data);
 
-		return { request, data };
-	}
-);
+	return { request, data };
+});
 
-export const deleteVpn = createAsyncThunk("vpn/delete", async (id) => {
+export const deleteVpn = createAsyncThunk("vpn/deleteVpn", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
@@ -88,15 +125,43 @@ export const slice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		//fetchVpns
-		builder.addCase(fetchVpns.pending, (state, action) => {
+		//fetchAdminVpns
+		builder.addCase(fetchAdminVpns.pending, (state, action) => {
 			state.loadingData = true;
 		});
-		builder.addCase(fetchVpns.fulfilled, (state, action) => {
+		builder.addCase(fetchAdminVpns.fulfilled, (state, action) => {
 			state.loadingData = false;
 			state.data = action.payload.request.result.data;
 		});
-		builder.addCase(fetchVpns.rejected, (state, action) => {
+		builder.addCase(fetchAdminVpns.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchUserVpns
+		builder.addCase(fetchUserVpns.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchUserVpns.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.data = action.payload.request.result.data;
+		});
+		builder.addCase(fetchUserVpns.rejected, (state, action) => {
+			state.loadingData = false;
+			state.snackMessage = action.error.message;
+			state.error = true;
+		});
+
+		//fetchUserAdminVpns
+		builder.addCase(fetchUserAdminVpns.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchUserAdminVpns.fulfilled, (state, action) => {
+			state.loadingData = false;
+			state.data = action.payload.request.result.data;
+		});
+		builder.addCase(fetchUserAdminVpns.rejected, (state, action) => {
 			state.loadingData = false;
 			state.snackMessage = action.error.message;
 			state.error = true;

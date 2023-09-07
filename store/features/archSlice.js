@@ -17,11 +17,14 @@ export const fetchArches = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/arch/find-all`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/arch/find-all`, data, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -40,11 +43,16 @@ export const fetchCryptoArches = createAsyncThunk(
 		let dataFix = data;
 		dataFix.archId = id;
 
-		const request = await axios
-			.post(`${url}/arch/get-crypto-arch`, dataFix, { headers })
-			.then((response) => response.data);
-
-		return { request, dataFix };
+		try {
+			const response = await axios.post(
+				`${url}/arch/get-crypto-arch`,
+				dataFix,
+				{ headers }
+			);
+			return { data: response.data.result };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -60,11 +68,16 @@ export const fetchAllCryptoArches = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/arch/find-all-cryptoarch`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(
+				`${url}/arch/find-all-cryptoarch`,
+				data,
+				{ headers }
+			);
+			return { data: response.data.result };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -72,23 +85,32 @@ export const addArch = createAsyncThunk("arch/addArch", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.post(`${url}/arch/create`, data, { headers })
-		.then((response) => response.data);
-
-	return { request, data };
+	try {
+		const response = await axios.post(`${url}/arch/create`, data, { headers });
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
-export const addCryptoArch = createAsyncThunk("arch/addCryptoArch", async (data) => {
-	const roletoken = getLocalStorageItem("roletoken");
-	const headers = { Authorization: `Bearer ${roletoken}` };
+export const addCryptoArch = createAsyncThunk(
+	"arch/addCryptoArch",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.post(`${url}/arch/create-crypto-arch`, data, { headers })
-		.then((response) => response.data);
-
-	return { request, data };
-});
+		try {
+			const response = await axios.post(
+				`${url}/arch/create-crypto-arch`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
 
 export const updateArch = createAsyncThunk(
 	"arch/updateArch",
@@ -96,11 +118,14 @@ export const updateArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/arch/update/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(`${url}/arch/update/${id}`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -110,11 +135,16 @@ export const updateCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/arch/update-cryptoarch/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(
+				`${url}/arch/update-cryptoarch/${id}`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -122,11 +152,14 @@ export const deleteArch = createAsyncThunk("arch/deleteArch", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.delete(`${url}/arch/delete/${id}`, { headers })
-		.then((response) => response.data);
-
-	return { request };
+	try {
+		const response = await axios.delete(`${url}/arch/delete/${id}`, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const deleteCryptoArch = createAsyncThunk(
@@ -135,11 +168,15 @@ export const deleteCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.delete(`${url}/arch/delete-cryptoarch/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.delete(
+				`${url}/arch/delete-cryptoarch/${id}`,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -160,18 +197,19 @@ export const slice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		//fetchArchs
+		//fetchArches
 		builder.addCase(fetchArches.pending, (state, action) => {
 			state.loadingData = true;
 		});
 		builder.addCase(fetchArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchArches.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchCryptoArches
@@ -180,12 +218,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.request.result;
-		});
-		builder.addCase(fetchCryptoArches.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.cryptoData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchAllCryptoArches
@@ -194,12 +233,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchAllCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.request.result;
-		});
-		builder.addCase(fetchAllCryptoArches.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.cryptoData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addArch
@@ -209,13 +249,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Arch was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Arch was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addCryptoArch
@@ -225,13 +265,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Crypto was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateArch
@@ -241,13 +281,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Arch was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Arch was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateCryptoArch
@@ -257,13 +297,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Crypto was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteArch
@@ -273,13 +313,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Arch was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Arch was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteCryptoArch
@@ -289,13 +329,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Crypto was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Crypto was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });
