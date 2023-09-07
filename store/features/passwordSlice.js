@@ -18,6 +18,21 @@ export const resetPassword = createAsyncThunk(
 	}
 );
 
+export const updatePassword = createAsyncThunk(
+	"password/updatePassword",
+	async (data) => {
+		try {
+			const response = await axios.patch(
+				`${url}/auth/email/password/update`,
+				data
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
+
 export const slice = createSlice({
 	name: "password",
 	initialState: {
@@ -46,6 +61,23 @@ export const slice = createSlice({
 			if (!action.payload.error) {
 				state.stage = "reset";
 				state.snackMessage = "Reset password token was sent to your email.";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
+		});
+
+		//updatePassword
+		builder.addCase(updatePassword.pending, (state, action) => {
+			state.loading = true;
+			state.error = false;
+		});
+		builder.addCase(updatePassword.fulfilled, (state, action) => {
+			state.loading = false;
+			if (!action.payload.error) {
+				state.stage = "update";
+				state.snackMessage = "Your password was updated successfully.";
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;
