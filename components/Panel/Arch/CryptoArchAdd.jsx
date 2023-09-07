@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCryptoArch } from "../../../store/features/archSlice";
 import ToggleInput from "../../Form/ToggleInput";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
-import { fetchCryptos } from "../../../store/features/cryptoSlice";
+import { fetchAdminCryptos } from "../../../store/features/cryptoSlice";
 
 const validationSchema = yup.object().shape({
 	cryptoId: yup.string().required("Crypto is required"),
@@ -32,7 +32,7 @@ export default function CryptoArchAdd() {
 	const cryptoData = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-		dispatch(fetchCryptos());
+		dispatch(fetchAdminCryptos());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
