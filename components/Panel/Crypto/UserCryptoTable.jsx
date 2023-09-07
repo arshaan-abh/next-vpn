@@ -34,9 +34,9 @@ export default function UserCryptoTable() {
 	};
 
 	const loadingData = useSelector((state) => state.crypto.loadingData);
-	const data = useSelector((state) => state.crypto.data);
+	const data = useSelector((state) => state.crypto.userData);
 	const dataFix = data.map((item) => {
-		return { ...item, id: item.crypto.id };
+		return { ...item, id: item.crypto?.id };
 	});
 
 	React.useEffect(() => {

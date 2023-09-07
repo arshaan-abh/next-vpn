@@ -74,6 +74,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		userData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -89,7 +90,7 @@ export const slice = createSlice({
 		builder.addCase(fetchUserConverts.fulfilled, (state, action) => {
 			state.loadingData = false;
 			if (!action.payload.error) {
-				state.data = action.payload.data;
+				state.userData = action.payload.data;
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;

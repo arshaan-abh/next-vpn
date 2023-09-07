@@ -8,8 +8,8 @@ import {
 import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
-import PackageCryptoArchTable from "../../../../components/Panel/Package/PackageCryptoArchTable";
-import PackageCryptoArchAdd from "../../../../components/Panel/Package/PackageCryptoArchAdd";
+import PackageVpnAdd from "../../../../components/Panel/Package/PackageVpnAdd";
+import PackageVpnTable from "../../../../components/Panel/Package/PackageVpnTable";
 
 function Page() {
 	const router = useRouter();
@@ -22,8 +22,8 @@ function Page() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Package crypto arches</h3>
-								<PackageCryptoArchAdd />
+								<h3 className="mb-0">Package vpns</h3>
+								<PackageVpnAdd />
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
@@ -32,7 +32,7 @@ function Page() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<PackageCryptoArchTable />
+							<PackageVpnTable />
 						</Card>
 					</div>
 				</Row>

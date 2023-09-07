@@ -16,7 +16,7 @@ export const fetchUserCharges = createAsyncThunk(
 			const response = await axios.get(`${url}/charge/user-charges`, {
 				headers,
 			});
-			return { data: response.data.result };
+			return { data: response.data.result.data.chargeHistory };
 		} catch (error) {
 			return { error: JSON.parse(error.request.response).errors.value };
 		}
@@ -40,12 +40,14 @@ export const fetchAdminCharges = createAsyncThunk(
 	}
 );
 
-export const addCharge = createAsyncThunk("charge/addCharge", async () => {
+export const addCharge = createAsyncThunk("charge/addCharge", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
 	try {
-		const response = await axios.get(`${url}/charge/user-wallet`, { headers });
+		const response = await axios.post(`${url}/charge/charge-wallet`, data, {
+			headers,
+		});
 		return { data: response.data };
 	} catch (error) {
 		return { error: JSON.parse(error.request.response).errors.value };
@@ -60,6 +62,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		userData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -75,7 +78,7 @@ export const slice = createSlice({
 		builder.addCase(fetchUserCharges.fulfilled, (state, action) => {
 			state.loadingData = false;
 			if (!action.payload.error) {
-				state.data = action.payload.data;
+				state.userData = action.payload.data;
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;

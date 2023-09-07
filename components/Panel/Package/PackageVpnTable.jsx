@@ -2,14 +2,17 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAdminVpns, vpnActions } from "../../../store/features/vpnSlice";
-import VpnEdit from "./VpnEdit";
-import VpnDelete from "./VpnDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import {
+	fetchPackageVpns,
+	packageActions,
+} from "../../../store/features/packageSlice";
 
-export default function AdminUserVpn() {
+export default function PackageVpnTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { id } = router.query;
 
 	const snackMessage = useSelector((state) => state.vpn.snackMessage);
 	const loadingAction = useSelector((state) => state.vpn.loadingAction);
@@ -19,7 +22,7 @@ export default function AdminUserVpn() {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchAdminVpns());
+			dispatch(fetchPackageVpns(id));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -32,14 +35,15 @@ export default function AdminUserVpn() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(vpnActions.clearSnackMessage());
+		dispatch(packageActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.vpn.loadingData);
-	const data = useSelector((state) => state.vpn.data);
+	const loadingData = useSelector((state) => state.package.loadingData);
+	const data = useSelector((state) => state.package.vpnData);
 
 	React.useEffect(() => {
-		dispatch(fetchAdminVpns());
+		dispatch(fetchPackageVpns(id));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
@@ -87,20 +91,6 @@ export default function AdminUserVpn() {
 				return (
 					<div className="grid-cell">
 						<div className="text">{params.row.privateKey}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "functions",
-			headerName: "functions",
-			flex: 1,
-			minWidth: 300,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<VpnEdit currentValue={params.row} />
-						<VpnDelete id={params.row.id} />
 					</div>
 				);
 			},

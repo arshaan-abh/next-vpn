@@ -49,7 +49,7 @@ export const fetchCryptoArches = createAsyncThunk(
 				dataFix,
 				{ headers }
 			);
-			return { data: response.data.result };
+			return { data: response.data.result[0] };
 		} catch (error) {
 			return { error: JSON.parse(error.request.response).errors.value };
 		}

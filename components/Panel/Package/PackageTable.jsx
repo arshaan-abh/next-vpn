@@ -101,7 +101,7 @@ export default function PackageTable() {
 			field: "functions",
 			headerName: "functions",
 			flex: 1,
-			minWidth: 280,
+			minWidth: 340,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
@@ -116,7 +116,18 @@ export default function PackageTable() {
 								router.push(`/panel/admin-packagecryptoarches/${params.row.id}`)
 							}
 						>
-							Crypto arch
+							Crypto arches
+						</Button>
+						<Button
+							size="sm"
+							outline
+							color="primary"
+							type="button"
+							onClick={() =>
+								router.push(`/panel/admin-packagevpns/${params.row.id}`)
+							}
+						>
+							Vpns
 						</Button>
 					</div>
 				);

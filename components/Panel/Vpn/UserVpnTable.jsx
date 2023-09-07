@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserVpns, vpnActions } from "../../../store/features/vpnSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import { Badge } from "reactstrap";
+import { formatDate } from "../../../utils/handleDates";
 
 export default function UserVpnTable() {
 	const router = useRouter();
@@ -34,7 +36,7 @@ export default function UserVpnTable() {
 	};
 
 	const loadingData = useSelector((state) => state.vpn.loadingData);
-	const data = useSelector((state) => state.vpn.data);
+	const data = useSelector((state) => state.vpn.userData);
 
 	React.useEffect(() => {
 		dispatch(fetchUserVpns());
@@ -42,25 +44,13 @@ export default function UserVpnTable() {
 
 	const columns = [
 		{
-			field: "vpnName",
-			headerName: "Name",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.vpnName}</div>
-					</div>
-				);
-			},
-		},
-		{
 			field: "username",
 			headerName: "Username",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.username}</div>
+						<div className="text">{params.row.vpn.username}</div>
 					</div>
 				);
 			},
@@ -72,19 +62,52 @@ export default function UserVpnTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.password}</div>
+						<div className="text">{params.row.vpn.password}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "privateKey",
-			headerName: "Private key",
+			field: "createdAt",
+			headerName: "Created At",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.privateKey}</div>
+						<div className="text">{formatDate(params.row.createdAt)}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "updatedAt",
+			headerName: "Updated At",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{formatDate(params.row.updatedAt)}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "deletedAt",
+			headerName: "Deleted At",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">
+							{params.row.deletedAt ? (
+								formatDate(params.row.deletedAt)
+							) : (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Not deleted
+								</Badge>
+							)}
+						</div>
 					</div>
 				);
 			},

@@ -70,22 +70,8 @@ var routes = [
 		layout: "/panel",
 	},
 	{
-		path: "/admin-charge",
-		panel: "admin",
-		name: "Charge",
-		icon: "ni ni-check-bold text-teal",
-		layout: "/panel",
-	},
-	{
 		path: "/convert",
 		panel: "panel",
-		name: "Convert",
-		icon: "ni ni ni-shop text-red",
-		layout: "/panel",
-	},
-	{
-		path: "/admin-convert",
-		panel: "admin",
 		name: "Convert",
 		icon: "ni ni ni-shop text-red",
 		layout: "/panel",
@@ -102,6 +88,20 @@ var routes = [
 		panel: "admin",
 		name: "Vpns",
 		icon: "ni ni-lock-circle-open text-indigo",
+		layout: "/panel",
+	},
+	{
+		path: "/admin-charge",
+		panel: "admin",
+		name: "Charge",
+		icon: "ni ni-check-bold text-teal",
+		layout: "/panel",
+	},
+	{
+		path: "/admin-convert",
+		panel: "admin",
+		name: "Convert",
+		icon: "ni ni ni-shop text-red",
 		layout: "/panel",
 	},
 	{

@@ -64,6 +64,23 @@ export const fetchAllPackageCryptoArches = createAsyncThunk(
 	}
 );
 
+export const fetchPackageVpns = createAsyncThunk(
+	"package/fetchPackageVpns",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		try {
+			const response = await axios.get(`${url}/package/get-vpn-package/${id}`, {
+				headers,
+			});
+			return { data: response.data.result[0].vpn };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
+
 export const addPackage = createAsyncThunk(
 	"package/addPackage",
 	async (data) => {
@@ -182,6 +199,7 @@ export const slice = createSlice({
 		snackMessage: "",
 		data: [],
 		cryptoData: [],
+		vpnData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -228,6 +246,21 @@ export const slice = createSlice({
 			state.loadingData = false;
 			if (!action.payload.error) {
 				state.cryptoData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
+		});
+
+		//fetchPackageVpns
+		builder.addCase(fetchPackageVpns.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchPackageVpns.fulfilled, (state, action) => {
+			state.loadingData = false;
+			if (!action.payload.error) {
+				state.vpnData = action.payload.data;
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;

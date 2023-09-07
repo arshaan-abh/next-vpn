@@ -7,17 +7,22 @@ import {
 	fetchUserCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { formatDate } from "../../../utils/handleDates";
 
 export default function UserChargeTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
 	const snackMessage = useSelector((state) => state.charge.snackMessage);
+	const loadingAction = useSelector((state) => state.charge.loadingAction);
 	const error = useSelector((state) => state.charge.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchUserCharges());
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
@@ -32,7 +37,10 @@ export default function UserChargeTable() {
 	};
 
 	const loadingData = useSelector((state) => state.charge.loadingData);
-	const data = useSelector((state) => state.charge.data);
+	const data = useSelector((state) => state.charge.userData);
+	const dataFix = data.map((item) => {
+		return { ...item, id: item.transactionId };
+	});
 
 	React.useEffect(() => {
 		dispatch(fetchUserCharges());
@@ -42,8 +50,7 @@ export default function UserChargeTable() {
 		{
 			field: "id",
 			headerName: "Transaction Id",
-			flex: 1,
-			minWidth: 180,
+			flex: 2,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
@@ -53,50 +60,35 @@ export default function UserChargeTable() {
 			},
 		},
 		{
-			field: "createdAt",
-			headerName: "Created At",
+			field: "arch",
+			headerName: "Arch",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{formatDate(params.row.createdAt)}</div>
+						<div className="text">
+							{params.row.cryptoArch.arch.name}(
+							{params.row.cryptoArch.arch.symbol})
+						</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "updatedAt",
-			headerName: "Updated At",
+			field: "crypto",
+			headerName: "Crypto",
 			flex: 1,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{formatDate(params.row.updatedAt)}</div>
+						<div className="text">
+							{params.row.cryptoArch.crypto.name}(
+							{params.row.cryptoArch.crypto.symbol})
+						</div>
 					</div>
 				);
 			},
 		},
-		// {
-		// 	field: "deletedAt",
-		// 	headerName: "Deleted At",
-		// 	flex: 1,
-		// 	renderCell: (params) => {
-		// 		return (
-		// 			<div className="grid-cell">
-		// 				<div className="text">
-		// 					{params.row.deletedAt ? (
-		// 						formatDate(params.row.deletedAt)
-		// 					) : (
-		// 						<Badge color="" className="badge-dot mr-4">
-		// 							<i className="bg-success" />
-		// 							Not deleted
-		// 						</Badge>
-		// 					)}
-		// 				</div>
-		// 			</div>
-		// 		);
-		// 	},
-		// },
 	];
 
 	return (
@@ -112,7 +104,7 @@ export default function UserChargeTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={data}
+				rows={dataFix}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}

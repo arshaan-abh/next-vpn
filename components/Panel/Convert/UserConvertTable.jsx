@@ -4,7 +4,10 @@ import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { convertActions, fetchUserConverts } from "../../../store/features/convertSlice";
+import {
+	convertActions,
+	fetchUserConverts,
+} from "../../../store/features/convertSlice";
 
 export default function UserConvertTable() {
 	const router = useRouter();
@@ -35,7 +38,7 @@ export default function UserConvertTable() {
 	};
 
 	const loadingData = useSelector((state) => state.convert.loadingData);
-	const data = useSelector((state) => state.convert.data);
+	const data = useSelector((state) => state.convert.userData);
 
 	React.useEffect(() => {
 		dispatch(fetchUserConverts());
@@ -44,15 +47,28 @@ export default function UserConvertTable() {
 
 	const columns = [
 		{
+			field: "amount",
+			headerName: "Amount",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.amount}</div>
+					</div>
+				);
+			},
+		},
+		{
 			field: "from",
 			headerName: "From",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
 						<div className="text">
-							{params.row.from.name}({params.row.from.symbol})
+							{params.row.exchangeVersion.exchangeId.from.name}(
+							{params.row.exchangeVersion.exchangeId.from.symbol}) x{" "}
+							{params.row.exchangeVersion.from_to}
 						</div>
 					</div>
 				);
@@ -62,35 +78,35 @@ export default function UserConvertTable() {
 			field: "to",
 			headerName: "To",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
 						<div className="text">
-							{params.row.to.name}({params.row.to.symbol})
+							{params.row.exchangeVersion.exchangeId.to.name}(
+							{params.row.exchangeVersion.exchangeId.to.symbol}) x{" "}
+							{params.row.exchangeVersion.to_from}
 						</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "status",
-			headerName: "Status",
+			field: "convertRequest",
+			headerName: "Convert type",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
 						<div className="text">
-							{params.row.status ? (
+							{params.row.convertRequest === "buy" ? (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-success" />
-									Active
+									Buy
 								</Badge>
 							) : (
 								<Badge color="" className="badge-dot mr-4">
 									<i className="bg-warning" />
-									Inactive
+									Sell
 								</Badge>
 							)}
 						</div>
