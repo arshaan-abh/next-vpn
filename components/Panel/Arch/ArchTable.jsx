@@ -90,7 +90,7 @@ export default function ArchTable() {
 								router.push(`/panel/admin-cryptoarches/${params.row.id}`)
 							}
 						>
-							Crypto
+							Cryptos
 						</Button>
 					</div>
 				);

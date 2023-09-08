@@ -1,14 +1,19 @@
 import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
-import { Button } from "reactstrap";
+import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { convertActions, fetchAdminConverts } from "../../../store/features/convertSlice";
+import {
+	convertActions,
+	fetchAdminConverts,
+} from "../../../store/features/convertSlice";
 
-export default function AdminConvertTable() {
+export default function ReportConvertTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { username } = router.query;
 
 	const snackMessage = useSelector((state) => state.convert.snackMessage);
 	const loadingAction = useSelector((state) => state.convert.loadingAction);
@@ -35,14 +40,9 @@ export default function AdminConvertTable() {
 	};
 
 	const loadingData = useSelector((state) => state.convert.loadingData);
-	const data = useSelector((state) => state.convert.data);
-	const dataFix = data.map((row) => {
-		const { username, ...rest } = row;
-		return {
-			...rest,
-			id: username,
-		};
-	});
+	const data = useSelector((state) => state.convert.data).find(
+		(item) => item.username === username
+	)?.Converts;
 
 	React.useEffect(() => {
 		dispatch(fetchAdminConverts());
@@ -51,50 +51,69 @@ export default function AdminConvertTable() {
 
 	const columns = [
 		{
-			field: "id",
-			headerName: "Username",
+			field: "amount",
+			headerName: "Amount",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.id}</div>
+						<div className="text">{params.row.amount}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "email",
-			headerName: "Email",
+			field: "from",
+			headerName: "From",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.email}</div>
+						<div className="text">
+							{params.row.exchangeVersion.exchangeId.from.name}(
+							{params.row.exchangeVersion.exchangeId.from.symbol}) x{" "}
+							{params.row.exchangeVersion.from_to}
+						</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "functions",
-			headerName: "functions",
+			field: "to",
+			headerName: "To",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-convertreport/${params.row.id}`)
-							}
-						>
-							Details
-						</Button>
+						<div className="text">
+							{params.row.exchangeVersion.exchangeId.to.name}(
+							{params.row.exchangeVersion.exchangeId.to.symbol}) x{" "}
+							{params.row.exchangeVersion.to_from}
+						</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "convertRequest",
+			headerName: "Convert type",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">
+							{params.row.convertRequest === "buy" ? (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Buy
+								</Badge>
+							) : (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-warning" />
+									Sell
+								</Badge>
+							)}
+						</div>
 					</div>
 				);
 			},
@@ -114,7 +133,7 @@ export default function AdminConvertTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}

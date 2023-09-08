@@ -7,17 +7,24 @@ import {
 	fetchAdminCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { Button } from "reactstrap";
 
-export default function AdminChargeTable() {
+export default function ReportChargeTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
+	const { username } = router.query;
+
 	const snackMessage = useSelector((state) => state.charge.snackMessage);
+	const loadingAction = useSelector((state) => state.charge.loadingAction);
 	const error = useSelector((state) => state.charge.error);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
+
+		if (!loadingAction && snackMessage !== "" && !error) {
+			dispatch(fetchAdminCharges());
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
@@ -32,13 +39,11 @@ export default function AdminChargeTable() {
 	};
 
 	const loadingData = useSelector((state) => state.charge.loadingData);
-	const data = useSelector((state) => state.charge.data);
-	const dataFix = data.map((row) => {
-		const { username, ...rest } = row;
-		return {
-			...rest,
-			id: username,
-		};
+	const data = useSelector((state) => state.charge.data).find(
+		(item) => item.username === username
+	)?.Charges;
+	const dataFix = data?.map((item) => {
+		return { ...item, id: item.transactionId };
 	});
 
 	React.useEffect(() => {
@@ -48,9 +53,8 @@ export default function AdminChargeTable() {
 	const columns = [
 		{
 			field: "id",
-			headerName: "Username",
-			flex: 1,
-			minWidth: 120,
+			headerName: "Transaction Id",
+			flex: 2,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
@@ -60,37 +64,31 @@ export default function AdminChargeTable() {
 			},
 		},
 		{
-			field: "email",
-			headerName: "Email",
+			field: "arch",
+			headerName: "Arch",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.email}</div>
+						<div className="text">
+							{params.row.cryptoArch.arch.name}(
+							{params.row.cryptoArch.arch.symbol})
+						</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "functions",
-			headerName: "functions",
+			field: "crypto",
+			headerName: "Crypto",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-chargereport/${params.row.id}`)
-							}
-						>
-							Details
-						</Button>
+						<div className="text">
+							{params.row.cryptoArch.crypto.name}(
+							{params.row.cryptoArch.crypto.symbol})
+						</div>
 					</div>
 				);
 			},

@@ -2,13 +2,16 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import SnackAlert from "../../Dynamic/SnackAlert";
 import { fetchUserAdminVpns, vpnActions } from "../../../store/features/vpnSlice";
-import { Button } from "reactstrap";
+import SnackAlert from "../../Dynamic/SnackAlert";
+import { Badge } from "reactstrap";
+import { formatDate } from "../../../utils/handleDates";
 
-export default function AdminUserVpnTable() {
+export default function ReportVpnTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { username } = router.query;
 
 	const snackMessage = useSelector((state) => state.vpn.snackMessage);
 	const loadingAction = useSelector((state) => state.vpn.loadingAction);
@@ -35,66 +38,80 @@ export default function AdminUserVpnTable() {
 	};
 
 	const loadingData = useSelector((state) => state.vpn.loadingData);
-	const data = useSelector((state) => state.vpn.data);
-	const dataFix = data.map((row) => {
-		const { username, ...rest } = row;
-		return {
-			...rest,
-			id: username,
-		};
-	});
+	const data = useSelector((state) => state.vpn.data).find(
+		(item) => item.username === username
+	)?.Vpns;
 
 	React.useEffect(() => {
 		dispatch(fetchUserAdminVpns());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "id",
+			field: "username",
 			headerName: "Username",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.id}</div>
+						<div className="text">{params.row.vpn.username}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "email",
-			headerName: "Email",
+			field: "password",
+			headerName: "Password",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.email}</div>
+						<div className="text">{params.row.vpn.password}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "functions",
-			headerName: "functions",
+			field: "createdAt",
+			headerName: "Created At",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-uservpnreport/${params.row.id}`)
-							}
-						>
-							Details
-						</Button>
+						<div className="text">{formatDate(params.row.createdAt)}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "updatedAt",
+			headerName: "Updated At",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{formatDate(params.row.updatedAt)}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "deletedAt",
+			headerName: "Deleted At",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">
+							{params.row.deletedAt ? (
+								formatDate(params.row.deletedAt)
+							) : (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Not deleted
+								</Badge>
+							)}
+						</div>
 					</div>
 				);
 			},
@@ -114,7 +131,7 @@ export default function AdminUserVpnTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}
