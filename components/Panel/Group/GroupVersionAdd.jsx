@@ -29,6 +29,7 @@ export default function GroupVersionAdd() {
 	const packageCryptoArchData = useSelector(
 		(state) => state.package.cryptoData
 	);
+	console.log(packageCryptoArchData);
 
 	React.useEffect(() => {
 		dispatch(fetchAllPackageCryptoArches());
@@ -99,7 +100,7 @@ export default function GroupVersionAdd() {
 							options={packageCryptoArchData?.map((item, i) => {
 								return {
 									id: item?.id,
-									name: `${item?.package?.title} - ${item?.cryptoArch?.arch?.name}(${item?.cryptoArch?.arch?.symbol}) - ${item?.cryptoArch?.crypto?.name}(${item?.cryptoArch?.crypto?.symbol})`,
+									name: `${item?.package?.title} - ${item?.cryptoArch?.arch?.name}(${item?.cryptoArch?.arch?.symbol}) - ${item?.cryptoArch?.crypto?.name}(${item?.cryptoArch?.crypto?.symbol}) x ${item?.price}`,
 								};
 							})}
 							formik={formik}
