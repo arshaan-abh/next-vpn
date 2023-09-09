@@ -1,5 +1,5 @@
 import Feature from "../components/Landing/Feature"
-import Pricing from "../components/Landing/Pricing"
+import Packages from "../components/Landing/Packages";
 import Hero from "../components/Landing/Hero"
 import Layout from "../components/Landing/Layout/Layout"
 import SeoHead from "../components/Landing/SeoHead"
@@ -11,7 +11,7 @@ export default function Index() {
 				<Layout>
 					<Hero />
 					<Feature />
-					<Pricing />
+					<Packages />
 				</Layout>
 			</>
 		);

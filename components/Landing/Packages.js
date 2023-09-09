@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import styles from "../../styles/CustomStyles.module.css";
 import ButtonOutlined from "./misc/ButtonOutlined";
 import getScrollAnimation from "../../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper";
@@ -9,8 +10,9 @@ import {
 	fetchPackages,
 } from "../../store/features/packageSlice";
 import { useRouter } from "next/router";
+import { rotateArray } from "../../utils/handleArrays";
 
-const Pricing = () => {
+const Packages = () => {
 	const dispatch = useDispatch();
 
 	const router = useRouter();
@@ -21,22 +23,24 @@ const Pricing = () => {
 	const packageCryptoArchData = useSelector(
 		(state) => state.package.cryptoData
 	);
-	const dataFix = data?.map((item) => {
-		return {
-			...item,
-			packageCryptoArch: packageCryptoArchData?.find(
-				(data) =>
-					data.package.id === item.id &&
-					data.cryptoArch.crypto.name === "Tether"
-			),
-		};
-	});
+	const dataFix = rotateArray(
+		data?.map((item) => {
+			return {
+				...item,
+				packageCryptoArch: packageCryptoArchData?.find(
+					(data) =>
+						data.package.id === item.id &&
+						data.cryptoArch.crypto.name === "Tether"
+				),
+			};
+		})
+	);
 
 	React.useEffect(() => {
 		dispatch(
 			fetchPackages({
 				sort: "trafficAmount",
-				order: -1,
+				order: 1,
 				filter: {},
 			})
 		);
@@ -62,13 +66,16 @@ const Pricing = () => {
 							variants={scrollAnimation}
 							className="leading-normal w-10/12 sm:w-7/12 lg:w-6/12 mx-auto my-2 text-center"
 						>
-							Let's choose the package that is best for you and experience our quality services.
+							Let's choose the package that is best for you and experience our
+							quality services.
 						</motion.p>
 					</ScrollAnimationWrapper>
-					<div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 gap-0 sm:grid-cols-4 lg:gap-6 py-8 lg:py-12">
+					<div className="flex flex-row flex-wrap justify-center gap-0 sm:gap-6 pt-8 pb-4 lg:pt-12 lg:pb-8">
 						{dataFix?.map((item, index) => {
 							return (
-								<ScrollAnimationWrapper className="flex justify-center">
+								<ScrollAnimationWrapper
+									className={`flex justify-center mb-4 ${styles.custombasis}`}
+								>
 									<motion.div
 										variants={scrollAnimation}
 										className="flex flex-col w-full mb-6 justify-center items-center bg-white-500 shadow-xl shadow-orange-150 hover:shadow-2xl hover:shadow-orange-150 rounded-xl py-4 px-6 lg:px-6 xl:px-8"
@@ -109,7 +116,9 @@ const Pricing = () => {
 												<span className="text-black-500">/ mo</span>
 											</p>
 											<ButtonOutlined
-												onClick={() => router.push(`/shop/paymentmethod/${item.id}`)}
+												onClick={() =>
+													router.push(`/shop/paymentmethod/${item.id}`)
+												}
 												filled
 											>
 												Select
@@ -126,4 +135,4 @@ const Pricing = () => {
 	);
 };
 
-export default Pricing;
+export default Packages;
