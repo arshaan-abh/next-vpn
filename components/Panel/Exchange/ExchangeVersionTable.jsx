@@ -3,7 +3,10 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { exchangeActions, fetchExchangeVersions } from "../../../store/features/exchangeSlice";
+import {
+	exchangeActions,
+	fetchExchangeVersions,
+} from "../../../store/features/exchangeSlice";
 import ExchangeVersionEdit from "./ExchangeVersionEdit";
 import ExchangeVersionDelete from "./ExchangeVersionDelete";
 
@@ -28,7 +31,7 @@ export default function ExchangeVersionTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

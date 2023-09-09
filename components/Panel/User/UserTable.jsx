@@ -27,7 +27,7 @@ export default function UserTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

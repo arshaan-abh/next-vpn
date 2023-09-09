@@ -2,7 +2,10 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserAdminVpns, vpnActions } from "../../../store/features/vpnSlice";
+import {
+	fetchUserAdminVpns,
+	vpnActions,
+} from "../../../store/features/vpnSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
 import { Badge } from "reactstrap";
 import { formatDate } from "../../../utils/handleDates";
@@ -28,7 +31,7 @@ export default function ReportVpnTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

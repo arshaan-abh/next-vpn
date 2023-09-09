@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import ArchEdit from "./CryptoEdit";
 import ArchDelete from "./CryptoDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { cryptoActions, fetchAdminCryptos } from "../../../store/features/cryptoSlice";
+import {
+	cryptoActions,
+	fetchAdminCryptos,
+} from "../../../store/features/cryptoSlice";
 import { Button } from "reactstrap";
 
 export default function AdminCryptoTable() {
@@ -27,7 +30,7 @@ export default function AdminCryptoTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

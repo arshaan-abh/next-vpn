@@ -4,7 +4,10 @@ import { Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { convertActions, fetchAdminConverts } from "../../../store/features/convertSlice";
+import {
+	convertActions,
+	fetchAdminConverts,
+} from "../../../store/features/convertSlice";
 
 export default function AdminConvertTable() {
 	const router = useRouter();
@@ -25,7 +28,7 @@ export default function AdminConvertTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

@@ -14,7 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRole, login, loginActions } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
-import { getLocalStorageItem } from "../../utils/handleLocalStorage";
+import {
+	getLocalStorageItem,
+	removeLocalStorageItem,
+} from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
 	username: yup
@@ -62,7 +65,7 @@ function Login() {
 	}, []);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -79,11 +82,17 @@ function Login() {
 
 		if (stage === "roleadd") {
 			const roles = getLocalStorageItem("roles");
+			const paymentmethod = getLocalStorageItem("paymentmethod");
 
-			if (roles[0].name === "user") {
-				router.push("/panel");
-			} else if (roles[0].name === "admin") {
-				router.push("/panel/admin");
+			if (!paymentmethod) {
+				if (roles[0].name === "user") {
+					router.push("/panel");
+				} else if (roles[0].name === "admin") {
+					router.push("/panel/admin");
+				}
+			} else {
+				removeLocalStorageItem("paymentmethod");
+				router.push(`/shop/transaction/${paymentmethod}`);
 			}
 		}
 
@@ -93,7 +102,7 @@ function Login() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

@@ -30,7 +30,7 @@ export default function PackageCryptoArchTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 
@@ -80,30 +80,34 @@ export default function PackageCryptoArchTable() {
 				);
 			},
 		},
-		{
-			field: "createdAt",
-			headerName: "Created At",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{formatDate(params.row.createdAt)}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "updatedAt",
-			headerName: "Updated At",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{formatDate(params.row.updatedAt)}</div>
-					</div>
-				);
-			},
-		},
+		// {
+		// 	field: "createdAt",
+		// 	headerName: "Created At",
+		// 	flex: 1,
+		// 	renderCell: (params) => {
+		// 		return (
+		// 			<div className="grid-cell">
+		// 				<div className="text">
+		// 					{formatDate(params.row.cryptoArch.createdAt)}
+		// 				</div>
+		// 			</div>
+		// 		);
+		// 	},
+		// },
+		// {
+		// 	field: "updatedAt",
+		// 	headerName: "Updated At",
+		// 	flex: 1,
+		// 	renderCell: (params) => {
+		// 		return (
+		// 			<div className="grid-cell">
+		// 				<div className="text">
+		// 					{formatDate(params.row.cryptoArch.updatedAt)}
+		// 				</div>
+		// 			</div>
+		// 		);
+		// 	},
+		// },
 		{
 			field: "functions",
 			headerName: "functions",

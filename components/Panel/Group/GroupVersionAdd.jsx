@@ -29,7 +29,6 @@ export default function GroupVersionAdd() {
 	const packageCryptoArchData = useSelector(
 		(state) => state.package.cryptoData
 	);
-	console.log(packageCryptoArchData);
 
 	React.useEffect(() => {
 		dispatch(fetchAllPackageCryptoArches());

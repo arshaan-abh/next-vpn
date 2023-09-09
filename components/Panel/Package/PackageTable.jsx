@@ -4,7 +4,10 @@ import { Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { fetchPackages, packageActions } from "../../../store/features/packageSlice";
+import {
+	fetchPackages,
+	packageActions,
+} from "../../../store/features/packageSlice";
 import PackageEdit from "./PackageEdit";
 import PackageDelete from "./PackageDelete";
 
@@ -27,7 +30,7 @@ export default function PackageTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

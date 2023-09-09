@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import configData from "../config.json";
-import { clearLocalStorage } from "../../utils/handleLocalStorage";
+import {
+	clearLocalStorage,
+	removeLocalStorageItem,
+} from "../../utils/handleLocalStorage";
 import {
 	getLocalStorageItem,
 	setLocalStorageItem,
@@ -76,7 +79,6 @@ export const slice = createSlice({
 		builder.addCase(emailRegister.fulfilled, (state, action) => {
 			state.loading = false;
 			if (!action.payload.error) {
-				clearLocalStorage();
 				setLocalStorageItem("verifyemail", action.payload.email, 1);
 				state.snackMessage = "A verification token is sent to your email.";
 				state.stage = "register";
@@ -111,7 +113,8 @@ export const slice = createSlice({
 		builder.addCase(emailVerify.fulfilled, (state, action) => {
 			state.loading = false;
 			if (!action.payload.error) {
-				clearLocalStorage();
+				removeLocalStorageItem("verifyemail");
+
 				state.snackMessage = "Your email is successfully verified.";
 				state.stage = "verify";
 			} else {

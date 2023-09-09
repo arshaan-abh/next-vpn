@@ -3,7 +3,10 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { fetchUserAdminVpns, vpnActions } from "../../../store/features/vpnSlice";
+import {
+	fetchUserAdminVpns,
+	vpnActions,
+} from "../../../store/features/vpnSlice";
 import { Button } from "reactstrap";
 
 export default function AdminUserVpnTable() {
@@ -25,7 +28,7 @@ export default function AdminUserVpnTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

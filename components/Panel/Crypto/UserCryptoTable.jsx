@@ -3,7 +3,10 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { cryptoActions, fetchUserCryptos } from "../../../store/features/cryptoSlice";
+import {
+	cryptoActions,
+	fetchUserCryptos,
+} from "../../../store/features/cryptoSlice";
 
 export default function UserCryptoTable() {
 	const router = useRouter();
@@ -24,7 +27,7 @@ export default function UserCryptoTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

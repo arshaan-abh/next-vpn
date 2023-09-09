@@ -3,7 +3,10 @@ import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { fetchGroupVersions, groupActions } from "../../../store/features/groupSlice";
+import {
+	fetchGroupVersions,
+	groupActions,
+} from "../../../store/features/groupSlice";
 import { formatDate } from "../../../utils/handleDates";
 import GroupVersionEdit from "./GroupVersionEdit";
 import GroupVersionDelete from "./GroupVersionDelete";
@@ -29,7 +32,7 @@ export default function GroupVersionTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

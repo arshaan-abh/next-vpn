@@ -53,6 +53,11 @@ export const slice = createSlice({
 		},
 		clearSnackMessage: (state, action) => {
 			state.snackMessage = "";
+			state.error = false;
+		},
+		setError: (state, action) => {
+			state.snackMessage = action.payload;
+			state.error = true;
 		},
 	},
 	extraReducers: (builder) => {
@@ -63,7 +68,6 @@ export const slice = createSlice({
 		builder.addCase(login.fulfilled, (state, action) => {
 			state.loading = false;
 			if (!action.payload.error) {
-				clearLocalStorage();
 				setLocalStorageItem("token", action.payload.data.token, 1);
 				setLocalStorageItem("roles", action.payload.data.roles, 1);
 				setLocalStorageItem("username", action.payload.data.username, 1);

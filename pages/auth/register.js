@@ -76,7 +76,7 @@ function Register() {
 	const stage = useSelector((state) => state.register.stage);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
@@ -90,7 +90,7 @@ function Register() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

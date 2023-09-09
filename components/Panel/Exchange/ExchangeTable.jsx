@@ -4,7 +4,10 @@ import { Badge } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import { exchangeActions, fetchExchanges } from "../../../store/features/exchangeSlice";
+import {
+	exchangeActions,
+	fetchExchanges,
+} from "../../../store/features/exchangeSlice";
 import { Button } from "reactstrap";
 import ExchangeEdit from "./ExchangeEdit";
 import ExchangeDelete from "./ExchangeDelete";
@@ -28,7 +31,7 @@ export default function ExchangeTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

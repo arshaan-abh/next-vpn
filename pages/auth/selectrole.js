@@ -10,7 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginActions, addRole } from "../../store/features/loginSlice";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
-import { getLocalStorageItem } from "../../utils/handleLocalStorage";
+import {
+	clearLocalStorage,
+	getLocalStorageItem,
+	removeLocalStorageItem,
+} from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
 	id: yup.string().required("Role is required"),
@@ -45,18 +49,25 @@ function SelectRole() {
 	}, []);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	React.useEffect(() => {
 		if (stage === "roleadd") {
 			let role = roles.find((item) => item._id === formik.values.id).name;
+			const paymentmethod = getLocalStorageItem("paymentmethod");
 
-			if (role === "user") {
-				router.push("/panel");
-			} else if (role === "admin") {
-				router.push("/panel/admin");
+			if (!paymentmethod) {
+				console.log("nigga");
+				if (role === "user") {
+					router.push("/panel");
+				} else if (role === "admin") {
+					router.push("/panel/admin");
+				}
+			} else {
+				removeLocalStorageItem("paymentmethod");
+				router.push(`/shop/transaction/${paymentmethod}`);
 			}
 
 			dispatch(loginActions.clearStage());
@@ -66,7 +77,7 @@ function SelectRole() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 
@@ -119,7 +130,15 @@ function SelectRole() {
 				</Card>
 				<Row className="mt-3">
 					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login">Logout from account</Link>
+						<div
+							className="cursor-pointer"
+							onClick={() => {
+								clearLocalStorage();
+								router.push("/auth/login");
+							}}
+						>
+							Logout from account
+						</div>
 					</Col>
 					<Col className="text-right" xs="6"></Col>
 				</Row>

@@ -1,11 +1,12 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
-import ButtonPrimary from "/components/Landing/misc/ButtonPrimary";
 import { motion } from "framer-motion";
 import getScrollAnimation from "../../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "/components/Landing/Layout/ScrollAnimationWrapper";
 import { Player } from "@lottiefiles/react-lottie-player";
 import styles from "../../styles/CustomStyles.module.css";
+import { useRouter } from "next/router";
+import ButtonOutlined from "./misc/ButtonOutlined";
 
 const Hero = ({
 	listUser = [
@@ -26,6 +27,8 @@ const Hero = ({
 		},
 	],
 }) => {
+	const router = useRouter();
+
 	const scrollAnimation = useMemo(() => getScrollAnimation(), []);
 
 	return (
@@ -43,7 +46,9 @@ const Hero = ({
 							Provide a network for all your needs with ease and fun using
 							AragonVPN discover interesting features from us.
 						</p>
-						<ButtonPrimary>Get Started</ButtonPrimary>
+						<ButtonOutlined onClick={() => router.push("/getStarted")} filled>
+							Get Started
+						</ButtonOutlined>
 					</div>
 					<div className="flex w-full">
 						<motion.div

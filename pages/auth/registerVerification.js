@@ -19,9 +19,7 @@ import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const validationSchema = yup.object().shape({
-	token: yup
-		.string()
-		.required("Token is required"),
+	token: yup.string().required("Token is required"),
 });
 
 function RegisterVerification() {
@@ -58,13 +56,13 @@ function RegisterVerification() {
 	}, [stage]);
 
 	React.useEffect(() => {
-		if (snackMessage != "") handleOpenSnack();
+		if (snackMessage !== "") handleOpenSnack();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 

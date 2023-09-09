@@ -27,7 +27,7 @@ export default function ArchTable() {
 
 	const [isSnackOpen, setIsSnackOpen] = React.useState(false);
 
-	const handleOpenSnack = (text) => {
+	const handleOpenSnack = () => {
 		setIsSnackOpen(true);
 	};
 
@@ -113,7 +113,7 @@ export default function ArchTable() {
 				columns={columns}
 				rows={data}
 				pageSize={6}
-              				rowHeight={70}
+				rowHeight={70}
 				loading={loadingData}
 				pagination
 			/>

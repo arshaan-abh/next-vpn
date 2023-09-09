@@ -54,6 +54,27 @@ export const addCharge = createAsyncThunk("charge/addCharge", async (data) => {
 	}
 });
 
+export const checkTransaction = createAsyncThunk(
+	"charge/checkTransaction",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		try {
+			const response = await axios.post(
+				`${url}/charge/check-transaction`,
+				data,
+				{
+					headers,
+				}
+			);
+			return { data: response.data.result };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
+
 export const slice = createSlice({
 	name: "charge",
 	initialState: {
@@ -61,13 +82,18 @@ export const slice = createSlice({
 		loadingAction: false,
 		error: false,
 		snackMessage: "",
+		stage: "",
 		data: [],
 		userData: [],
+		transactionData: {},
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
 			state.snackMessage = "";
 			state.error = false;
+		},
+		clearStage: (state, action) => {
+			state.stage = "";
 		},
 	},
 	extraReducers: (builder) => {
@@ -110,6 +136,24 @@ export const slice = createSlice({
 			state.loadingAction = false;
 			if (!action.payload.error) {
 				state.snackMessage = "Charge done successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
+		});
+
+		//checkTransaction
+		builder.addCase(checkTransaction.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(checkTransaction.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			if (!action.payload.error) {
+				state.snackMessage = "Transaction was successfully verfied";
+				state.stage = "purchased";
+				state.transactionData = action.payload.data;
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;
