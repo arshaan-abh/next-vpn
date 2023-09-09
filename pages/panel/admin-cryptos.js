@@ -9,7 +9,7 @@ import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
 import CryptoAdd from "../../components/Panel/Crypto/CryptoAdd";
-import CryptoTable from "../../components/Panel/Crypto/CryptoTable";
+import AdminCryptoTable from "../../components/Panel/Crypto/AdminCryptoTable";
 
 function Cryptos() {
 	const router = useRouter();
@@ -32,7 +32,7 @@ function Cryptos() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<CryptoTable />
+							<AdminCryptoTable />
 						</Card>
 					</div>
 				</Row>

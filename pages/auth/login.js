@@ -138,12 +138,12 @@ function Login() {
 								formik={formik}
 							/>
 
-							<CheckInput
+							{/* <CheckInput
 								className="mb-4"
 								fieldName="rememberme"
 								label="Remember me"
 								formik={formik}
-							/>
+							/> */}
 
 							<Button
 								disabled={loading}

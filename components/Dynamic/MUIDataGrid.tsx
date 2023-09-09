@@ -47,7 +47,7 @@ interface Props {
 }
 
 export default function MUIDataGrid({
-	className,
+	className = "",
 	columns,
 	rows,
 	pageSize,
@@ -56,10 +56,10 @@ export default function MUIDataGrid({
 	pagination,
 }: Props) {
 	return (
-		<div className={`${className} w-full mb-4 overflow-x-auto`}>
+		<div className={`${className} w-full mb-2 overflow-x-auto`}>
 			<DataGrid
 				sx={{ border: "none", width: "100%" }}
-				rows={rows}
+				rows={rows && rows[0]?.id ? rows : []}
 				columnHeaderHeight={40}
 				rowHeight={rowHeight}
 				columns={columns}

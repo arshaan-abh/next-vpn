@@ -9,6 +9,7 @@ import { fetchExchanges } from "../../../store/features/exchangeSlice";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
 import { addConvert } from "../../../store/features/convertSlice";
 import TextInput from "../../Form/TextInput";
+import ToggleInput from "../../Form/ToggleInput";
 
 const validationSchema = yup.object().shape({
 	exchangeId: yup.string().required("Exchange is required"),
@@ -41,7 +42,7 @@ export default function ConvertAdd() {
 	const formik = useFormik({
 		initialValues: {
 			exchangeId: "",
-			convertRequest: "",
+			convertRequest: "sell",
 			amount: null,
 		},
 		validationSchema: validationSchema,
@@ -95,9 +96,19 @@ export default function ConvertAdd() {
 							options={exchangeData?.map((item, i) => {
 								return {
 									id: item?.id,
-									name: `${item?.form?.name}(${item?.from?.symbol}) - ${item?.to?.name}(${item?.to?.symbol})`,
+									name: `from ${item?.from?.name}(${item?.from?.symbol}) - to ${item?.to?.name}(${item?.to?.symbol})`,
 								};
 							})}
+							formik={formik}
+						/>
+
+						<ToggleInput
+							className="mb-4"
+							fieldName="convertRequest"
+							options={[
+								{ label: "Sell", value: "sell" },
+								{ label: "Buy", value: "buy" },
+							]}
 							formik={formik}
 						/>
 

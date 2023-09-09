@@ -2,25 +2,27 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { archActions, fetchArches } from "../../../store/features/archSlice";
-import ArchEdit from "./ArchEdit";
-import ArchDelete from "./ArchDelete";
-import { Button } from "reactstrap";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import {
+	cryptoActions,
+	fetchArchCryptos,
+} from "../../../store/features/cryptoSlice";
 
-export default function ArchTable() {
+export default function ArchCryptoTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const error = useSelector((state) => state.arch.error);
+	const { id } = router.query;
+
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const error = useSelector((state) => state.crypto.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchArches());
+			dispatch(fetchArchCryptos({ id }));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -33,14 +35,13 @@ export default function ArchTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(archActions.clearSnackMessage());
+		dispatch(cryptoActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.arch.loadingData);
-	const data = useSelector((state) => state.arch.data);
-
+	const loadingData = useSelector((state) => state.crypto.loadingData);
+	const data = useSelector((state) => state.crypto.archData);
 	React.useEffect(() => {
-		dispatch(fetchArches());
+		dispatch(fetchArchCryptos({ id }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -53,7 +54,7 @@ export default function ArchTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.arch.name}</div>
 					</div>
 				);
 			},
@@ -66,32 +67,7 @@ export default function ArchTable() {
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.symbol}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "functions",
-			headerName: "functions",
-			flex: 1,
-			minWidth: 180,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<ArchEdit currentValue={params.row} />
-						<ArchDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-cryptoarches/${params.row.id}`)
-							}
-						>
-							Cryptos
-						</Button>
+						<div className="text">{params.row.arch.symbol}</div>
 					</div>
 				);
 			},
@@ -113,7 +89,7 @@ export default function ArchTable() {
 				columns={columns}
 				rows={data}
 				pageSize={6}
-              				rowHeight={70}
+				rowHeight={70}
 				loading={loadingData}
 				pagination
 			/>

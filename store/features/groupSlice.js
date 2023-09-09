@@ -11,25 +11,32 @@ export const fetchGroups = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/group/findAll-group`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/group/findAll-group`, data, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
 export const fetchGroupVersions = createAsyncThunk(
-	"arch/fetchGroupVersions",
+	"group/fetchGroupVersions",
 	async (id) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/group/get-groupversions-group/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(
+				`${url}/group/get-groupversions-group/${id}`,
+				{ headers }
+			);
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -37,24 +44,32 @@ export const addGroup = createAsyncThunk("group/addGroup", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.post(`${url}/group/create-group`, data, { headers })
-		.then((response) => response.data);
-
-	return { request, data };
+	try {
+		const response = await axios.post(`${url}/group/create-group`, data, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const addGroupVersion = createAsyncThunk(
-	"package/addGroupVersion",
+	"group/addGroupVersion",
 	async (data) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/group/create-groupVersion`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(
+				`${url}/group/create-groupVersion`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -64,11 +79,16 @@ export const updateGroup = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/group/update-group/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(
+				`${url}/group/update-group/${id}`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -78,11 +98,16 @@ export const updateGroupVersion = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/group/update-groupVersion/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(
+				`${url}/group/update-groupVersion/${id}`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -90,11 +115,14 @@ export const deleteGroup = createAsyncThunk("group/deleteGroup", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.delete(`${url}/group/delete-group/${id}`, { headers })
-		.then((response) => response.data);
-
-	return { request };
+	try {
+		const response = await axios.delete(`${url}/group/delete-group/${id}`, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const deleteGroupVersion = createAsyncThunk(
@@ -103,11 +131,15 @@ export const deleteGroupVersion = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.delete(`${url}/group/delete-groupVersion/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.delete(
+				`${url}/group/delete-groupVersion/${id}`,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -134,12 +166,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchGroups.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchGroups.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchGroupVersions
@@ -148,12 +181,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchGroupVersions.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.versionData = action.payload.request.result.data;
-		});
-		builder.addCase(fetchGroupVersions.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.versionData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addGroup
@@ -163,13 +197,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addGroup.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addGroup.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addGroupVersion
@@ -179,13 +213,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addGroupVersion.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group version was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addGroupVersion.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group version was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateGroup
@@ -195,13 +229,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateGroup.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateGroup.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateGroupVersion
@@ -211,13 +245,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateGroupVersion.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group version was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateGroupVersion.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group version was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteGroup
@@ -227,13 +261,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteGroup.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteGroup.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteGroupVersion
@@ -243,13 +277,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteGroupVersion.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Group version was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteGroupVersion.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Group version was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

@@ -5,30 +5,66 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
 const url = `${configData.AddressAPI}`;
 
-export const fetchConverts = createAsyncThunk(
-	"convert/fetchConverts",
+export const fetchUserConverts = createAsyncThunk(
+	"convert/fetchUserConverts",
+	async (
+		data = {
+			sort: "id",
+			order: -1,
+			filter: {},
+		}
+	) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		try {
+			const response = await axios.post(
+				`${url}/convert/findAll-user-converts`,
+				data,
+				{
+					headers,
+				}
+			);
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
+
+export const fetchAdminConverts = createAsyncThunk(
+	"convert/fetchAdminConverts",
 	async () => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/convert/findAll-user-converts`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(`${url}/convert/get-convert-report`, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
-export const addConvert = createAsyncThunk("convert/addConvert", async () => {
-	const roletoken = getLocalStorageItem("roletoken");
-	const headers = { Authorization: `Bearer ${roletoken}` };
+export const addConvert = createAsyncThunk(
+	"convert/addConvert",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.get(`${url}/convert/create-convert`, { headers })
-		.then((response) => response.data);
-
-	return { request };
-});
+		try {
+			const response = await axios.post(`${url}/convert/create-convert`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
 
 export const slice = createSlice({
 	name: "convert",
@@ -38,6 +74,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		userData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -46,18 +83,34 @@ export const slice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		//fetchConverts
-		builder.addCase(fetchConverts.pending, (state, action) => {
+		//fetchUserConverts
+		builder.addCase(fetchUserConverts.pending, (state, action) => {
 			state.loadingData = true;
 		});
-		builder.addCase(fetchConverts.fulfilled, (state, action) => {
+		builder.addCase(fetchUserConverts.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
+			if (!action.payload.error) {
+				state.userData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
-		builder.addCase(fetchConverts.rejected, (state, action) => {
+
+		//fetchAdminConverts
+		builder.addCase(fetchAdminConverts.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchAdminConverts.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addConvert
@@ -67,13 +120,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addConvert.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Convert done successfully";
-			state.error = false;
-		});
-		builder.addCase(addConvert.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Convert done successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

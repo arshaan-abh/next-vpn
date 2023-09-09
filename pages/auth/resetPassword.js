@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, Col, Form, Row } from "reactstrap";
+import { Button, Card, CardBody, Col } from "reactstrap";
 import Auth from "/layouts/Auth.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextInput from "../../components/Form/TextInput";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import {
 	passwordActions,
-	resetPassword,
+	updatePassword,
 } from "../../store/features/passwordSlice";
+import PasswordInput from "../../components/Form/PasswordInput";
 
 const validationSchema = yup.object().shape({
-	email: yup
+	token: yup.string().required("Token is required"),
+	password: yup
 		.string()
-		.email("Invalid email address")
-		.required("Email is required"),
+		.matches(
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+			"Password must be at least 8 characters and include letters and numbers"
+		)
+		.required("Password is required"),
 });
 
-function ForgotPassword() {
+function ResetPassword() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -32,11 +36,12 @@ function ForgotPassword() {
 
 	const formik = useFormik({
 		initialValues: {
-			email: "",
+			token: "",
+			password: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(resetPassword(values)).unwrap();
+			dispatch(updatePassword(values)).unwrap();
 		},
 	});
 
@@ -45,9 +50,11 @@ function ForgotPassword() {
 	}, [snackMessage]);
 
 	React.useEffect(() => {
-		if (stage === "reset") {
-			dispatch(passwordActions.clearStage());
-			router.push("/auth/resetPassword");
+		if (stage === "update") {
+			setTimeout(() => {
+				dispatch(passwordActions.clearStage());
+				router.push("/auth/login");
+			}, 2000);
 		}
 	}, [stage]);
 
@@ -76,15 +83,24 @@ function ForgotPassword() {
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
 						<div className="text-center font-bold text-sm text-slate-800 mb-5">
-							Enter your email in order to reset your password
+							Enter your new password
 						</div>
 						<form onSubmit={formik.handleSubmit}>
 							<TextInput
 								labelShrink
 								className="mb-4"
-								fieldName="email"
-								placeholder="Your email"
-								label="Email"
+								fieldName="token"
+								placeholder="Received token from your email"
+								label="Verification token"
+								formik={formik}
+							/>
+
+							<PasswordInput
+								labelShrink
+								className="mb-4"
+								fieldName="password"
+								placeholder="New password"
+								label="Password"
 								formik={formik}
 							/>
 
@@ -94,25 +110,17 @@ function ForgotPassword() {
 								color="primary"
 								type="submit"
 							>
-								Send code
+								Update password
 								{loading ? <LoadingSmall color="text-white-200" /> : null}
 							</Button>
 						</form>
 					</CardBody>
 				</Card>
-				<Row className="mt-3">
-					<Col className="text-slate-300" xs="6">
-						<Link href="/auth/login">go back to login</Link>
-					</Col>
-					<Col className="text-right text-slate-300" xs="6">
-						<Link href="/auth/register">Create new account</Link>
-					</Col>
-				</Row>
 			</Col>
 		</>
 	);
 }
 
-ForgotPassword.layout = Auth;
+ResetPassword.layout = Auth;
 
-export default ForgotPassword;
+export default ResetPassword;

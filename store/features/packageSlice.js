@@ -17,39 +17,67 @@ export const fetchPackages = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/package/findAll`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/package/findAll`, data, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
 export const fetchPackageCryptoArches = createAsyncThunk(
-	"arch/fetchPackageCryptoArches",
+	"package/fetchPackageCryptoArches",
 	async (id) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/package/find-cryptoArch-package/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(
+				`${url}/package/find-cryptoArch-package/${id}`,
+				{ headers }
+			);
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
 export const fetchAllPackageCryptoArches = createAsyncThunk(
-	"arch/fetchAllPackageCryptoArches",
+	"package/fetchAllPackageCryptoArches",
 	async () => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/package/find-all-PackageCryptoArch`, { headers })
-			.then((response) => response.data);
+		try {
+			const response = await axios.get(
+				`${url}/package/find-all-PackageCryptoArch`,
+				{ headers }
+			);
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
 
-		return { request };
+export const fetchPackageVpns = createAsyncThunk(
+	"package/fetchPackageVpns",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		try {
+			const response = await axios.get(`${url}/package/get-vpn-package/${id}`, {
+				headers,
+			});
+			return { data: response.data.result[0].vpn };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -59,11 +87,14 @@ export const addPackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/package/create`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/package/create`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -73,11 +104,16 @@ export const addPackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/package/create-package-cryptoArch`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(
+				`${url}/package/create-package-cryptoArch`,
+				data,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -87,11 +123,14 @@ export const updatePackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/package/update/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(`${url}/package/update/${id}`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -101,13 +140,18 @@ export const updatePackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/package/update-package-cryptoArch/${id}`, data, {
-				headers,
-			})
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(
+				`${url}/package/update-package-cryptoArch/${id}`,
+				data,
+				{
+					headers,
+				}
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -117,11 +161,14 @@ export const deletePackage = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.delete(`${url}/package/remove/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.delete(`${url}/package/remove/${id}`, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -131,11 +178,15 @@ export const deletePackageCryptoArch = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.delete(`${url}/package/delete-package-cryptoArch/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.delete(
+				`${url}/package/delete-package-cryptoArch/${id}`,
+				{ headers }
+			);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -148,6 +199,7 @@ export const slice = createSlice({
 		snackMessage: "",
 		data: [],
 		cryptoData: [],
+		vpnData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -162,12 +214,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchPackages.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchPackages.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchPackageCryptoArches
@@ -176,12 +229,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchPackageCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.request.result.data;
-		});
-		builder.addCase(fetchPackageCryptoArches.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.cryptoData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchAllPackageCryptoArches
@@ -190,12 +244,28 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchAllPackageCryptoArches.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.cryptoData = action.payload.request.result.data;
+			if (!action.payload.error) {
+				state.cryptoData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
-		builder.addCase(fetchAllPackageCryptoArches.rejected, (state, action) => {
+
+		//fetchPackageVpns
+		builder.addCase(fetchPackageVpns.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchPackageVpns.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.vpnData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addPackage
@@ -205,13 +275,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addPackage.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addPackage.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addPackageCryptoArch
@@ -221,13 +291,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addPackageCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package crypto arch was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addPackageCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package crypto arch was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updatePackage
@@ -237,13 +307,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updatePackage.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updatePackage.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updatePackageCryptoArch
@@ -253,13 +323,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updatePackageCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package crypto arch was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updatePackageCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package crypto arch was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deletePackage
@@ -269,13 +339,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deletePackage.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deletePackage.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deletePackageCryptoArch
@@ -285,13 +355,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deletePackageCryptoArch.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Package crypto arch was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deletePackageCryptoArch.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Package crypto arch was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

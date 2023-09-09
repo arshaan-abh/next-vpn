@@ -125,7 +125,7 @@ export default function RoleTable() {
 					<div className="grid-cell">
 						<RoleEdit currentValue={params.row} />
 						<RoleDelete id={params.row.id} />
-						<Button
+						{/* <Button
 							size="sm"
 							outline
 							color="primary"
@@ -142,7 +142,7 @@ export default function RoleTable() {
 							onClick={() => {}}
 						>
 							Menu
-						</Button>
+						</Button> */}
 					</div>
 				);
 			},

@@ -11,11 +11,12 @@ import { setLocalStorageItem } from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const login = createAsyncThunk("login/login", async (data) => {
-	const request = await axios
-		.post(`${url}/auth/login`, data)
-		.then((response) => response.data);
-
-	return { request, data };
+	try {
+		const response = await axios.post(`${url}/auth/login`, data);
+		return { data: response.data.result };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const addRole = createAsyncThunk("login/addRole", async (data) => {
@@ -24,11 +25,15 @@ export const addRole = createAsyncThunk("login/addRole", async (data) => {
 
 	const roles = getLocalStorageItem("roles");
 	const roleName = roles.find((item) => item._id === data.id).name;
-	const request = await axios
-		.post(`${url}/auth/add-role${data.id}`, null, { headers })
-		.then((response) => response.data);
 
-	return { request, data, roleName };
+	try {
+		const response = await axios.post(`${url}/auth/add-role${data.id}`, null, {
+			headers,
+		});
+		return { data: response.data.result, roleName };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const slice = createSlice({
@@ -56,26 +61,16 @@ export const slice = createSlice({
 			state.loading = true;
 		});
 		builder.addCase(login.fulfilled, (state, action) => {
-			clearLocalStorage();
-			setLocalStorageItem("token", action.payload.request.result.token, 30);
-			setLocalStorageItem("roles", action.payload.request.result.roles, 30);
-			setLocalStorageItem(
-				"username",
-				action.payload.request.result.username,
-				30
-			);
-			console.log(action.payload.request.result.username);
 			state.loading = false;
-			state.stage = "login";
-		});
-		builder.addCase(login.rejected, (state, action) => {
-			clearLocalStorage();
-			state.loading = false;
-
-			if (action.error.code === "ERR_BAD_REQUEST") {
-				state.snackMessage = "Email or username is not correct.";
+			if (!action.payload.error) {
+				clearLocalStorage();
+				setLocalStorageItem("token", action.payload.data.token, 1);
+				setLocalStorageItem("roles", action.payload.data.roles, 1);
+				setLocalStorageItem("username", action.payload.data.username, 1);
+				state.stage = "login";
 			} else {
-				state.snackMessage = action.error.message;
+				state.snackMessage = action.payload.error;
+				state.error = true;
 			}
 		});
 
@@ -84,15 +79,16 @@ export const slice = createSlice({
 			state.loading = true;
 		});
 		builder.addCase(addRole.fulfilled, (state, action) => {
-			removeLocalStorageItem("token");
-			setLocalStorageItem("roletoken", action.payload.request.result.token, 30);
-			setLocalStorageItem("role", action.payload.roleName, 30);
 			state.loading = false;
-			state.stage = "roleadd";
-		});
-		builder.addCase(addRole.rejected, (state, action) => {
-			state.loading = false;
-			state.snackMessage = action.error.message;
+			if (!action.payload.error) {
+				removeLocalStorageItem("token");
+				setLocalStorageItem("roletoken", action.payload.data.token, 1);
+				setLocalStorageItem("role", action.payload.roleName, 1);
+				state.stage = "roleadd";
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

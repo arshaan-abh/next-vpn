@@ -17,11 +17,14 @@ export const fetchRoles = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/role/findAll`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/role/findAll`, data, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -29,11 +32,12 @@ export const addRole = createAsyncThunk("role/addRole", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.post(`${url}/role/create`, data, { headers })
-		.then((response) => response.data);
-
-	return { request, data };
+	try {
+		const response = await axios.post(`${url}/role/create`, data, { headers });
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const updateRole = createAsyncThunk(
@@ -42,11 +46,14 @@ export const updateRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/role/update/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(`${url}/role/update/${id}`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -54,11 +61,14 @@ export const deleteRole = createAsyncThunk("role/deleteRole", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.delete(`${url}/role/remove/${id}`, { headers })
-		.then((response) => response.data);
-
-	return { request };
+	try {
+		const response = await axios.delete(`${url}/role/remove/${id}`, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const slice = createSlice({
@@ -83,12 +93,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchRoles.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchRoles.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addRole
@@ -98,13 +109,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Role was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addRole.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Role was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateRole
@@ -114,13 +125,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Role was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateRole.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Role was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteRole
@@ -130,13 +141,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Role was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteRole.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Role was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

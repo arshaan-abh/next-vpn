@@ -21,10 +21,6 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 const validationSchema = yup.object().shape({
 	token: yup
 		.string()
-		.matches(
-			/^[A-Za-z0-9]+$/,
-			"Token can only contain English letters and numbers"
-		)
 		.required("Token is required"),
 });
 

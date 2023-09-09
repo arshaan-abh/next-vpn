@@ -2,25 +2,25 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVpns, vpnActions } from "../../../store/features/vpnSlice";
-import VpnEdit from "./VpnEdit";
-import VpnDelete from "./VpnDelete";
+import ArchEdit from "./CryptoEdit";
+import ArchDelete from "./CryptoDelete";
 import SnackAlert from "../../Dynamic/SnackAlert";
-import VpnAddPackage from "./VpnAddPackage";
+import { cryptoActions, fetchAdminCryptos } from "../../../store/features/cryptoSlice";
+import { Button } from "reactstrap";
 
-export default function VpnTable() {
+export default function AdminCryptoTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.vpn.snackMessage);
-	const loadingAction = useSelector((state) => state.vpn.loadingAction);
-	const error = useSelector((state) => state.vpn.error);
+	const snackMessage = useSelector((state) => state.crypto.snackMessage);
+	const loadingAction = useSelector((state) => state.crypto.loadingAction);
+	const error = useSelector((state) => state.crypto.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchVpns());
+			dispatch(fetchAdminCryptos());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -33,61 +33,40 @@ export default function VpnTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(vpnActions.clearSnackMessage());
+		dispatch(cryptoActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.vpn.loadingData);
-	const data = useSelector((state) => state.vpn.data);
+	const loadingData = useSelector((state) => state.crypto.loadingData);
+	const data = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-		dispatch(fetchVpns());
+		dispatch(fetchAdminCryptos());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "vpnName",
+			field: "name",
 			headerName: "Name",
 			flex: 1,
+			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.vpnName}</div>
+						<div className="text">{params.row.name}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "username",
-			headerName: "Username",
+			field: "symbol",
+			headerName: "Symbol",
 			flex: 1,
+			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.username}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "password",
-			headerName: "Password",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.password}</div>
-					</div>
-				);
-			},
-		},
-		{
-			field: "privateKey",
-			headerName: "Private key",
-			flex: 1,
-			renderCell: (params) => {
-				return (
-					<div className="grid-cell">
-						<div className="text">{params.row.privateKey}</div>
+						<div className="text">{params.row.symbol}</div>
 					</div>
 				);
 			},
@@ -96,13 +75,23 @@ export default function VpnTable() {
 			field: "functions",
 			headerName: "functions",
 			flex: 1,
-			minWidth: 300,
+			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<VpnEdit currentValue={params.row} />
-						<VpnDelete id={params.row.id} />
-						<VpnAddPackage id={params.row.id} />
+						<ArchEdit currentValue={params.row} />
+						<ArchDelete id={params.row.id} />
+						<Button
+							size="sm"
+							outline
+							color="info"
+							type="button"
+							onClick={() =>
+								router.push(`/panel/admin-archcryptos/${params.row.id}`)
+							}
+						>
+							Arches
+						</Button>
 					</div>
 				);
 			},

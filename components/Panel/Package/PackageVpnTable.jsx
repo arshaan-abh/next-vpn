@@ -2,25 +2,27 @@ import * as React from "react";
 import MUIDataGrid from "../../Dynamic/MUIDataGrid";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { archActions, fetchArches } from "../../../store/features/archSlice";
-import ArchEdit from "./ArchEdit";
-import ArchDelete from "./ArchDelete";
-import { Button } from "reactstrap";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import {
+	fetchPackageVpns,
+	packageActions,
+} from "../../../store/features/packageSlice";
 
-export default function ArchTable() {
+export default function PackageVpnTable() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const snackMessage = useSelector((state) => state.arch.snackMessage);
-	const loadingAction = useSelector((state) => state.arch.loadingAction);
-	const error = useSelector((state) => state.arch.error);
+	const { id } = router.query;
+
+	const snackMessage = useSelector((state) => state.vpn.snackMessage);
+	const loadingAction = useSelector((state) => state.vpn.loadingAction);
+	const error = useSelector((state) => state.vpn.error);
 
 	React.useEffect(() => {
 		if (snackMessage !== "") handleOpenSnack();
 
 		if (!loadingAction && snackMessage !== "" && !error) {
-			dispatch(fetchArches());
+			dispatch(fetchPackageVpns(id));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [snackMessage]);
@@ -33,65 +35,62 @@ export default function ArchTable() {
 
 	const handleCloseSnack = () => {
 		setIsSnackOpen(false);
-		dispatch(archActions.clearSnackMessage());
+		dispatch(packageActions.clearSnackMessage());
 	};
 
-	const loadingData = useSelector((state) => state.arch.loadingData);
-	const data = useSelector((state) => state.arch.data);
+	const loadingData = useSelector((state) => state.package.loadingData);
+	const data = useSelector((state) => state.package.vpnData);
 
 	React.useEffect(() => {
-		dispatch(fetchArches());
+		dispatch(fetchPackageVpns(id));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const columns = [
 		{
-			field: "name",
+			field: "vpnName",
 			headerName: "Name",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.name}</div>
+						<div className="text">{params.row.vpnName}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "symbol",
-			headerName: "Symbol",
+			field: "username",
+			headerName: "Username",
 			flex: 1,
-			minWidth: 120,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.symbol}</div>
+						<div className="text">{params.row.username}</div>
 					</div>
 				);
 			},
 		},
 		{
-			field: "functions",
-			headerName: "functions",
+			field: "password",
+			headerName: "Password",
 			flex: 1,
-			minWidth: 180,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<ArchEdit currentValue={params.row} />
-						<ArchDelete id={params.row.id} />
-						<Button
-							size="sm"
-							outline
-							color="info"
-							type="button"
-							onClick={() =>
-								router.push(`/panel/admin-cryptoarches/${params.row.id}`)
-							}
-						>
-							Cryptos
-						</Button>
+						<div className="text">{params.row.password}</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "privateKey",
+			headerName: "Private key",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">{params.row.privateKey}</div>
 					</div>
 				);
 			},
@@ -113,7 +112,7 @@ export default function ArchTable() {
 				columns={columns}
 				rows={data}
 				pageSize={6}
-              				rowHeight={70}
+				rowHeight={70}
 				loading={loadingData}
 				pagination
 			/>

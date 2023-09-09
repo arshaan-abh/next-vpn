@@ -5,13 +5,12 @@ import {
 	Container,
 	Row,
 } from "reactstrap";
-import Admin from "/layouts/Admin.js";
+import User from "/layouts/User.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
-import PackageCryptoArchTable from "../../../../components/Panel/Package/PackageCryptoArchTable";
-import PackageCryptoArchAdd from "../../../../components/Panel/Package/PackageCryptoArchAdd";
+import UserCryptoTable from "../../components/Panel/Crypto/UserCryptoTable";
 
-function Page() {
+function Cryptos() {
 	const router = useRouter();
 
 	return (
@@ -22,8 +21,7 @@ function Page() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Package crypto arches</h3>
-								<PackageCryptoArchAdd />
+								<h3 className="mb-0">Cryptos</h3>
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"
@@ -32,7 +30,7 @@ function Page() {
 									<i className="fas fa-search"></i>
 								</Button> */}
 							</CardHeader>
-							<PackageCryptoArchTable />
+							<UserCryptoTable />
 						</Card>
 					</div>
 				</Row>
@@ -41,6 +39,6 @@ function Page() {
 	);
 }
 
-Page.layout = Admin;
+Cryptos.layout = User;
 
-export default Page;
+export default Cryptos;

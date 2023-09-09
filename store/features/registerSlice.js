@@ -12,11 +12,12 @@ const url = `${configData.AddressAPI}`;
 export const emailRegister = createAsyncThunk(
 	"register/emailRegister",
 	async (data) => {
-		const request = await axios
-			.post(`${url}/auth/email/register`, data)
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/auth/email/register`, data);
+			return { data: response.data, email: data.email };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -25,24 +26,26 @@ export const emailResend = createAsyncThunk(
 	async () => {
 		const email = getLocalStorageItem("verifyemail");
 
-		const request = await axios
-			.post(`${url}/auth/email/resend`, {
+		try {
+			const response = await axios.post(`${url}/auth/email/resend`, {
 				email: email,
-			})
-			.then((response) => response.data);
-
-		return { request };
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
 export const emailVerify = createAsyncThunk(
 	"register/emailVerify",
 	async (data) => {
-		const request = await axios
-			.post(`${url}/auth/email/verify`, data)
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/auth/email/verify`, data);
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -65,27 +68,21 @@ export const slice = createSlice({
 	extraReducers: (builder) => {
 		//emailRegister
 		builder.addCase(emailRegister.pending, (state, action) => {
-			clearLocalStorage();
 			state.stage = "";
 			state.loading = true;
 			state.error = false;
 			state.snackMessage = "";
 		});
 		builder.addCase(emailRegister.fulfilled, (state, action) => {
-			state.stage = "register";
 			state.loading = false;
-			state.error = false;
-			state.snackMessage = "A verification token is sent to your email.";
-			setLocalStorageItem("verifyemail", action.payload.data.email, 1);
-		});
-		builder.addCase(emailRegister.rejected, (state, action) => {
-			state.loading = false;
-			state.error = true;
-
-			if (action.error.code === "ERR_BAD_REQUEST") {
-				state.snackMessage = "Email or username already exists.";
+			if (!action.payload.error) {
+				clearLocalStorage();
+				setLocalStorageItem("verifyemail", action.payload.email, 1);
+				state.snackMessage = "A verification token is sent to your email.";
+				state.stage = "register";
 			} else {
-				state.snackMessage = action.error.message;
+				state.snackMessage = action.payload.error;
+				state.error = true;
 			}
 		});
 
@@ -97,17 +94,11 @@ export const slice = createSlice({
 		});
 		builder.addCase(emailResend.fulfilled, (state, action) => {
 			state.loading = false;
-			state.error = false;
-			state.snackMessage = "Your verification token is resent to your email.";
-		});
-		builder.addCase(emailResend.rejected, (state, action) => {
-			state.loading = false;
-			state.error = true;
-
-			if (action.error.code === "ERR_BAD_REQUEST") {
-				state.snackMessage = "Email already exists.";
+			if (!action.payload.error) {
+				state.snackMessage = "Your verification token is resent to your email.";
 			} else {
-				state.snackMessage = action.error.message;
+				state.snackMessage = action.payload.error;
+				state.error = true;
 			}
 		});
 
@@ -118,20 +109,14 @@ export const slice = createSlice({
 			state.snackMessage = "";
 		});
 		builder.addCase(emailVerify.fulfilled, (state, action) => {
-			state.stage = "verify";
-			clearLocalStorage();
 			state.loading = false;
-			state.error = false;
-			state.snackMessage = "Your email is successfully verified.";
-		});
-		builder.addCase(emailVerify.rejected, (state, action) => {
-			state.loading = false;
-			state.error = true;
-
-			if (action.error.code === "ERR_BAD_REQUEST") {
-				state.snackMessage = "Token is not correct.";
+			if (!action.payload.error) {
+				clearLocalStorage();
+				state.snackMessage = "Your email is successfully verified.";
+				state.stage = "verify";
 			} else {
-				state.snackMessage = action.error.message;
+				state.snackMessage = action.payload.error;
+				state.error = true;
 			}
 		});
 	},

@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import configData from "../config.json";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
@@ -11,11 +12,14 @@ export const fetchUserCharges = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/charge/user-charges`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(`${url}/charge/user-charges`, {
+				headers,
+			});
+			return { data: response.data.result.data.chargeHistory };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -25,23 +29,29 @@ export const fetchAdminCharges = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/charge/get-charge-report`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(`${url}/charge/get-charge-report`, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
-export const addCharge = createAsyncThunk("charge/addCharge", async () => {
+export const addCharge = createAsyncThunk("charge/addCharge", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.get(`${url}/charge/user-wallet`, { headers })
-		.then((response) => response.data);
-
-	return { request };
+	try {
+		const response = await axios.post(`${url}/charge/charge-wallet`, data, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const slice = createSlice({
@@ -52,6 +62,7 @@ export const slice = createSlice({
 		error: false,
 		snackMessage: "",
 		data: [],
+		userData: [],
 	},
 	reducers: {
 		clearSnackMessage: (state, action) => {
@@ -66,12 +77,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchUserCharges.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data.chargeHistory;
-		});
-		builder.addCase(fetchUserCharges.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.userData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchAdminCharges
@@ -80,12 +92,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchAdminCharges.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchAdminCharges.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addCharge
@@ -95,13 +108,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addCharge.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Charge done successfully";
-			state.error = false;
-		});
-		builder.addCase(addCharge.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Charge done successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });

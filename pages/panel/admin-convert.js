@@ -1,8 +1,7 @@
 import { Card, CardHeader, Container, Row } from "reactstrap";
-import User from "/layouts/User.js";
+import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
-import UserConvertTable from "../../components/Panel/Convert/UserConvertTable";
-import ConvertAdd from "../../components/Panel/Convert/ConvertAdd";
+import AdminConvertTable from "../../components/Panel/Convert/AdminConvertTable";
 
 function Convert() {
 	return (
@@ -13,10 +12,9 @@ function Convert() {
 					<div className="col">
 						<Card className="shadow">
 							<CardHeader className="border-0 flex items-center gap-4">
-								<h3 className="mb-0">Convert</h3>
-								<ConvertAdd />
+								<h3 className="mb-0">Convert reports</h3>
 							</CardHeader>
-							<UserConvertTable />
+							<AdminConvertTable />
 						</Card>
 					</div>
 				</Row>
@@ -25,6 +23,6 @@ function Convert() {
 	);
 }
 
-Convert.layout = User;
+Convert.layout = Admin;
 
 export default Convert;

@@ -6,7 +6,7 @@ import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 const url = `${configData.AddressAPI}`;
 
 export const fetchUsers = createAsyncThunk(
-	"role/fetchUsers",
+	"user/fetchUsers",
 	async (
 		data = {
 			sort: "id",
@@ -17,25 +17,31 @@ export const fetchUsers = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/user/findall-user`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.post(`${url}/user/findall-user`, data, {
+				headers,
+			});
+			return { data: response.data.result.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
 export const fetchUserRoles = createAsyncThunk(
-	"role/fetchUserRoles",
+	"user/fetchUserRoles",
 	async (id) => {
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.get(`${url}/user/get-user-roles/${id}`, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.get(`${url}/user/get-user-roles/${id}`, {
+				headers,
+			});
+			return { data: response.data.result };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -45,11 +51,14 @@ export const addUserRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.post(`${url}/user/setrole`, data, { headers })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.post(`${url}/user/setrole`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -59,11 +68,14 @@ export const updateUser = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.patch(`${url}/user/update/${id}`, data, { headers })
-			.then((response) => response.data);
-
-		return { request, data };
+		try {
+			const response = await axios.patch(`${url}/user/update/${id}`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -71,11 +83,14 @@ export const deleteUser = createAsyncThunk("user/deleteUser", async (id) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
-	const request = await axios
-		.delete(`${url}/user/remove/${id}`, { headers })
-		.then((response) => response.data);
-
-	return { request };
+	try {
+		const response = await axios.delete(`${url}/user/remove/${id}`, {
+			headers,
+		});
+		return { data: response.data };
+	} catch (error) {
+		return { error: JSON.parse(error.request.response).errors.value };
+	}
 });
 
 export const deleteUserRole = createAsyncThunk(
@@ -84,11 +99,15 @@ export const deleteUserRole = createAsyncThunk(
 		const roletoken = getLocalStorageItem("roletoken");
 		const headers = { Authorization: `Bearer ${roletoken}` };
 
-		const request = await axios
-			.delete(`${url}/user/unsetrole`, { headers, data })
-			.then((response) => response.data);
-
-		return { request };
+		try {
+			const response = await axios.delete(`${url}/user/unsetrole`, {
+				headers,
+				data,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
 	}
 );
 
@@ -115,12 +134,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchUsers.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.data = action.payload.request.result.data;
-		});
-		builder.addCase(fetchUsers.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//fetchUserRoles
@@ -129,12 +149,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(fetchUserRoles.fulfilled, (state, action) => {
 			state.loadingData = false;
-			state.roleData = action.payload.request.result;
-		});
-		builder.addCase(fetchUserRoles.rejected, (state, action) => {
-			state.loadingData = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.roleData = action.payload.data;
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//addUserRole
@@ -144,13 +165,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(addUserRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Role was added successfully";
-			state.error = false;
-		});
-		builder.addCase(addUserRole.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Role was added successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//updateUser
@@ -160,13 +181,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(updateUser.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "User was updated successfully";
-			state.error = false;
-		});
-		builder.addCase(updateUser.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "User was updated successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteUser
@@ -176,13 +197,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteUser.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "User was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteUser.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "User was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 
 		//deleteUserRole
@@ -192,13 +213,13 @@ export const slice = createSlice({
 		});
 		builder.addCase(deleteUserRole.fulfilled, (state, action) => {
 			state.loadingAction = false;
-			state.snackMessage = "Role was deleted successfully";
-			state.error = false;
-		});
-		builder.addCase(deleteUserRole.rejected, (state, action) => {
-			state.loadingAction = false;
-			state.snackMessage = action.error.message;
-			state.error = true;
+			if (!action.payload.error) {
+				state.snackMessage = "Role was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
 		});
 	},
 });
