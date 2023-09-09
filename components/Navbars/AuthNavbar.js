@@ -16,7 +16,7 @@ import Image from "next/future/image";
 import logo from "/assets/img/brand/nextjs_aragon_white.png";
 import logoBlack from "/assets/img/brand/nextjs_aragon_black.png";
 
-function AdminNavbar() {
+function AuthNavbar() {
   return (
 		<>
 			<Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
@@ -74,4 +74,4 @@ function AdminNavbar() {
 	);
 }
 
-export default AdminNavbar;
+export default AuthNavbar;
