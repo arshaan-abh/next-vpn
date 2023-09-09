@@ -21,7 +21,7 @@ const OpenVPNForIOS = () => {
     return (
         <div className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto" id="ios">
             <StickyContainer
-                className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
+                className="grid grid-flow-row sm:grid-flow-col grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
             >
                 <div>
                     <ScrollAnimationWrapper>
@@ -131,7 +131,7 @@ const OpenVPNForIOS = () => {
                     </ScrollAnimationWrapper>
                 </div>
                 <Sticky>{({style}) =>
-                    <div style={style} className="my-16">
+                    <div style={style} className="my-16 hidden md:block">
                         <Image
                             className="m-auto my-16"
                             width="256" height="256"
