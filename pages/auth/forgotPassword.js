@@ -47,7 +47,7 @@ function ForgotPassword() {
 	React.useEffect(() => {
 		if (stage === "reset") {
 			dispatch(passwordActions.clearStage());
-			router.push("/auth/resetPassword");
+			router.push("/auth/forgotPasswordRequest");
 		}
 	}, [stage]);
 
@@ -94,7 +94,7 @@ function ForgotPassword() {
 								color="primary"
 								type="submit"
 							>
-								Send code
+								Recover password
 								{loading ? <LoadingSmall color="text-white-200" /> : null}
 							</Button>
 						</form>

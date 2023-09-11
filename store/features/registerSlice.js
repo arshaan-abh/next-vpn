@@ -80,7 +80,7 @@ export const slice = createSlice({
 			state.loading = false;
 			if (!action.payload.error) {
 				setLocalStorageItem("verifyemail", action.payload.email, 1);
-				state.snackMessage = "A verification token is sent to your email.";
+				state.snackMessage = "Verification link is sent to your email.";
 				state.stage = "register";
 			} else {
 				state.snackMessage = action.payload.error;
@@ -97,7 +97,7 @@ export const slice = createSlice({
 		builder.addCase(emailResend.fulfilled, (state, action) => {
 			state.loading = false;
 			if (!action.payload.error) {
-				state.snackMessage = "Your verification token is resent to your email.";
+				state.snackMessage = "Verification link is resent to your email.";
 			} else {
 				state.snackMessage = action.payload.error;
 				state.error = true;
@@ -114,9 +114,9 @@ export const slice = createSlice({
 			state.loading = false;
 			if (!action.payload.error) {
 				removeLocalStorageItem("verifyemail");
-
-				state.snackMessage = "Your email is successfully verified.";
-				state.stage = "verify";
+				state.snackMessage = "Your email is successfully verified. You can now close this page and continue to login.";
+				state.stage = "verified";
+				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;
 				state.error = true;

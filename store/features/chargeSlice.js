@@ -40,7 +40,7 @@ export const fetchAdminCharges = createAsyncThunk(
 	}
 );
 
-export const addCharge = createAsyncThunk("charge/addCharge", async (data) => {
+export const addUserCharge = createAsyncThunk("charge/addUserCharge", async (data) => {
 	const roletoken = getLocalStorageItem("roletoken");
 	const headers = { Authorization: `Bearer ${roletoken}` };
 
@@ -53,6 +53,23 @@ export const addCharge = createAsyncThunk("charge/addCharge", async (data) => {
 		return { error: JSON.parse(error.request.response).errors.value };
 	}
 });
+
+export const addAdminCharge = createAsyncThunk(
+	"charge/addAdminCharge",
+	async (data) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = { Authorization: `Bearer ${roletoken}` };
+
+		try {
+			const response = await axios.post(`${url}/charge/charge-by-admin`, data, {
+				headers,
+			});
+			return { data: response.data };
+		} catch (error) {
+			return { error: JSON.parse(error.request.response).errors.value };
+		}
+	}
+);
 
 export const checkTransaction = createAsyncThunk(
 	"charge/checkTransaction",
@@ -127,12 +144,28 @@ export const slice = createSlice({
 			}
 		});
 
-		//addCharge
-		builder.addCase(addCharge.pending, (state, action) => {
+		//addUserCharge
+		builder.addCase(addUserCharge.pending, (state, action) => {
 			state.loadingAction = true;
 			state.snackMessage = "";
 		});
-		builder.addCase(addCharge.fulfilled, (state, action) => {
+		builder.addCase(addUserCharge.fulfilled, (state, action) => {
+			state.loadingAction = false;
+			if (!action.payload.error) {
+				state.snackMessage = "Charge done successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
+		});
+
+		//addAdminCharge
+		builder.addCase(addAdminCharge.pending, (state, action) => {
+			state.loadingAction = true;
+			state.snackMessage = "";
+		});
+		builder.addCase(addAdminCharge.fulfilled, (state, action) => {
 			state.loadingAction = false;
 			if (!action.payload.error) {
 				state.snackMessage = "Charge done successfully";

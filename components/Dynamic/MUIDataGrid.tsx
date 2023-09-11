@@ -56,9 +56,9 @@ export default function MUIDataGrid({
 	pagination,
 }: Props) {
 	return (
-		<div className={`${className} w-full mb-2 overflow-x-auto`}>
+		<div className={`${className} w-full mb-2`} style={{ overflowX: "auto" }}>
 			<DataGrid
-				sx={{ border: "none", width: "100%" }}
+				sx={{ border: "none", minWidth: "760px" }}
 				rows={rows && rows[0]?.id ? rows : []}
 				columnHeaderHeight={40}
 				rowHeight={rowHeight}

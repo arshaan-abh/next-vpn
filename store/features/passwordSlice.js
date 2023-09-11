@@ -60,7 +60,7 @@ export const slice = createSlice({
 			state.loading = false;
 			if (!action.payload.error) {
 				state.stage = "reset";
-				state.snackMessage = "Reset password token was sent to your email.";
+				state.snackMessage = "Reset password link was sent to your email.";
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;

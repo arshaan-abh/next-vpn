@@ -8,29 +8,38 @@ import { useDispatch, useSelector } from "react-redux";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
 import { fetchArches } from "../../../store/features/archSlice";
 import { fetchAdminCryptos } from "../../../store/features/cryptoSlice";
-// import TextInput from "../../Form/TextInput";
+import TextInput from "../../Form/TextInput";
 // import ToggleInput from "../../Form/ToggleInput";
-import { addCharge } from "../../../store/features/chargeSlice";
+import { addAdminCharge } from "../../../store/features/chargeSlice";
 
 const validationSchema = yup.object().shape({
 	archId: yup.string().required("Arch is required"),
 	cryptoId: yup.string().required("Crypto is required"),
-	transactionId: yup.string().required("Transaction address is required"),
+	amount: yup
+		.number()
+		.typeError("Amount should be a number")
+		.required("Amount is required"),
 	status: yup.boolean(),
 });
 
-export default function ChargeAdd() {
+export default function AdminChargeAdd() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
+	const { username } = router.query;
+
+	const data = useSelector((state) => state.charge.data).find(
+		(item) => item.username === username
+	);
+
 	const loadingAction = useSelector((state) => state.charge.loadingAction);
 	const snackMessage = useSelector((state) => state.charge.snackMessage);
-    const archData = useSelector((state) => state.arch.data);
-    const cryptoData = useSelector((state) => state.crypto.data);
+	const archData = useSelector((state) => state.arch.data);
+	const cryptoData = useSelector((state) => state.crypto.data);
 
 	React.useEffect(() => {
-        dispatch(fetchArches());
-        dispatch(fetchAdminCryptos());
+		dispatch(fetchArches());
+		dispatch(fetchAdminCryptos());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -45,12 +54,13 @@ export default function ChargeAdd() {
 		initialValues: {
 			archId: "",
 			cryptoId: "",
-			transactionId: "",
+			userId: data?.userId,
 			status: true,
+			amount: 0,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(addCharge(values));
+			dispatch(addAdminCharge(values));
 		},
 	});
 
@@ -76,7 +86,7 @@ export default function ChargeAdd() {
 			>
 				{loadingAction ? <LoadingModal /> : null}
 				<div className="modal-header">
-					<h3>Charge wallet</h3>
+					<h3>Charge {username}&apos;s wallet</h3>
 					<button
 						aria-label="Close"
 						className="close"
@@ -115,9 +125,10 @@ export default function ChargeAdd() {
 						<TextInput
 							labelShrink
 							// className="mb-4"
-							fieldName="transactionId"
-							label="Transaction address"
-							placeholder="Paste transaction address here"
+							type="number"
+							fieldName="amount"
+							label="Amount"
+							placeholder="Amount of crypto"
 							formik={formik}
 						/>
 

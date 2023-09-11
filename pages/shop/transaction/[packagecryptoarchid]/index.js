@@ -16,6 +16,7 @@ import {
 } from "../../../../store/features/chargeSlice";
 import SnackAlert from "../../../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../../../utils/handleLocalStorage";
+import { useQRCode } from "next-qrcode";
 
 const validationSchema = yup.object().shape({
 	transactionId: yup.string().required("Transaction address is required"),
@@ -23,6 +24,8 @@ const validationSchema = yup.object().shape({
 
 function Page() {
 	const router = useRouter();
+
+	const { Canvas } = useQRCode();
 
 	const { packagecryptoarchid } = router.query;
 
@@ -118,7 +121,7 @@ function Page() {
 				<Card className="relative bg-secondary shadow border-0">
 					{loadingAction ? <LoadingModal /> : null}
 					<CardBody className="px-lg-5 py-lg-5">
-						<div className="font-bold text-base text-slate-800 mb-2">
+						<div className="font-bold text-base text-slate-800 mb-4">
 							Price:{" "}
 							<span className="text-blue-600">
 								{packageCryptoArchDataFix?.price}
@@ -130,10 +133,29 @@ function Page() {
 								{packageCryptoArchDataFix?.cryptoArch?.crypto?.symbol})
 							</span>
 						</div>
-						<div className="address cursor-pointer font-bold text-base text-slate-800 mb-4">
+
+						{packageCryptoArchDataFix?.cryptoArch?.companyAddress ? (
+							<div className="mb-4">
+								<Canvas
+									text={packageCryptoArchDataFix?.cryptoArch?.companyAddress}
+									options={{
+										errorCorrectionLevel: "M",
+										scale: 4,
+										margin: 0,
+										width: 340,
+										color: {
+											dark: "#081f32",
+											light: "#FFFFFF",
+										},
+									}}
+								/>
+							</div>
+						) : null}
+
+						<div className="address cursor-pointer font-bold text-base text-slate-800 mb-4 w-full">
 							Address:{" "}
 							<span
-								className="font-normal w-75 overflow-hidden overflow-ellipsis whitespace-nowrap"
+								className="font-normal inline-block align-middle w-4/6 overflow-hidden overflow-ellipsis whitespace-nowrap"
 								onClick={handleCopyToClipboard}
 							>
 								{isCopied

@@ -59,7 +59,6 @@ function SelectRole() {
 			const paymentmethod = getLocalStorageItem("paymentmethod");
 
 			if (!paymentmethod) {
-				console.log("nigga");
 				if (role === "user") {
 					router.push("/panel");
 				} else if (role === "admin") {

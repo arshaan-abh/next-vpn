@@ -82,7 +82,7 @@ function Register() {
 
 	React.useEffect(() => {
 		if (stage === "register") {
-			router.push("/auth/registerVerification");
+			router.push("/auth/registerVerificationRequest");
 			dispatch(registerActions.clearStage());
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

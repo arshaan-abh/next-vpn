@@ -5,35 +5,16 @@ import { Button, Card, CardBody, Col } from "reactstrap";
 // layout for this page
 import Auth from "/layouts/Auth.js";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import TextInput from "../../components/Form/TextInput";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	emailResend,
-	emailVerify,
 	registerActions,
 } from "../../store/features/registerSlice";
-import LoadingSmall from "../../components/Dynamic/LoadingSmall";
 import SnackAlert from "../../components/Dynamic/SnackAlert";
 import { getLocalStorageItem } from "../../utils/handleLocalStorage";
 
-const validationSchema = yup.object().shape({
-	token: yup.string().required("Token is required"),
-});
-
-function RegisterVerification() {
+function RegisterVerificationRequest() {
 	const router = useRouter();
-
-	const formik = useFormik({
-		initialValues: {
-			token: "",
-		},
-		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			dispatch(emailVerify(values)).unwrap();
-		},
-	});
 
 	const dispatch = useDispatch();
 
@@ -48,10 +29,7 @@ function RegisterVerification() {
 	}, []);
 
 	React.useEffect(() => {
-		if (stage === "verify") {
-			router.push("/auth/login");
-			dispatch(registerActions.clearStage());
-		}
+		if (stage === "verified") router.push("/auth/login");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stage]);
 
@@ -100,44 +78,29 @@ function RegisterVerification() {
 			<Col lg="6" md="8">
 				<Card className="bg-secondary shadow border-0">
 					<CardBody className="px-lg-5 py-lg-5">
-						<div className="text-center font-bold text-lg text-slate-800 mb-5">
+						<div className="font-bold text-lg text-slate-800">
 							Verify your email
 						</div>
-						<form onSubmit={formik.handleSubmit}>
-							<TextInput
-								labelShrink
-								fieldName="token"
-								placeholder="Received token from your email"
-								label="Verification token"
-								formik={formik}
-							/>
-							{formik.touched.token && !formik.errors.token ? (
-								<Button
-									disabled={loading}
-									className="mt-4 !flex flex-row mx-auto align-items-center h-12"
-									color="primary"
-									type="submit"
-								>
-									Verify email
-									{loading ? <LoadingSmall color="text-white-200" /> : null}
-								</Button>
-							) : (
-								<Button
-									className="mt-4 !flex flex-row mx-auto align-items-center h-12"
-									color="primary"
-									disabled={timer !== 0 || loading}
-									onClick={handleResend}
-								>
-									{timer === 0 ? (
-										<>Resend code</>
-									) : (
-										<>
-											{Math.floor(timer / 60)}:
-											{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
-										</>
-									)}
-								</Button>
-							)}
+						<div className="font-normal text-base text-slate-700 py-3">
+							Verification link is sent to your email. Follow your account
+							registeration steps from there.
+						</div>
+						<form>
+							<Button
+								className="mt-4 !flex flex-row mx-auto align-items-center h-12"
+								color="primary"
+								disabled={timer !== 0 || loading}
+								onClick={handleResend}
+							>
+								{timer === 0 ? (
+									<>Resend code</>
+								) : (
+									<>
+										{Math.floor(timer / 60)}:
+										{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
+									</>
+								)}
+							</Button>
 						</form>
 					</CardBody>
 				</Card>
@@ -146,6 +109,6 @@ function RegisterVerification() {
 	);
 }
 
-RegisterVerification.layout = Auth;
+RegisterVerificationRequest.layout = Auth;
 
-export default RegisterVerification;
+export default RegisterVerificationRequest;

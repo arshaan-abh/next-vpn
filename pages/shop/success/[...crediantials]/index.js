@@ -5,6 +5,7 @@ import { Button, Card, CardBody, Col, Row } from "reactstrap";
 import ShopLayout from "/layouts/Shop";
 import { useRouter } from "next/router";
 import { getLocalStorageItem } from "../../../../utils/handleLocalStorage";
+import Link from "next/link";
 
 function Page() {
 	const router = useRouter();
@@ -28,12 +29,27 @@ function Page() {
 						<div className="font-normal text-base text-slate-700 py-3">
 							Username: {crediantials[0]} / Password: {crediantials[1]}
 						</div>
+						<div className="font-bold text-base text-slate-800 mb-4">
+							Note:{" "}
+							<span className="font-normal">
+								Please click on confirm in order to move to panel and download
+								the config files from there. For further assistance check out
+								our{" "}
+								<Link
+									className="text-blue-600 hover:underline"
+									href="/getStarted"
+								>
+									get started
+								</Link>{" "}
+								page.
+							</span>
+						</div>
 						<form>
 							<Row className="mx-0 justify-between">
 								<Button
 									className="!flex flex-row align-items-center h-12"
 									color="success"
-									onClick={() => router.push("/panel/vpn")}
+									onClick={() => router.push("/panel")}
 								>
 									Confirm
 								</Button>

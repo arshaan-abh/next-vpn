@@ -111,13 +111,13 @@ var routes = [
 		icon: "ni ni-lock-circle-open text-blue",
 		layout: "/panel",
 	},
-	{
-		path: "/vpn",
-		panel: "panel",
-		name: "Vpns",
-		icon: "ni ni-lock-circle-open text-blue",
-		layout: "/panel",
-	},
+	// {
+	// 	path: "/vpn",
+	// 	panel: "panel",
+	// 	name: "Vpns",
+	// 	icon: "ni ni-lock-circle-open text-blue",
+	// 	layout: "/panel",
+	// },
 	// {
 	// 	path: "/reports",
 	// 	panel: "panel",

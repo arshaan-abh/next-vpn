@@ -13,6 +13,7 @@ const SnackAlert = ({ props }) => {
 				<Snackbar
 					open={props.isSnackOpen}
 					onClose={props.handleCloseSnack}
+					anchorOrigin={{ vertical: "top", horizontal: "right" }}
 					sx={{ direction: "right" }}
 				>
 					<Alert
@@ -27,6 +28,7 @@ const SnackAlert = ({ props }) => {
 				<Snackbar
 					open={props.isSnackOpen}
 					onClose={props.handleCloseSnack}
+					anchorOrigin={{ vertical: "top", horizontal: "right" }}
 					sx={{ direction: "right" }}
 				>
 					<Alert

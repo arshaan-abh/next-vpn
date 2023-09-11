@@ -43,6 +43,7 @@ export default function CryptoArchTable() {
 
 	const loadingData = useSelector((state) => state.arch.loadingData);
 	const data = useSelector((state) => state.arch.cryptoData);
+	console.log(data);
 
 	React.useEffect(() => {
 		dispatch(fetchCryptoArches({ id }));

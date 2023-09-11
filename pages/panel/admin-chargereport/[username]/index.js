@@ -4,6 +4,7 @@ import Admin from "/layouts/Admin.js";
 import Header from "/components/Headers/Header.js";
 import { useRouter } from "next/router";
 import ReportChargeTable from "../../../../components/Panel/Charge/ReportChargeTable";
+import AdminChargeAdd from "../../../../components/Panel/Charge/AdminChargeAdd";
 
 function Page() {
 	const router = useRouter();
@@ -29,6 +30,7 @@ function Page() {
 									</span>
 									<span className="btn-inner--text">Back to list</span>
 								</Button>
+								<AdminChargeAdd />
 								{/* <Button
 									className="btn-icon ml-lg-auto"
 									color="primary"

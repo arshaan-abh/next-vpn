@@ -3,19 +3,17 @@ import { Button, Card, CardBody, Col } from "reactstrap";
 import Auth from "/layouts/Auth.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "../../components/Form/TextInput";
 import { useRouter } from "next/router";
-import SnackAlert from "../../components/Dynamic/SnackAlert";
+import SnackAlert from "../../../../components/Dynamic/SnackAlert";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingSmall from "../../components/Dynamic/LoadingSmall";
+import LoadingSmall from "../../../../components/Dynamic/LoadingSmall";
 import {
 	passwordActions,
 	updatePassword,
-} from "../../store/features/passwordSlice";
-import PasswordInput from "../../components/Form/PasswordInput";
+} from "../../../../store/features/passwordSlice";
+import PasswordInput from "../../../../components/Form/PasswordInput";
 
 const validationSchema = yup.object().shape({
-	token: yup.string().required("Token is required"),
 	password: yup
 		.string()
 		.matches(
@@ -23,11 +21,17 @@ const validationSchema = yup.object().shape({
 			"Password must be at least 8 characters and include letters and numbers"
 		)
 		.required("Password is required"),
+	passwordConfirm: yup
+		.string()
+		.oneOf([yup.ref("password")], "Passwords do not match")
+		.required("Confirming password is required"),
 });
 
-function ResetPassword() {
+function Page() {
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+const { token } = router.query;
 
 	const loading = useSelector((state) => state.password.loading);
 	const stage = useSelector((state) => state.password.stage);
@@ -36,7 +40,7 @@ function ResetPassword() {
 
 	const formik = useFormik({
 		initialValues: {
-			token: "",
+			token: token,
 			password: "",
 		},
 		validationSchema: validationSchema,
@@ -86,21 +90,21 @@ function ResetPassword() {
 							Enter your new password
 						</div>
 						<form onSubmit={formik.handleSubmit}>
-							<TextInput
-								labelShrink
-								className="mb-4"
-								fieldName="token"
-								placeholder="Received token from your email"
-								label="Verification token"
-								formik={formik}
-							/>
-
 							<PasswordInput
 								labelShrink
 								className="mb-4"
 								fieldName="password"
 								placeholder="New password"
 								label="Password"
+								formik={formik}
+							/>
+
+							<PasswordInput
+								labelShrink
+								className="mb-4"
+								fieldName="passwordConfirm"
+								placeholder="Repeat your password"
+								label="Confirm password"
 								formik={formik}
 							/>
 
@@ -121,6 +125,6 @@ function ResetPassword() {
 	);
 }
 
-ResetPassword.layout = Auth;
+Page.layout = Auth;
 
-export default ResetPassword;
+export default Page;

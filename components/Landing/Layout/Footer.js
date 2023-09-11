@@ -13,8 +13,9 @@ const Footer = () => {
 						<Image src="/assets/logo.svg" alt="logo" height={36} width={160} />
 					</div>
 					<p className="mb-4">
-						<strong className="font-medium">AragonVPN</strong> is a private
-						virtual network that has unique features and has high security.
+						<strong className="font-medium">Aragon VPN</strong> is a private
+						virtual network that has unique features and provides high security
+						services.
 					</p>
 					<div className="flex w-full mt-2 mb-8 -mx-2">
 						<div className="mx-2 bg-white-500 rounded-full items-center justify-center flex p-2 shadow-md">
