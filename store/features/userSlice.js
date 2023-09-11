@@ -111,6 +111,23 @@ export const deleteUserRole = createAsyncThunk(
 	}
 );
 
+export const fetchReports = createAsyncThunk(
+	"user/fetchReports",
+	async (id) => {
+		const roletoken = getLocalStorageItem("roletoken");
+		const headers = {Authorization: `Bearer ${roletoken}`};
+
+		try {
+			const response = await axios.get(`${url}/user/get-report-day`, {
+				headers,
+			});
+			return {data: response.data.result};
+		} catch (error) {
+			return {error: JSON.parse(error.request.response).errors.value};
+		}
+	}
+);
+
 export const slice = createSlice({
 	name: "user",
 	initialState: {
@@ -215,6 +232,21 @@ export const slice = createSlice({
 			state.loadingAction = false;
 			if (!action.payload.error) {
 				state.snackMessage = "Role was deleted successfully";
+				state.error = false;
+			} else {
+				state.snackMessage = action.payload.error;
+				state.error = true;
+			}
+		});
+
+		//fetchReports
+		builder.addCase(fetchReports.pending, (state, action) => {
+			state.loadingData = true;
+		});
+		builder.addCase(fetchReports.fulfilled, (state, action) => {
+			state.loadingData = false;
+			if (!action.payload.error) {
+				state.data = action.payload.data;
 				state.error = false;
 			} else {
 				state.snackMessage = action.payload.error;

@@ -4,6 +4,7 @@ module.exports = {
 		"./pages/**/*.js",
 		"./components/Landing/*.js",
 		"./components/Landing/**/*.js",
+		"./components/Panel/Admin/*.js",
 		"./layouts/**/*.js",
 	],
 	theme: {

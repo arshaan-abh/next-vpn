@@ -6,15 +6,17 @@ export default function StatusCard(
         backColorClass = "bg-black-600"
     }) {
     return <>
-        <div className={`min-h-[128px] border shadow-md rounded flex flex-row justify-between p-4 ` + backColorClass}>
-            <div className="flex justify-center items-center text-6xl text-white">
-                {number}
-            </div>
-            <div className="flex items-center opacity-50 text-white">
+        <div
+            className={`relative overflow-hidden min-h-[128px] shadow-md rounded flex flex-row justify-between p-4 ` + backColorClass}
+        >
+            <div className="flex opacity-90 text-white">
                 {text}
             </div>
             <div className="flex justify-center items-center text-6xl text-white">
-                <i className={iconClass}/>
+                {number}
+            </div>
+            <div className="absolute right-0 opacity-30 flex justify-center items-center text-9xl text-white">
+            <i className={iconClass}/>
             </div>
         </div>
     </>;
