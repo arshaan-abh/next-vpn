@@ -6,12 +6,11 @@ import * as yup from "yup";
 import LoadingModal from "../../Dynamic/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
 import AutoCompleteInput from "../../Form/AutoCompleteInput";
-import { buyVpn, fetchAdminVpns } from "../../../store/features/vpnSlice";
-import { fetchAllCryptoArches } from "../../../store/features/archSlice";
+import { buyVpn } from "../../../store/features/vpnSlice";
+import { fetchAllPackageCryptoArches } from "../../../store/features/packageSlice";
 
 const validationSchema = yup.object().shape({
-	vpnId: yup.string().required("Vpn is required"),
-	crtptoArchId: yup.string().required("Crypto arch is required"),
+	packageCryptoArchId: yup.string().required("Package crypto arch is required"),
 });
 
 export default function VpnBuy() {
@@ -22,12 +21,12 @@ export default function VpnBuy() {
 	const snackMessage = useSelector((state) => state.vpn.snackMessage);
 
 	React.useEffect(() => {
-		dispatch(fetchAdminVpns());
-		dispatch(fetchAllCryptoArches());
+		dispatch(fetchAllPackageCryptoArches());
 	}, []);
 
-	const vpnData = useSelector((state) => state.vpn.data);
-	const cryptoArchData = useSelector((state) => state.arch.cryptoData);
+	const packageCryptoArchData = useSelector(
+		(state) => state.package.cryptoData
+	);
 
 	React.useEffect(() => {
 		if (!loadingAction && snackMessage !== "") {
@@ -83,33 +82,17 @@ export default function VpnBuy() {
 					<form>
 						<AutoCompleteInput
 							labelShrink
-							className="mb-4"
-							fieldName="vpnId"
-							labelName="vpnName"
-							valueName="id"
-							label="Vpn name"
-							options={vpnData}
-							formik={formik}
-							placeholder="Select a vpn"
-						/>
-
-						<AutoCompleteInput
-							labelShrink
-							fieldName="crtptoArchId"
+							fieldName="packageCryptoArchId"
 							labelName="name"
 							valueName="id"
-							label="Crypto arch"
-							placeholder="Select a crypto arch"
-							options={
-								cryptoArchData[0]
-									? cryptoArchData[0]?.map((item, i) => {
-											return {
-												id: item?.id,
-												name: `${item?.arch?.name}(${item?.arch?.symbol}) - ${item?.crypto?.name}(${item?.crypto?.symbol})`,
-											};
-									  })
-									: []
-							}
+							label="Package, network and crypto"
+							placeholder="Select a package"
+							options={packageCryptoArchData?.map((item, i) => {
+								return {
+									id: item?.id,
+									name: `${item?.package?.title} - ${item?.cryptoArch?.arch?.name}(${item?.cryptoArch?.arch?.symbol}) - ${item?.cryptoArch?.crypto?.name}(${item?.cryptoArch?.crypto?.symbol}) x ${item?.price}`,
+								};
+							})}
 							formik={formik}
 						/>
 					</form>

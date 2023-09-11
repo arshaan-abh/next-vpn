@@ -7,6 +7,7 @@ import {
 	fetchAdminCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import { Badge } from "reactstrap";
 
 export default function ReportChargeTable() {
 	const router = useRouter();
@@ -88,6 +89,30 @@ export default function ReportChargeTable() {
 						<div className="text">
 							{params.row.cryptoArch.crypto.name}(
 							{params.row.cryptoArch.crypto.symbol})
+						</div>
+					</div>
+				);
+			},
+		},
+		{
+			field: "chargedbyadmin",
+			headerName: "By admin",
+			flex: 1,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						<div className="text">
+							{params.row.chargedbyadmin ? (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Yes
+								</Badge>
+							) : (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-danger" />
+									No
+								</Badge>
+							)}
 						</div>
 					</div>
 				);

@@ -9,7 +9,7 @@ export default function StatusCard(
         <div
             className={`relative overflow-hidden min-h-[128px] shadow-md rounded flex flex-row justify-between p-4 ` + backColorClass}
         >
-            <div className="flex opacity-90 text-white">
+            <div className="flex opacity-90 text-white text-base">
                 {text}
             </div>
             <div className="flex justify-center items-center text-6xl text-white">
