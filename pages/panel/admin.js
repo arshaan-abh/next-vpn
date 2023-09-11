@@ -1,61 +1,43 @@
+import Header from "../../components/Headers/Header";
+import AdminLayout from "/layouts/Admin";
+import {Container, Row} from "reactstrap";
 import * as React from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// reactstrap components
-import {
-	Button,
-	Card,
-	CardHeader,
-	CardBody,
-	NavItem,
-	NavLink,
-	Nav,
-	Progress,
-	Table,
-	Container,
-	Row,
-	Col,
-} from "reactstrap";
-// layout for this page
-import Admin from "/layouts/Admin.js";
-// core components
-import {
-	chartOptions,
-	parseOptions,
-	chartExample1,
-	chartExample2,
-} from "/variables/charts.js";
+import StatusCard from "../../components/Panel/Admin/StatusCard";
 
-import Header from "/components/Headers/Header.js";
+function Admin() {
+    return <>
+        <Header/>
+        <Container className="mt--9" fluid>
+            <Row>
+                <div className="col">
+                    <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                        <StatusCard
+                            number="10"
+                            text="Users"
+                            iconClass="ni ni-circle-08"
+                            backColorClass="bg-blue-400"/>
+                        <StatusCard
+                            number="78"
+                            text="Vpns"
+                            iconClass="ni ni-check-bold"
+                            backColorClass="bg-purple-400"/>
+                        <StatusCard
+                            number="3"
+                            text="Admins"
+                            iconClass="ni ni-chart-bar-32"
+                            backColorClass="bg-green-400"/>
+                        <StatusCard
+                            number="0"
+                            text="Arches"
+                            iconClass="ni ni-chart-pie-35"
+                            backColorClass="bg-yellow-400"/>
+                    </div>
+                </div>
+            </Row>
+        </Container>
+    </>;
+}
 
-const Dashboard = (props) => {
-	const [activeNav, setActiveNav] = React.useState(1);
-	const [chartExample1Data, setChartExample1Data] = React.useState("data1");
+Admin.layout = AdminLayout;
 
-	if (typeof window !== "undefined") {
-		if (window.Chart) {
-			parseOptions(Chart, chartOptions());
-		}
-	}
-
-	const toggleNavs = (e, index) => {
-		e.preventDefault();
-		setActiveNav(index);
-		setChartExample1Data("data" + index);
-	};
-	return (
-		<>
-			<Header />
-			{/* Page content */}
-			<Container className="mt--9" fluid></Container>
-		</>
-	);
-};
-
-Dashboard.layout = Admin;
-
-export default Dashboard;
+export default Admin;
