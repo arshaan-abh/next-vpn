@@ -7,6 +7,7 @@ import {
 	fetchUserCharges,
 } from "../../../store/features/chargeSlice";
 import SnackAlert from "../../Dynamic/SnackAlert";
+import { Badge, Button } from "reactstrap";
 
 export default function UserChargeTable() {
 	const router = useRouter();
@@ -38,9 +39,6 @@ export default function UserChargeTable() {
 
 	const loadingData = useSelector((state) => state.charge.loadingData);
 	const data = useSelector((state) => state.charge.userData);
-	const dataFix = data.map((item) => {
-		return { ...item, id: item.transactionId };
-	});
 
 	React.useEffect(() => {
 		dispatch(fetchUserCharges());
@@ -48,13 +46,22 @@ export default function UserChargeTable() {
 
 	const columns = [
 		{
-			field: "id",
+			field: "transactionId",
 			headerName: "Transaction Id",
 			flex: 2,
 			renderCell: (params) => {
 				return (
 					<div className="grid-cell">
-						<div className="text">{params.row.id}</div>
+						<div className="text">
+							{params.row.chargedbyadmin ? (
+								<Badge color="" className="badge-dot mr-4">
+									<i className="bg-success" />
+									Charged by admin
+								</Badge>
+							) : (
+								params.row.transactionId
+							)}
+						</div>
 					</div>
 				);
 			},
@@ -89,6 +96,28 @@ export default function UserChargeTable() {
 				);
 			},
 		},
+		{
+			field: "functions",
+			headerName: "functions",
+			flex: 1,
+			minWidth: 180,
+			renderCell: (params) => {
+				return (
+					<div className="grid-cell">
+						{params.row.chargedbyadmin ? null : (
+							<a
+								target="_blank"
+								href={`https://tronscan.org/#/transaction/${params.row.transactionId}`}
+							>
+								<Button size="sm" outline color="info" type="button">
+									Show transaction
+								</Button>
+							</a>
+						)}
+					</div>
+				);
+			},
+		},
 	];
 
 	return (
@@ -104,7 +133,7 @@ export default function UserChargeTable() {
 
 			<MUIDataGrid
 				columns={columns}
-				rows={dataFix}
+				rows={data}
 				pageSize={6}
 				rowHeight={70}
 				loading={loadingData}
