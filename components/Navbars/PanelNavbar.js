@@ -42,11 +42,11 @@ export default function PanelNavbar({ brandText }) {
 				id="navbar-main"
 			>
 				<Container fluid>
-					<Link href="/panel/admin">
+					<div>
 						<a className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">
 							{brandText}
 						</a>
-					</Link>
+					</div>
 					<Nav className="align-items-center d-none d-md-flex" navbar>
 						<UncontrolledDropdown nav>
 							<DropdownToggle className="pr-0" nav>

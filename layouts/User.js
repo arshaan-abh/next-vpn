@@ -30,7 +30,7 @@ function User(props) {
 				{...props}
 				routes={routes}
 				logo={{
-					innerLink: "/panel",
+					innerLink: "/",
 					imgSrc: logo,
 					imgAlt: "...",
 				}}

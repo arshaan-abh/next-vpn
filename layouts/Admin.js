@@ -20,7 +20,12 @@ function Admin(props) {
 		mainContentRef.current.scrollTop = 0;
 
 		const roletoken = getLocalStorageItem("roletoken");
-		if (!roletoken) router.push("/auth/login");
+		const role = getLocalStorageItem("role");
+		if (!roletoken) {
+			router.push("/auth/login");
+		} else if (roletoken && role === "user") {
+			router.push("/panel");
+		}
 	}, []);
 
 	return (
@@ -29,7 +34,7 @@ function Admin(props) {
 				{...props}
 				routes={routes}
 				logo={{
-					innerLink: "/panel/admin",
+					innerLink: "/",
 					imgSrc: logo,
 					imgAlt: "...",
 				}}
